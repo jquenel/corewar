@@ -51,21 +51,33 @@ typedef struct			s_sen
 	t_ban				*arena;
 }						t_sen;
 
-void corewar_live(t_bushi *player);
-void corewar_ld(void *value, void *dest);
-void corewar_st(void *source, void *dest);
-void corewar_add(void *source1, void *source2, void *dest);
-void corewar_sub(void *source1, void *source2, void *dest);
-void corewar_and(void *source1, void *source2, void *dest);
-void corewar_or(void *source1, void *source2, void *dest);
-void corewar_xor(void *source1, void *source2, void *dest);
-void corewar_zjump(void *dest);
-void corewar_ldi(void *source1, void *source2, void *dest);
-void corewar_sti(void *source1, void *source2, void *dest);
-void corewar_fork(void *dest);
-void corewar_lld(void *value, void *dest);
-void corewar_lldi(void *source1, void *source2, void *dest);
-void corewar_lfork(void *dest);
-void corewar_aff(char c);
+/*
+**		t_arg
+**		type : type de la valeur (1 = registre, 2 = Direct value, 3 = Indirect value)
+**
+*/
+typedef struct			s_arg
+{
+	char				type;
+	void				*adress;
+	char				size
+}						t_arg;
+
+void corewar_live(t_sen *arena, t_arg *arg_list);
+void corewar_ld(t_sen *arena, t_arg *arg_list);
+void corewar_st(t_sen *arena, t_arg *arg_list);
+void corewar_add(t_sen *arena, t_arg *arg_list);
+void corewar_sub(t_sen *arena, t_arg *arg_list);
+void corewar_and(t_sen *arena, t_arg *arg_list);
+void corewar_or(t_sen *arena, t_arg *arg_list);
+void corewar_xor(t_sen *arena, t_arg *arg_list);
+void corewar_zjump(t_sen *arena, t_arg *arg_list);
+void corewar_ldi(t_sen *arena, t_arg *arg_list);
+void corewar_sti(t_sen *arena, t_arg *arg_list);
+void corewar_fork(t_sen *arena, t_arg *arg_list);
+void corewar_lld(t_sen *arena, t_arg *arg_list);
+void corewar_lldi(t_sen *arena, t_arg *arg_list);
+void corewar_lfork(t_sen *arena, t_arg *arg_list);
+void corewar_aff(t_sen *arena, t_arg *arg_list);
 
 #endif
