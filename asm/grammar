@@ -1,0 +1,30 @@
+S = LineSeparator S			// On enlève les commentaires à l’analyse lexicale.
+  | Line LineSeparator S
+  | ε
+Line = Name
+	 | Comment
+	 | Label Instr
+	 | Label
+	 | Instr
+Label = LabelString LabelChar
+Instr = Operator Operand OperandNext
+OperandNext = SeparatorChar Operand OperandNext
+			| ε
+Operand = Register
+		| DirectChar Val
+		| Val
+Val = LabelChar LabelString
+	| Number
+
+LabelString = Literal
+Operator = Literal
+Register = r[1-9][0-9]* as Literal
+Number = Literal
+
+LineSeparator = \n
+Name = \.name .*$						// En pratique LABEL_CHARS est un sous
+Comment = \.comment .*$					// ensemble des caractères admissibles
+Literal = [:label_chars:_a-zA-Z0-9]+	// pour un litéral et devrait pouvoir
+LabelChar = :							// être omis, mais LABEL_CHARS peut être
+DirectChar = %							// modifié.
+SeparatorChar = ,
