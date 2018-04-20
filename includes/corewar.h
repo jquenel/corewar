@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/21 23:27:07 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/04/21 23:28:20 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ typedef struct			s_ban
 	int					size;
 	char				field[MEM_SIZE];
 }						t_ban;
+
+/*
+**		The players are stored in the t_bushi structures, allocated as a tab.
+**		live <= -2 : not a player in this game
+**		live == -1 : dead
+**		live == 0 alive
+**		live == 1 alive this cycle
+*/
 
 typedef struct			s_bushi
 {
@@ -66,7 +74,7 @@ typedef struct			s_sen
 typedef struct			s_arg
 {
 	char				type;
-	char				size
+	char				size;
 	char				data[MAX_ARG_SIZE];
 }						t_arg;
 
@@ -78,21 +86,21 @@ int	is_all_nums(char *s);
 
 int	destroy_processes(t_bo *proc);
 
-int	corewar_live(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_ld(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_st(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_add(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_sub(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_and(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_or(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_xor(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_zjump(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_ldi(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_sti(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_fork(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_lld(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_lldi(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_lfork(t_sen *arena, t_proc *actual, t_arg *arg_list);
-int	corewar_aff(t_sen *arena, t_proc *actual, t_arg *arg_list);
+int	corewar_live(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_ld(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_st(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_add(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_sub(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_and(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_or(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_xor(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_zjump(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_ldi(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_sti(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_fork(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_lld(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_lldi(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_lfork(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int	corewar_aff(t_sen *arena, t_bo *actual, t_arg *arg_list);
 
 #endif
