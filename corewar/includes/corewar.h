@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/21 23:28:20 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/04/21 23:28:54 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define COREWAR_H
 
 # include "op.h"
+# include "libft.h"
+# include "ft_printf.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE		512
+# endif
 
 typedef struct			s_ban
 {
@@ -34,6 +43,7 @@ typedef struct			s_bushi
 	int					pnum;
 	int					live;
 	char				name[PROG_NAME_LENGTH + 1];
+	char				comment[COMMENT_LENGTH + 1];
 }						t_bushi;
 
 typedef struct			s_bo
@@ -78,13 +88,14 @@ typedef struct			s_arg
 	char				data[MAX_ARG_SIZE];
 }						t_arg;
 
-int	parser(int argc, char **argv);
-int	get_options(int argc, char **argv, t_sen *core);
+int	parser(int argc, char **argv, t_sen *core);
+int	get_options(int *argc, char ***argv, t_sen *core);
 int	create_player(int *argc, char ***argv, t_sen *core, int i);
 int	load_program(char *file, t_sen *core, t_bushi *player, t_bo *proc);
 int	is_all_nums(char *s);
 
-int	destroy_processes(t_bo *proc);
+void	dump_core(t_sen *core);
+int		destroy_processes(t_bo *proc);
 
 int	corewar_live(t_sen *arena, t_bo *actual, t_arg *arg_list);
 int	corewar_ld(t_sen *arena, t_bo *actual, t_arg *arg_list);

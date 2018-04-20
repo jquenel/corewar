@@ -43,7 +43,7 @@ int		create_player(int *argc, char ***argv, t_sen *core, int i)
 	proc->pnum = core->player[i].pnum;
 	proc->next = core->proc;
 	core->proc = proc;
-	if (load_program(**argv, core, core->player[i], proc))
+	if (load_program(**argv, core->arena, core->player[i], proc))
 		return (destroy_processes(core->proc));
 	(*argv)++;
 	(*argc)--;
