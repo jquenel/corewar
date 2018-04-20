@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS := -Iincludes
 
 NAME := libft.a
@@ -37,20 +37,17 @@ SRCS_HASHTABLE := \
 
 SRCS_DIR := srcs
 SRCS := \
-	$(foreach source, $(SRCS_ARRAY), $(SRCS_DIR)/array/$(source)) \
-	$(foreach source, $(SRCS_STR), $(SRCS_DIR)/str/$(source)) \
-	$(foreach source, $(SRCS_STD), $(SRCS_DIR)/std/$(source)) \
-	$(foreach source, $(SRCS_IO), $(SRCS_DIR)/io/$(source)) \
-	$(foreach source, $(SRCS_LIST), $(SRCS_DIR)/list/$(source)) \
-	$(foreach source, $(SRCS_HASHTABLE), $(SRCS_DIR)/hashtable/$(source))
+	$(addprefix $(SRCS_DIR)/array/, $(SRCS_ARRAY)) \
+	$(addprefix $(SRCS_DIR)/str/, $(SRCS_STR)) \
+	$(addprefix $(SRCS_DIR)/std/, $(SRCS_STD)) \
+	$(addprefix $(SRCS_DIR)/io/, $(SRCS_IO)) \
+	$(addprefix $(SRCS_DIR)/list/, $(SRCS_LIST)) \
+	$(addprefix $(SRCS_DIR)/hashtable/, $(SRCS_HASHTABLE))
 OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 
 .PHONY:	all
 all:	$(NAME)
-
-%.d:	%.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -MM $< -MT $(<:.c=.o) -MF $@
 
 -include $(DEPS)
 

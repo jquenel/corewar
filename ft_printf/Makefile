@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS := -I../libft/includes
 
 NAME := libftprintf.a
@@ -12,9 +12,6 @@ DEPS := $(SRCS:.c=.d)
 
 .PHONY:	all
 all:	$(NAME)
-
-%.d:	%.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -MM $< -MT $(<:.c=.o) -MF $@
 
 -include $(DEPS)
 
