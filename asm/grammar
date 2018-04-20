@@ -1,30 +1,34 @@
 S = LineSeparator S			// On enlève les commentaires à l’analyse lexicale.
-  | Line LineSeparator S
-  | ε
-Line = Name
-	 | Comment
-	 | Label Instr
-	 | Label
-	 | Instr
-Label = LabelString LabelChar
+  | Name LineSeparator ExpectComment
+  | Comment LineSeparator ExpectName
+ExpectComment = LineSeparator ExpectComment
+			  | Comment LineSeparator Line
+ExpectName = LineSeparator ExpectName
+		   | Name LineSeparator Line
+Comment = CommentCommand StringLiteral
+Name = NameCommand StringLiteral
+Line = Label Instr LineSeparator Line
+	 | Label LineSeparator Line
+	 | Instr LineSeparator Line
+	 | LineSeparator Line
+	 | ε
 Instr = Operator Operand OperandNext
 OperandNext = SeparatorChar Operand OperandNext
 			| ε
-Operand = Register
-		| DirectChar Val
+Operand = DirectChar Val
 		| Val
-Val = LabelChar LabelString
+		| Register
+Val = LabelVal
 	| Number
 
-LabelString = Literal
-Operator = Literal
-Register = r[1-9][0-9]* as Literal
-Number = Literal
-
 LineSeparator = \n
-Name = \.name .*$						// En pratique LABEL_CHARS est un sous
-Comment = \.comment .*$					// ensemble des caractères admissibles
-Literal = [:label_chars:_a-zA-Z0-9]+	// pour un litéral et devrait pouvoir
-LabelChar = :							// être omis, mais LABEL_CHARS peut être
-DirectChar = %							// modifié.
+CommentCommand = \.comment
+NameCommand = \.name
+StringLiteral = "\([^"]*\(\\"\)?\)*"
+Label = [:label_chars:]+:
+Operator = {...}
 SeparatorChar = ,
+DirectChar = %
+Register = r[1-9][0-9]*
+LabelVal = :[:label_chars:]+
+Number = [1-9][0-9]*
