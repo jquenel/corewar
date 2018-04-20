@@ -1,0 +1,10 @@
+On asm :
+	no operation allowed in args (ex : ":l1 - 1"). See Backward.s
+
+Open questions :
+	where do you get I:x
+	DX_MOD
+	last two members of t_op are ?? and ???
+
+
+	10010100

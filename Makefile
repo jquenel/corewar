@@ -6,27 +6,23 @@
 #    By: jquenel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/15 01:45:17 by jquenel           #+#    #+#              #
-#    Updated: 2018/03/20 12:52:05 by jquenel          ###   ########.fr        #
+#    Updated: 2018/04/17 12:20:01 by jquenel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=		PS
+NAME=		Corewar
 
 ##
 ##		CHECKER MAIN SOURCE
 ##
 
-P1=			checker
-
-MAIN1=		srcs/checker.c
+P1=			asm
 
 ##
 ##		PUSH_SWAP MAIN SOURCE
 ##
 
-P2=			push_swap
-
-MAIN2=		srcs/push_swap.c
+P2=			corewar
 
 ##
 ##		SHARED RESSOURCES
@@ -34,32 +30,31 @@ MAIN2=		srcs/push_swap.c
 
 SRC_PATH=	srcs
 
-OBJ_PATH=	obj
+OBJ_PATH=	objs
 
 CPPFLAGS=	-Iincludes
 
-SRC_NAME=	ps_tools.c\
-			ps_tools2.c\
-			ps_tools3.c\
-			ps_flags.c\
-			ps_simplifier.c\
-			ps_stkmini.c\
-			ps_stkquick.c\
-			ps_stksmall.c\
-			ps_bogo.c\
-			ps_stdsort.c\
-			ps_optimizer.c\
-			ps_remove_idiots.c\
-			ps_checker_helpers.c\
-			ft_btree_int.c\
-			ft_rlst.c\
-			ft_rlstdel.c\
+HEAD_A=		includes/asm.h\
+			includes/libft.h\
+			t_op.h\
 
-SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
+HEAD_B=		includes/corewar.h\
+			includes/libft.h\
+			t_op.h\
+
+SRC_ASM=	\
+
+SRC_CORE=	\
+
+SRC_A=		$(addprefix $(SRC_PATH)/,$(SRC_ASM))
+
+SRC_C=		$(addprefix $(SRC_PATH)/,$(SRC_CORE))
 
 OBJ=		$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-OBJ_NAME=	$(SRC_NAME:.c=.o)
+OBJ_A=		$(SRC_A:.c=.o)
+
+OBJ_C=		$(SRC_C:.c=.o)
 
 ##
 ##		COMPILER FLAGS
@@ -69,7 +64,7 @@ CFLAGS=		-Werror -Wextra -Wall -O3 #-fsanitize=address
 
 CC=			clang
 
-LDFLAGS=	-Llibft_pf
+LDFLAGS=	-Llibft
 
 LIBS=		-lft
 
@@ -88,15 +83,19 @@ $(NAME):		c_lib $(P1) $(P2)
 c_lib:
 				@$(MAKE) -C libft_pf
 
-$(P1):			$(MAIN1) $(OBJ)
+$(P1):			$(OBJ_A)
 				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
 				@echo "compiled $@."
 
-$(P2):			$(MAIN2) $(OBJ)
+$(P2):			$(OBJ_C)
 				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
 				@echo "compiled $@."
 
-$(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
+$(OBJ_A)/%.o:	$(SRC_PATH)/%.c
+				@mkdir $(OBJ_PATH) 2> /dev/null || true
+				$(CC) $(CFLAGS) -o $@ -c $< $(CPPFLAGS)
+
+$(OBJ_C)/%.o:	$(SRC_PATH)/%.c
 				@mkdir $(OBJ_PATH) 2> /dev/null || true
 				$(CC) $(CFLAGS) -o $@ -c $< $(CPPFLAGS)
 
