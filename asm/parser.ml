@@ -17,8 +17,8 @@ type non_terminal =
   | `ExpectName
   | `Comment
   | `Name
-  | `Line
-  | `Instr
+  | `Label
+  | `Instruction
   | `OperandNext
   | `Operand
   | `Val ]
@@ -28,7 +28,7 @@ type terminal =
   | `CommentCommand
   | `NameCommand
   | `StringLiteral
-  | `Label
+  | `LabelString
   | `Operator
   | `SeparatorChar
   | `DirectChar
@@ -47,17 +47,16 @@ let rules : (non_terminal * symbol list) list = [
     `S, [`Name; `LineSeparator; `ExpectComment];
     `S, [`Comment; `LineSeparator; `ExpectName];
     `ExpectComment, [`LineSeparator; `ExpectComment];
-    `ExpectComment, [`Comment; `LineSeparator; `Line];
+    `ExpectComment, [`Comment; `LineSeparator; `Label];
     `ExpectName, [`LineSeparator; `ExpectName];
-    `ExpectName, [`Name; `LineSeparator; `Line];
+    `ExpectName, [`Name; `LineSeparator; `Label];
     `Comment, [`CommentCommand; `StringLiteral];
     `Name, [`NameCommand; `StringLiteral];
-    `Line, [`Label; `Instr; `LineSeparator; `Line];
-    `Line, [`Label; `LineSeparator; `Line];
-    `Line, [`Instr; `LineSeparator; `Line];
-    `Line, [`LineSeparator; `Line];
-    `Line, [];
-    `Instr, [`Operator; `Operand; `OperandNext];
+    `Label, [`LabelString; `Instruction];
+    `Label, [`Instruction];
+    `Label, [];
+    `Instruction, [`Operator; `Operand; `OperandNext; `LineSeparator; `Label];
+    `Instruction, [`LineSeparator; `Label];
     `OperandNext, [`SeparatorChar; `Operand; `OperandNext];
     `OperandNext, [];
     `Operand, [`DirectChar; `Val];
@@ -73,8 +72,8 @@ let narrow_symbol_type : symbol -> _ = function
   | `ExpectName
   | `Comment
   | `Name
-  | `Line
-  | `Instr
+  | `Label
+  | `Instruction
   | `OperandNext
   | `Operand
   | `Val as s
@@ -83,7 +82,7 @@ let narrow_symbol_type : symbol -> _ = function
   | `CommentCommand
   | `NameCommand
   | `StringLiteral
-  | `Label
+  | `LabelString
   | `Operator
   | `SeparatorChar
   | `DirectChar

@@ -1,0 +1,11 @@
+LineSeparator = \n
+CommentCommand = \.comment
+NameCommand = \.name
+StringLiteral = "\([^"]*\(\\"\)?\)*"
+LabelString = [:label_chars:]+:
+Operator = {...}
+SeparatorChar = ,
+DirectChar = %
+Register = r[1-9][0-9]*
+LabelVal = :[:label_chars:]+
+Number = [1-9][0-9]*
