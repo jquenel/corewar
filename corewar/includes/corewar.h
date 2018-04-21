@@ -69,7 +69,7 @@ typedef struct			s_sumego
 typedef struct			s_sen
 {
 	int					opt;
-	int					pc;
+	int					pcount;
 	t_sumego			state;
 	t_ban				arena;
 	t_bo				*proc;
@@ -90,8 +90,9 @@ typedef struct			s_arg
 
 int	parser(int argc, char **argv, t_sen *core);
 int	get_options(int *argc, char ***argv, t_sen *core);
+int	count_players(int argc, char **argv);
 int	create_player(int *argc, char ***argv, t_sen *core, int i);
-int	load_program(char *file, t_sen *core, t_bushi *player, t_bo *proc);
+int	load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
 int	is_all_nums(char *s);
 
 void	dump_core(t_sen *core);

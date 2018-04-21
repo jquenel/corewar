@@ -9,7 +9,7 @@ static void	init_player(t_bushi *player)
 	{
 		player[i].pnum = 0;
 		player[i].live = 0;
-		ft_bzero(player[i].name, PROG_NAME_LENGTH + 1);
+		ft_memset(player[i].name, 0, PROG_NAME_LENGTH + 1);
 	}
 }
 
@@ -31,9 +31,9 @@ static int	init_core(t_sen *core)
 	core->pcount = 0;
 	core->proc = NULL;
 	core->opt = 0;
-	ft_bzero(&core->arena.field, MEM_SIZE);
+	ft_memset(&core->arena.field, 0, MEM_SIZE);
 	init_state(&core->state);
-	init_player(&core->player);
+	init_player(core->player);
 }
 
 static int	check_valid_define(void)
@@ -48,7 +48,8 @@ int		parser(int argc, char **argv, t_sen *core)
 	if (!check_valid_define())
 		return (1);
 	init_core(core);
-	get_options(&argc, &argv, core);
+	if (get_options(&argc, &argv, core) < 0)
+		return (-1);
 	if ((core->pcount = count_players(argc, argv)) < 2)
 		return (1);
 	i = 0;
