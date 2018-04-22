@@ -103,37 +103,31 @@ let rules : (non_terminal * symbol list) list = [
     `Val, [`Number]
   ]
 
+let rec compute_add_set first_sets w =
+  let open List in
+  let rec aux acc = function
+    | [] -> union acc [`Epsilon]
+    | hd :: tl ->
+       match narrow_symbol_type hd with
+       | Terminal hd -> union acc [(hd :> [ terminal | `Epsilon ])]
+       | NonTerminal hd when mem `Epsilon (assoc hd first_sets) ->
+          let add_set = filter ((<>) `Epsilon) (assoc hd first_sets) in
+          aux (union acc add_set) tl
+       | NonTerminal hd -> union acc (assoc hd first_sets)
+  in
+  aux [] w
+
 let compute_first_sets rules =
   let open List in
   let rec aux first_sets = function
     | [] -> first_sets
-    | (nt, []) :: tl ->
-       let first = assoc nt first_sets in
-       if mem `Epsilon first
+    | (nt, w) :: tl ->
+       let first_set = assoc nt first_sets in
+       let add_set = compute_add_set first_sets w in
+       let new_first_set = union first_set add_set in
+       if new_first_set == first_set
        then aux first_sets tl
-       else aux (replace_assoc nt (`Epsilon :: first) first_sets) tl
-    | (nt, whd :: wtl) :: tl ->
-       let first = assoc nt first_sets in
-       match narrow_symbol_type whd with
-       | Terminal hd ->
-          let hd = (hd :> [ terminal | `Epsilon ]) in
-          if mem hd first
-          then aux first_sets tl
-          else aux (replace_assoc nt (hd :: first) first_sets) tl
-       | NonTerminal hd when mem `Epsilon (assoc hd first_sets) ->
-          let new_first =
-            filter ((<>) `Epsilon) (assoc hd first_sets)
-            |> union (assoc nt (aux first_sets [nt, wtl]))
-            |> union first
-          in
-          if new_first == first
-          then aux first_sets tl
-          else aux (replace_assoc nt new_first first_sets) tl
-       | NonTerminal hd ->
-          let new_first = union first (assoc hd first_sets) in
-          if new_first == first
-          then aux first_sets tl
-          else aux (replace_assoc nt new_first first_sets) tl
+       else aux (replace_assoc nt new_first_set first_sets) tl
   in
   let rec loop acc =
     let new_acc = aux acc rules in
