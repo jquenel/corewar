@@ -13,7 +13,7 @@ int		get_options(int *argc, char ***argv, t_sen *core)
 		if (!ft_strcmp((*argv)[i], "-dump"))
 		{
 			if (!is_all_nums((*argv)[i + 1]) ||
-			!(core->state.dump_limit = ft_atoi((*argv[i + 1]))))
+			!(core->state.dump_limit = ft_atoi((*argv)[i + 1])))
 				return (-1);
 			i += 2;
 		}
@@ -25,7 +25,6 @@ int		get_options(int *argc, char ***argv, t_sen *core)
 		else
 			return (-1);
 	}
-	*argc -= i;
 	*argv += i;
-	return (i);
+	return ((*argc -= i));
 }

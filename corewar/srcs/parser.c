@@ -25,7 +25,7 @@ static void	init_state(t_sumego *state)
 	state->dump_limit = -1;
 }
 
-static int	init_core(t_sen *core)
+static void	init_core(t_sen *core)
 {
 	core->arena.size = MEM_SIZE;
 	core->pcount = 0;

@@ -30,12 +30,10 @@ static int	get_player_num(int *argc, char ***argv, t_sen *core)
 
 int		create_player(int *argc, char ***argv, t_sen *core, int i)
 {
-	int		i;
 	t_bo		*proc;
 
 	if (!(proc = malloc(sizeof(t_bo))))
 		return (-1);
-	pos =
 	core->player[i].pnum = get_player_num(argc, argv, core);
 	proc->carry = 0;
 	proc->reg[0] = (MEM_SIZE * i) / core->pcount;
@@ -43,7 +41,7 @@ int		create_player(int *argc, char ***argv, t_sen *core, int i)
 	proc->pnum = core->player[i].pnum;
 	proc->next = core->proc;
 	core->proc = proc;
-	if (load_program(**argv, core->arena, core->player[i], proc))
+	if (load_program(**argv, &core->arena, &core->player[i], proc))
 		return (destroy_processes(core->proc));
 	(*argv)++;
 	(*argc)--;

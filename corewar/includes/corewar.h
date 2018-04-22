@@ -15,7 +15,9 @@
 
 # include "op.h"
 # include "libft.h"
-# include "ft_printf.h"
+//# include "ft_printf.h"
+#include <stdio.h>
+
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
