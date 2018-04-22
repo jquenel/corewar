@@ -12,12 +12,12 @@
 
 #include "corewar.h"
 
-static int	get_prog_size(uint32_t size)
+static int	get_prog_size(int size)
 {
-	return (((size >> 24) | (uint32_t)0xff)
-			+ ((size >> 8) | ((uint32_t)0xff << 8))
-			+ ((size << 8) | ((uint32_t)0xff << 16))
-			+ ((size << 24) | ((uint32_t)0xff << 24)));
+	return (((size >> 24) & (int)0xff)
+			+ ((size >> 8) & ((int)0xff << 8))
+			+ ((size << 8) & ((int)0xff << 16))
+			+ ((size << 24) & ((int)0xff << 24)));
 }
 
 int			load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc)

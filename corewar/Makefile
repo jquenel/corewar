@@ -8,7 +8,7 @@ SRC_PATH=	srcs
 
 OBJ_PATH=	obj
 
-CPPFLAGS=	-Iincludes -I../libft/includes -I../ft_printf
+CPPFLAGS=	-Iincludes -I../libft/includes
 
 SRC_NAME=	corewar.c\
 			count_players.c\
@@ -19,7 +19,6 @@ SRC_NAME=	corewar.c\
 			create_player.c\
 			dump_core.c\
 			is_all_nums.c\
-			op.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
@@ -35,9 +34,9 @@ CFLAGS=		-Wextra -Wall -Werror -g -fsanitize=address
 
 CC=			gcc
 
-LDFLAGS=	-L../libft -L../ft_printf
+LDFLAGS=	-L../libft
 
-LIBS=		-lft -lftprintf
+LIBS=		-lft
 
 LDLIBS=		$(LDFLAGS) $(LIBS)
 

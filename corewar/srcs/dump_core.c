@@ -12,18 +12,24 @@
 
 #include "corewar.h"
 
+
+#include <stdio.h>
+
 void		dump_core(t_sen *core)
 {
 	int		i;
 
 	i = 0;
+	printf("{%s}{%s}[%d]\n", core->player[0].name, core->player[0].comment, core->player[0].pnum);
 	while (i < MEM_SIZE)
 	{
-		ft_printf("%x", core->arena.field[i]);
-		if (i % 64)
-			ft_printf(" ");
+		printf("%.2hhx", core->arena.field[i]);
+		i++;
+		if (i % 32)
+			printf(" ");
 		else
-			ft_printf("\n");
+			printf("\n");
 	}
-	ft_printf("\n");
+	printf("\n");
+	exit (0);
 }
