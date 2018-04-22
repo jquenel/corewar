@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
+/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "corewar.h"
+
 static int ft_power(int value, int power)
 {
 	int result;
@@ -11,7 +25,7 @@ static int ft_power(int value, int power)
 	return (result);
 }
 
-int ft_convert(void *source, int size)
+int ft_convert(void *base, void *source, int size)
 {
 	int i;
 	int result;
@@ -20,8 +34,10 @@ int ft_convert(void *source, int size)
 	i = 0;
 	while (i < size)
 	{
-		result += *(((char *)source)[i]) * ft_power(256, size - i - 1);
+		result += ((char *)source)[i] * ft_power(256, size - i - 1);
 		i++;
+		if (&(((char *)source)[i]) - base >= MEM_SIZE)
+			i = 0;
 	}
 	return (result);
 }
