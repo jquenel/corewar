@@ -6,32 +6,32 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/04/23 18:23:36 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		corewar_sub(t_sen *arena, t_bo *actual, t_arg *arg_list)
+void		corewar_sub(t_sen *core, t_bo *actual, t_arg *args)
 {
-	int		*arg1;
-	int		*arg2;
-	void	*dest;
-	int		result;
+	int		reg[3];
+	int		i;
 
-	if (arg_list[0]->type != 1 || arg_list[1]->type != 1 ||
-		arg_list[2]->type != 1)
+	reg[0] = ft_convert(core, args[0].data - FIELD, args[0].size) - 1;
+	reg[1] = ft_convert(core, args[1].data - FIELD, args[1].size) - 1;
+	reg[2] = ft_convert(core, args[2].data - FIELD, args[2].size) - 1;
+	if ((unsigned int)reg[0] > REG_NUMBER ||
+		(unsigned int)reg[1] > REG_NUMBER ||
+		(unsigned int)reg[2] > REG_NUMBER)
+		return (0);
+	i = REG_SIZE;
+	z = 0;
+	reg[0] = core_regvalue(actual->reg[reg[0]]) -
+			core_regvalue(actual->reg[reg[1]]);
+	while (i--)
 	{
-		if (actual != NULL)
-			actual->carry = 0;
-		return ;
+		actual->reg[reg[2]][i] = ((char *)(reg[0]))[i];
+		i++;
 	}
-	arg1 = actual->reg[ft_convert(arg_list[0]->data, arg_list[0]->size)];
-	arg2 = actual->reg[ft_convert(arg_list[1]->data, arg_list[1]->size)];
-	dest = (void *)(&(actual->reg[ft_convert(arg_list[2]->data,
-														arg_list[2]->size)]));
-	result = arg1 - arg2;
-	ft_memcpy(dest, (void *)result, arg_list[2]->size);
-	if (actual != NULL)
-		actual->carry = 1;
+	return (1);
 }
