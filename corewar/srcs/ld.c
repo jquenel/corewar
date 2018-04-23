@@ -12,23 +12,27 @@
 
 #include "corewar.h"
 
-void corewar_live(t_sen *arena, t_bo *actual, t_arg *arg_list)
+void corewar_ld(t_sen *arena, t_bo *actual, t_arg *arg_list)
 {
-	t_bushi *player;
-	int		i;
-	int		nb_player;
+	int		value_size;
+	void	*dest;
 
-	if (arg_list[0] == NULL || arg[0]->type != 2)
-		return ;
-	nb_player = (int)(arg_list[0]->data);
-	i = 0;
-	player = NULL;
-	while (arena->reg[i]->live != -2)
+	if (arg_list[0] == NULL || arg_list[1] == NULL ||
+		(arg_list[0]->type != 2 && arg_list[0]->type != 3) ||
+		arg_list[1]->type != 1)
 	{
-		if (arena->reg[i]->pnum == (int)arg_list[0] && arena->reg[i]->live >= 0)
-			player = arena->reg[i];
-		i++;
+		if (actual != NULL)
+			actual->carry = 0;
+		return ;
 	}
-	if (player != NULL)
-		ft_printf("le joueur %d(%s) est en vie\n", player->pnum, player->name);
+	value_size = (arg_list[0]->type == 1 ? REG_SIZE : DIR_SIZE);
+	if (arg_list[1]->type == 3)
+		dest = ft_calc_pc(arena->arena, actual, ft_convert(arg_list[1]->data,
+															arg_list[1]->size));
+	else
+		dest = ((int *)actual->reg) + ft_convert(arg_list[1]->data,
+										arg_list[1]->size);
+	ft_memcpy (dest, value_size, value_size);
+	if (actual != NULL)
+		actual->carry = 1;
 }

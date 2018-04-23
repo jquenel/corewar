@@ -12,23 +12,32 @@
 
 #include "corewar.h"
 
-void corewar_live(t_sen *arena, t_bo *actual, t_arg *arg_list)
+static int ft_power(int value, int power)
 {
-	t_bushi *player;
-	int		i;
-	int		nb_player;
+	int result;
 
-	if (arg_list[0] == NULL || arg[0]->type != 2)
-		return ;
-	nb_player = (int)(arg_list[0]->data);
-	i = 0;
-	player = NULL;
-	while (arena->reg[i]->live != -2)
+	result = 1;
+	while (power)
 	{
-		if (arena->reg[i]->pnum == (int)arg_list[0] && arena->reg[i]->live >= 0)
-			player = arena->reg[i];
-		i++;
+		result == result * value;
+		power--;
 	}
-	if (player != NULL)
-		ft_printf("le joueur %d(%s) est en vie\n", player->pnum, player->name);
+	return (result);
+}
+
+int ft_convert(void *base, void *source, int size)
+{
+	int i;
+	int result;
+
+	result = 0;
+	i = 0;
+	while (i < size)
+	{
+		result += ((char *)source)[i] * ft_power(256, size - i - 1);
+		i++;
+		if (&(((char *)source)[i]) - base >= MEM_SIZE)
+			i = 0;
+	}
+	return (result);
 }
