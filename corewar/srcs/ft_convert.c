@@ -6,38 +6,24 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/04/23 15:21:08 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int ft_power(int value, int power)
+int ft_convert(t_sen *core, int pos, int size)
 {
-	int result;
-
-	result = 1;
-	while (power)
-	{
-		result == result * value;
-		power--;
-	}
-	return (result);
-}
-
-int ft_convert(void *base, void *source, int size)
-{
-	int i;
-	int result;
+	int		result;
+	int		i;
 
 	result = 0;
 	i = 0;
 	while (i < size)
 	{
-		result += ((char *)source)[i] * ft_power(256, size - i - 1);
+		result *= 256;
+		result += core->arena.field[(pos + size) % MEM_SIZE];
 		i++;
-		if (&(((char *)source)[i]) - base >= MEM_SIZE)
-			i = 0;
 	}
 	return (result);
 }

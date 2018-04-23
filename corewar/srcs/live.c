@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/23 15:21:54 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/04/23 17:10:31 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 	int		i;
 	int		nb_player;
 
-	nb_player = ft_convert(core, args[0].pos, args[0].size);
+	nb_player = ft_convert(core, args[0].data - core->arena.field,
+			args[0].size);
 	i = 0;
 	while (core->player[i].live != -2)
 	{
