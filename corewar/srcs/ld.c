@@ -6,33 +6,26 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/04/23 15:37:03 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void corewar_ld(t_sen *arena, t_bo *actual, t_arg *arg_list)
+void corewar_ld(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		value_size;
-	void	*dest;
+	int		reg;
 
-	if (arg_list[0] == NULL || arg_list[1] == NULL ||
-		(arg_list[0]->type != 2 && arg_list[0]->type != 3) ||
-		arg_list[1]->type != 1)
-	{
-		if (actual != NULL)
-			actual->carry = 0;
-		return ;
-	}
-	value_size = (arg_list[0]->type == 1 ? REG_SIZE : DIR_SIZE);
-	if (arg_list[1]->type == 3)
-		dest = ft_calc_pc(arena->arena, actual, ft_convert(arg_list[1]->data,
-															arg_list[1]->size));
-	else
-		dest = ((int *)actual->reg) + ft_convert(arg_list[1]->data,
-										arg_list[1]->size);
-	ft_memcpy (dest, value_size, value_size);
-	if (actual != NULL)
-		actual->carry = 1;
+	reg = ft_convert(core, args[1].pos, args[1].size) - 1;
+	if ((unsigned int)reg > 15)
+		return (0);
+	value_size = args[0].size < REG_SIZE ? args[0].size : REG_SIZE;
+	if (args[0].type == IND_CODE)
+		args[0].pos = (actual->pc
+			+ ft_convert(core, args[0].pos, args[0].size)) % IDX_MOD;
+	ft_memset(actual->reg[reg], 0, REG_SIZE);
+	ft_memcpy(actual->reg[reg], core->arena.field[(args[0].pos) % MEM_SIZE],
+					value_size);
+	return (1);
 }

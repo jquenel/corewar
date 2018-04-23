@@ -6,29 +6,28 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/04/23 15:21:54 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void corewar_live(t_sen *arena, t_bo *actual, t_arg *arg_list)
+int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 {
-	t_bushi *player;
 	int		i;
 	int		nb_player;
 
-	if (arg_list[0] == NULL || arg[0]->type != 2)
-		return ;
-	nb_player = (int)(arg_list[0]->data);
+	nb_player = ft_convert(core, args[0].pos, args[0].size);
 	i = 0;
-	player = NULL;
-	while (arena->reg[i]->live != -2)
+	while (core->player[i].live != -2)
 	{
-		if (arena->reg[i]->pnum == (int)arg_list[0] && arena->reg[i]->live >= 0)
-			player = arena->reg[i];
+		if (core->player[i].pnum == nb_player && core->player[i].live >= 0)
+		{
+			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
+					nb_player, core->player[i].name);
+			return (actual->carry);
+		}
 		i++;
 	}
-	if (player != NULL)
-		ft_printf("le joueur %d(%s) est en vie\n", player->pnum, player->name);
+	return (actual->carry);
 }
