@@ -6,32 +6,30 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/24 23:20:32 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/04 19:13:33 by jboissy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "template.h"
 
-int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
+t_2d_coord	*t_2d_coord_new(int x, int y)
 {
-	int		i;
-	int		nb_player;
+	t_2d_coord *tmp;
 
-	actual->live++;
-	nb_player = dtoi(args[0].data, args[0].size);
-	core->state.l_count++;
-	i = 0;
-	while (core->player[i].live != -2)
-	{
-		if (core->player[i].pnum == nb_player && core->player[i].live >= 0)
-		{
-//			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
-//					nb_player, core->player[i].name);
-			core->player[i].live++;
-			core->state.l_last = nb_player;
-			return (1);
-		}
-		i++;
-	}
-	return (1);
+	if (!(tmp = (t_2d_coord *)malloc(sizeof(t_2d_coord))))
+		error_exit("Can't malloc a t_2d_coord", 152);
+	tmp->x = x;
+	tmp->y = y;
+	return (tmp);
+}
+
+void t_2d_coord_free(t_2d_coord *coord)
+{
+	free(coord);
+}
+
+void t_2d_coord_actualize(t_2d_coord *coord, int new_x, int new_y)
+{
+	coord->x = new_x;
+	coord->y = new_y;
 }
