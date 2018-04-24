@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_processes.c                                :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 23:03:40 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:03:43 by jquenel          ###   ########.fr       */
+/*   Created: 2017/11/28 18:20:27 by sboilard          #+#    #+#             */
+/*   Updated: 2017/12/15 22:15:04 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int		destroy_processes(t_bo *proc)
-{
-	t_bo	*tmp;
+int	ft_printf(const char *format, ...);
+int	ft_dprintf(int fd, const char *format, ...);
 
-	while (proc)
-	{
-		tmp = proc;
-		proc = proc->next;
-		free(tmp);
-	}
-	return (-1);
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/23 17:10:31 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/04/24 23:20:32 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 	int		i;
 	int		nb_player;
 
-	nb_player = ft_convert(core, args[0].data - core->arena.field,
-			args[0].size);
+	actual->live++;
+	nb_player = ft_convert(core, args[0].data - FIELD, args[0].size);
 	i = 0;
 	while (core->player[i].live != -2)
 	{
@@ -26,9 +26,10 @@ int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 		{
 			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
 					nb_player, core->player[i].name);
-			return (actual->carry);
+			core->player[i].live++;
+			return (1);
 		}
 		i++;
 	}
-	return (actual->carry);
+	return (0);
 }

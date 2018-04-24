@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   or.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/24 23:27:27 by jquenel          ###   ########.fr       */
+/*   Created: 2018/04/24 19:36:43 by jquenel           #+#    #+#             */
+/*   Updated: 2018/04/24 23:28:29 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
+int		corewar_or(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		reg[3];
 	int		i;
@@ -24,7 +24,7 @@ int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
 		(unsigned int)reg[1] > REG_NUMBER ||
 		(unsigned int)reg[2] > REG_NUMBER)
 		return (0);
-	reg[0] = core_regvalue(actual->reg[reg[0]]) +
+	reg[0] = core_regvalue(actual->reg[reg[0]]) |
 			core_regvalue(actual->reg[reg[1]]);
 	i = REG_SIZE;
 	while (i--)

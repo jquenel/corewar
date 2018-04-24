@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/04/20 21:17:06 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/04/23 18:20:06 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 #define MAX_ARGS_NUMBER			4
 #define MAX_PLAYERS				4
-#define MEM_SIZE				(2*1024)
+#define MEM_SIZE				(4*1024)
 #define IDX_MOD					(MEM_SIZE / 8)
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
@@ -79,15 +79,3 @@ typedef struct		s_header
   char				comment[COMMENT_LENGTH];
   uint32_t			null2;
 }					t_header;
-
-typedef struct		s_op
-{
-	char		*mnemo;
-	uint32_t	nbr_arg;
-	uint32_t	*arg_types;
-	uint32_t	index;
-	uint32_t	cycles;
-	char		*comment;
-	uint32_t	code_size;
-	uint32_t	carry;
-}			t_op;

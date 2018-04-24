@@ -6,13 +6,13 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/23 19:45:29 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/04/24 23:27:57 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		corewar_sub(t_sen *core, t_bo *actual, t_arg *args)
+int		corewar_sub(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		reg[3];
 	int		i;
@@ -24,11 +24,11 @@ void		corewar_sub(t_sen *core, t_bo *actual, t_arg *args)
 		(unsigned int)reg[1] > REG_NUMBER ||
 		(unsigned int)reg[2] > REG_NUMBER)
 		return (0);
-	z = 0;
 	reg[0] = core_regvalue(actual->reg[reg[0]]) -
 			core_regvalue(actual->reg[reg[1]]);
 	i = REG_SIZE;
 	while (i--)
-		actual->reg[reg[2]][i] = ((char *)(reg[0]))[i];
+		actual->reg[reg[2]][i] = ((char *)(&reg[0]))[i];
+	actual->carry = core_regvalue(actual->reg[reg[2]]) == 0 ? 1 : 0;
 	return (1);
 }

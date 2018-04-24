@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/21 23:28:54 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/04/24 23:20:47 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "op.h"
 # include "libft.h"
-//# include "ft_printf.h"
+# include "ft_printf.h"
 #include <stdio.h>
 
 # include <fcntl.h>
@@ -25,6 +25,9 @@
 # ifndef BUFF_SIZE
 #  define BUFF_SIZE		512
 # endif
+
+# define FIELD			core->arena.field
+
 
 typedef struct			s_ban
 {
@@ -52,7 +55,9 @@ typedef struct			s_bo
 {
 	int					pnum;
 	int					carry;
-	int					reg[REG_NUMBER + 1];
+	int					pc;
+	int					live;
+	char				reg[REG_NUMBER][REG_SIZE];
 	struct s_bo				*next;
 }						t_bo;
 
@@ -85,36 +90,43 @@ typedef struct			s_sen
 */
 typedef struct			s_arg
 {
+	char				*data;
 	char				type;
 	char				size;
-	char				data[MAX_ARG_SIZE];
 }						t_arg;
 
-int	parser(int argc, char **argv, t_sen *core);
-int	get_options(int *argc, char ***argv, t_sen *core);
-int	count_players(int argc, char **argv);
-int	create_player(int *argc, char ***argv, t_sen *core, int i);
-int	load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
-int	is_all_nums(char *s);
+int		parser(int argc, char **argv, t_sen *core);
+int		get_options(int *argc, char ***argv, t_sen *core);
+int		count_players(int argc, char **argv);
+int		create_player(int *argc, char ***argv, t_sen *core, int i);
+int		load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
+int		is_all_nums(char *s);
 
 void	dump_core(t_sen *core);
 int		destroy_processes(t_bo *proc);
 
-int	corewar_live(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_ld(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_st(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_add(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_sub(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_and(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_or(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_xor(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_zjump(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_ldi(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_sti(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_fork(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_lld(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_lldi(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_lfork(t_sen *arena, t_bo *actual, t_arg *arg_list);
-int	corewar_aff(t_sen *arena, t_bo *actual, t_arg *arg_list);
+int		corewar_live(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_st(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_add(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_sub(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_and(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_or(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_xor(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_zjmp(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_ldi(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_sti(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_fork(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_lld(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_lldi(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_lfork(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args);
+
+void	core_memcpy(t_ban *arena, t_arg *src, t_arg *dest, int size);
+int		core_getvalue(t_sen *core, t_arg *arg, t_bo *actual);
+int		core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual);
+int		core_regvalue(char *reg);
+int		ft_convert(t_sen *core, int pos, int size);
+void	malloc_error(t_sen *core);
 
 #endif

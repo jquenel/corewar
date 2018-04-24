@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_processes.c                                :+:      :+:    :+:   */
+/*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 23:03:40 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:03:43 by jquenel          ###   ########.fr       */
+/*   Created: 2018/04/24 22:53:02 by jquenel           #+#    #+#             */
+/*   Updated: 2018/04/24 22:55:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		destroy_processes(t_bo *proc)
+int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args)
 {
-	t_bo	*tmp;
+	int			reg;
 
-	while (proc)
-	{
-		tmp = proc;
-		proc = proc->next;
-		free(tmp);
-	}
-	return (-1);
+	reg = ft_convert(core, args[0].data - FIELD, args[0].size) - 1;
+	if ((unsigned int)reg > 15)
+		return (0);
+	ft_printf("%c", actual->reg[reg][REG_SIZE - 1]);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:40:55 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/20 21:48:28 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/04/24 23:18:34 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc)
 	ft_strncpy(player->name, h.prog_name, PROG_NAME_LENGTH);
 	ft_strncpy(player->comment, h.comment, COMMENT_LENGTH);
 	h.prog_size = get_prog_size(h.prog_size);
-	if (read(fd, arena->field + proc->reg[0], h.prog_size + 1) != h.prog_size)
+	if (read(fd, arena->field + proc->pc, h.prog_size + 1) != h.prog_size)
 		return (1);
 	return (0);
 }
