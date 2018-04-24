@@ -34,8 +34,6 @@ void	window_initialisation(char *window_name)
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 	SDL_WarpMouseInWindow(window, window_size->x / 2, window_size->y / 2);
-	SDL_SetWindowGrab(window, SDL_TRUE);
-	SDL_ShowCursor(1);
 	FPS = 60;
 	framedelay = 1000 / FPS;
 }

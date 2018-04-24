@@ -26,6 +26,29 @@ void draw_rectangle(t_2d_coord *coord, t_2d_coord *size, char *color_type)
     SDL_RenderFillRect(get_renderer(), &Rect);
 }
 
+void draw_border_rectangle(t_2d_coord *coord, t_2d_coord *size, char *color_type)
+{
+	SDL_Rect			Rect1;
+	SDL_Rect			Rect2;
+	SDL_Color			color1;
+	SDL_Color			color2;
+
+	Rect1.x = coord->x;
+	Rect1.y = coord->y;
+	Rect1.w = size->x;
+	Rect1.h = size->y;
+	color1 = get_color(color_type);
+	color2 = create_color(color1.r + 35, color1.g + 35, color1.b + 35, color1.a);
+    SDL_SetRenderDrawColor(get_renderer(), color1.r, color1.g, color1.b, color1.a);
+    SDL_RenderFillRect(get_renderer(), &Rect1);
+	Rect2.x = coord->x + Rect1.w/16;
+	Rect2.y = coord->y + Rect1.h/16;
+	Rect2.w = size->x - Rect1.w/8;
+	Rect2.h = size->y - Rect1.h/8;
+    SDL_SetRenderDrawColor(get_renderer(), color2.r, color2.g, color2.b, color2.a);
+    SDL_RenderFillRect(get_renderer(), &Rect2);
+}
+
 static void	draw_square_line(t_tileset *tile, t_2d_coord *coord, t_2d_coord *size, int size_unit, int sprite)
 {
 	t_2d_coord *tmp_coord;

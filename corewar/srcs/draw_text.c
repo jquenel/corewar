@@ -73,9 +73,8 @@ static int		get_typo(char *typo)
 	return (0);
 }
 
-int			draw_text(char *text, int size, t_2d_coord *coord, char *color_type, char *typo)
+int			draw_text(char *text, t_2d_coord *coord, char *color_type, TTF_Font *font, char *typo)
 {
-	TTF_Font		*font;
 	SDL_Color		color;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
@@ -83,7 +82,6 @@ int			draw_text(char *text, int size, t_2d_coord *coord, char *color_type, char 
 	int				texW = 0;
 	int				texH = 0;
 
-	font = TTF_OpenFont(FONT_PATH, size);
 	TTF_SetFontStyle(font, get_typo(typo));
 	color = get_color(color_type);
 	surface = TTF_RenderText_Blended(font, text, color);
@@ -95,14 +93,12 @@ int			draw_text(char *text, int size, t_2d_coord *coord, char *color_type, char 
 	dstrect.w = texW;
 	dstrect.h = texH;
 	SDL_RenderCopy(get_renderer(), texture, NULL, &dstrect);
-	TTF_CloseFont(font);
 	SDL_DestroyTexture(texture);
 	return (texW);
 }
 
-int			draw_centred_text(char *text, int size, t_2d_coord *coord, char *color_type, char *typo)
+int			draw_centred_text(char *text, t_2d_coord *coord, char *color_type, TTF_Font *font, char *typo)
 {
-	TTF_Font		*font;
 	SDL_Color		color;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
@@ -110,7 +106,6 @@ int			draw_centred_text(char *text, int size, t_2d_coord *coord, char *color_typ
 	int				texW = 0;
 	int				texH = 0;
 
-	font = TTF_OpenFont(FONT_PATH, size);
 	TTF_SetFontStyle(font, get_typo(typo));
 	color = get_color(color_type);
 	surface = TTF_RenderText_Blended(font, text, color);
@@ -122,7 +117,6 @@ int			draw_centred_text(char *text, int size, t_2d_coord *coord, char *color_typ
 	dstrect.h = texH;
 	SDL_FreeSurface(surface);
 	SDL_RenderCopy(get_renderer(), texture, NULL, &dstrect);
-	TTF_CloseFont(font);
 	SDL_DestroyTexture(texture);
 	return (texW);
 }

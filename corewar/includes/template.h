@@ -60,6 +60,7 @@ typedef struct	s_core
 	int			text_size;
 	int			space;
 	t_2d_coord	*start;
+	TTF_Font	*font;
 }				t_core;
 
 void			draw_image(char *path, t_2d_coord *coord, t_2d_coord *size, double angle);
@@ -68,10 +69,11 @@ void			draw_SDLSurface(SDL_Surface *bmp, t_2d_coord *coord, t_2d_coord *size, do
 SDL_Color 		create_color(int r, int g, int b, int a);
 SDL_Color		get_color(char *color_type);
 void 			draw_rectangle(t_2d_coord *coord, t_2d_coord *size, char *color_type);
+void 			draw_border_rectangle(t_2d_coord *coord, t_2d_coord *size, char *color_type);
 void			draw_tiled_square(t_tileset *tile, t_2d_coord *coord, t_2d_coord *size, int size_unit);
 
-int				draw_text(char *text, int size, t_2d_coord *coord, char *color_type, char *typo);
-int				draw_centred_text(char *text, int size, t_2d_coord *coord, char *color_type, char *typo);
+int				draw_text(char *text, t_2d_coord *coord, char *color_type, TTF_Font *font, char *typo);
+int				draw_centred_text(char *text, t_2d_coord *coord, char *color_type, TTF_Font *font, char *typo);
 
 void			window_initialisation(char *window_name);
 SDL_Renderer	*get_renderer();
