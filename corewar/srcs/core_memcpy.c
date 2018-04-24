@@ -6,27 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 15:54:47 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/23 16:45:52 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/04/24 23:12:52 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-/*static void	regtomem(t_ban *arena, t_arg *src, t_arg *dest, int size)
-{
-	int		start;
-	int		i;
-
-	start = dest->data - arena->field;
-	i = 0;
-	while (i < size)
-	{
-		arena->field[(start + i) % arena->size] = src->data[i];
-		i++;
-	}
-}*/
-
-void	core_memcpy(t_ban arena, t_arg *src, t_arg *dest, int size)
+void	core_memcpy(t_ban *arena, t_arg *src, t_arg *dest, int size)
 {
 	int		start1;
 	int		start2;
@@ -45,6 +31,22 @@ void	core_memcpy(t_ban arena, t_arg *src, t_arg *dest, int size)
 		i++;
 	}
 }
+
+/*static void	regtomem(t_ban *arena, t_arg *src, t_arg *dest, int size)
+{
+	int		start;
+	int		i;
+
+	start = dest->data - arena->field;
+	i = 0;
+	while (i < size)
+	{
+		arena->field[(start + i) % arena->size] = src->data[i];
+		i++;
+	}
+}*/
+
+
 /*
 void		core_memcpy(t_ban *arena, t_arg *src, t_arg *dest, int size)
 {

@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_processes.c                                :+:      :+:    :+:   */
+/*   core_memcpy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 23:03:40 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:03:43 by jquenel          ###   ########.fr       */
+/*   Created: 2018/04/23 15:54:47 by jquenel           #+#    #+#             */
+/*   Updated: 2018/04/24 23:13:23 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		destroy_processes(t_bo *proc)
+void		core_regtomem(t_ban *arena, char *src, int dest, int size)
 {
-	t_bo	*tmp;
+	int			i;
 
-	while (proc)
+	i = 0;
+	while (i < size)
 	{
-		tmp = proc;
-		proc = proc->next;
-		free(tmp);
+		arena->field[(dest + i) % MEM_SIZE] = src[i];
+		i++;
 	}
-	return (-1);
 }

@@ -28,16 +28,27 @@ static int	get_player_num(int *argc, char ***argv, t_sen *core)
 	return (num);
 }
 
-int		create_player(int *argc, char ***argv, t_sen *core, int i)
+static void	copy_pnum(int *pnum, char *reg)
+{
+	int		i;
+	int		j;
+
+	i = REG_SIZE;
+	j = sizeof(int);
+	while (i-- && j--)
+		reg[i] = ((char *)pnum)[j];
+}
+
+int			create_player(int *argc, char ***argv, t_sen *core, int i)
 {
 	t_bo		*proc;
 
 	if (!(proc = malloc(sizeof(t_bo))))
-		return (-1);
+		malloc_error(core);
 	core->player[i].pnum = get_player_num(argc, argv, core);
 	proc->carry = 0;
-	proc->reg[0] = (MEM_SIZE * i) / core->pcount;
-	proc->reg[1] = core->player[i].pnum;
+	proc->pc = (MEM_SIZE * i) / core->pcount;
+	copy_pnum(&core->player[i].pnum, proc->reg[0]);
 	proc->pnum = core->player[i].pnum;
 	proc->next = core->proc;
 	core->proc = proc;

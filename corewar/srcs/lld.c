@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   lld.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/24 23:22:10 by jquenel          ###   ########.fr       */
+/*   Created: 2018/04/24 22:09:45 by jquenel           #+#    #+#             */
+/*   Updated: 2018/04/24 23:31:36 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args)
+int		corewar_lld(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		value_size;
 	int		reg;
@@ -27,7 +27,7 @@ int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args)
 	{
 		vpos = args[0].data - FIELD;
 		args[0].data = FIELD +
-			(vpos + (ft_convert(core, vpos, args[0].size) % IDX_MOD))
+			(vpos + ft_convert(core, vpos, args[0].size))
 			% core->arena.size;
 		args[0].type = DIR_CODE;
 		args[0].size = DIR_SIZE;

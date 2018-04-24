@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_processes.c                                :+:      :+:    :+:   */
+/*   zjmp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 23:03:40 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:03:43 by jquenel          ###   ########.fr       */
+/*   Created: 2018/04/24 19:38:37 by jquenel           #+#    #+#             */
+/*   Updated: 2018/04/24 19:58:11 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		destroy_processes(t_bo *proc)
+int		corewar_zjmp(t_sen *core, t_bo *actual, t_arg *args)
 {
-	t_bo	*tmp;
-
-	while (proc)
-	{
-		tmp = proc;
-		proc = proc->next;
-		free(tmp);
-	}
-	return (-1);
+	if (actual->carry != 1)
+		return (0);
+	actual->pc = (actual->pc +
+				(ft_convert(core, args[0].data - FIELD, DIR_SIZE) % IDX_MOD))
+				% core->arena.size;
+	return (1);
 }

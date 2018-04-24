@@ -1,26 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_processes.c                                :+:      :+:    :+:   */
+/*   start_battle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 23:03:40 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:03:43 by jquenel          ###   ########.fr       */
+/*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
+/*   Updated: 2018/04/24 23:53:49 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		destroy_processes(t_bo *proc)
+static int	count_alive(t_bushi *player)
 {
-	t_bo	*tmp;
+	int		i;
+	int		count;
 
-	while (proc)
+	i = 0;
+	count = 0;
+	while (player[i].live != -2)
 	{
-		tmp = proc;
-		proc = proc->next;
-		free(tmp);
+		if (player[i].live >= 0)
+			count++;
+		i++;
 	}
-	return (-1);
+	return (count);
+}
+
+void		start_battle(t_sen *core)
+{
+	int		alive;
+
+	alive = 2;
+	while (alive > 1)
+	{
+		//if (core->opt & (1 << ('f' - 'a')))
+		//	fast_cycle(core);
+		//else
+			cycle(core);
+		alive = count_alive(core->player);
+	}
 }

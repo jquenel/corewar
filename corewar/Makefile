@@ -11,14 +11,39 @@ OBJ_PATH=	obj
 CPPFLAGS=	-Iincludes -I../libft/includes
 
 SRC_NAME=	corewar.c\
+			core_getvalue.c\
+			core_getlvalue.c\
+			core_memcpy.c\
+			core_regtomem.c\
+			core_regvalue.c\
 			count_players.c\
+			create_player.c\
+			dump_core.c\
+			ft_convert.c\
 			destroy_processes.c\
 			get_options.c\
 			load_program.c\
+			malloc_error.c\
 			parser.c\
 			create_player.c\
 			dump_core.c\
 			is_all_nums.c\
+			live.c\
+			ld.c\
+			st.c\
+			add.c\
+			sub.c\
+			and.c\
+			or.c\
+			xor.c\
+			zjmp.c\
+			ldi.c\
+			sti.c\
+			fork.c\
+			lld.c\
+			lldi.c\
+			lfork.c\
+			aff.c\
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
@@ -34,9 +59,9 @@ CFLAGS=		-Wextra -Wall -Werror -g -fsanitize=address
 
 CC=			gcc
 
-LDFLAGS=	-L../libft
+LDFLAGS=	-L../libft -L../ft_printf
 
-LIBS=		-lft
+LIBS=		-lft -lftprintf
 
 LDLIBS=		$(LDFLAGS) $(LIBS)
 
