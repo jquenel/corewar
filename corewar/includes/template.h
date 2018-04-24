@@ -21,6 +21,7 @@
 
 # include "libft.h"
 # include "ft_printf.h"
+# include "corewar.h"
 
 # define FONT_PATH	"obj/font/Alef-Regular.ttf"
 
@@ -40,6 +41,27 @@ typedef struct 		s_tileset
 	t_2d_coord		*size;
 }					t_tileset;
 
+typedef struct	s_state
+{
+	SDL_Event	event;
+	int			state;
+	int			frame;
+	int			frame_state;
+	int			direction;
+}				t_state;
+
+typedef struct	s_core
+{
+	char		*field;
+	char		*index;
+	int			*pc;
+	int			len;
+	t_2d_coord	*size;
+	int			text_size;
+	int			space;
+	t_2d_coord	*start;
+}				t_core;
+
 void			draw_image(char *path, t_2d_coord *coord, t_2d_coord *size, double angle);
 void			draw_SDLSurface(SDL_Surface *bmp, t_2d_coord *coord, t_2d_coord *size, double angle);
 
@@ -53,6 +75,7 @@ int				draw_centred_text(char *text, int size, t_2d_coord *coord, char *color_ty
 
 void			window_initialisation(char *window_name);
 SDL_Renderer	*get_renderer();
+t_2d_coord		*get_window_size();
 t_2d_coord		*get_mouse_coord();
 void			close_renderer();
 void			error_exit(char *msg, int error);
@@ -70,5 +93,9 @@ t_tileset		*create_tileset(char *path);
 t_tileset		*initiate_tileset(char *path, int value_x, int value_y);
 void			draw_tileset(t_tileset *tile, int sprite, t_2d_coord *coord, t_2d_coord *size, double angle);
 
+void 			update_input(t_state *state);
+
+int				get_root(int size);
+char			*ft_itoa_base(int value, int base);
 
 #endif

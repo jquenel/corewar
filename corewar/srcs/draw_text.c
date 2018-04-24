@@ -28,21 +28,35 @@ SDL_Color get_color(char *color_type)
 	SDL_Color color;
 
 	if (!ft_strcmp(color_type, "black"))
-		color = create_color(0, 0, 0, 42);
+		color = create_color(39, 39, 39, 42);
 	else if (!ft_strcmp(color_type, "white"))
-		color = create_color(255, 255, 255, 42);
+		color = create_color(114, 140, 114, 42);
 	else if (!ft_strcmp(color_type, "red"))
-		color = create_color(255, 0, 0, 42);
+		color = create_color(165, 89, 89, 42);
 	else if (!ft_strcmp(color_type, "green"))
-		color = create_color(0, 255, 0, 42);
+		color = create_color(89, 165, 89, 42);
 	else if (!ft_strcmp(color_type, "blue"))
-		color = create_color(0, 0, 255, 42);
+		color = create_color(89, 127, 168, 42);
 	else if (!ft_strcmp(color_type, "grey"))
 		color = create_color(156, 156, 156, 42);
 	else if (!ft_strcmp(color_type, "cyan"))
-		color = create_color(0, 255, 255, 42);
+		color = create_color(27, 190, 190, 42);
+	else if(!ft_strcmp(color_type, "dark grey"))
+		color = create_color(56, 56, 56, 42);
+	else if (!ft_strcmp(color_type, "light grey"))
+		color = create_color(175, 175, 175, 42);
+	else if (!ft_strcmp(color_type, "light red"))
+		color = create_color(221, 110, 110, 42);
+	else if (!ft_strcmp(color_type, "light green"))
+		color = create_color(170, 220, 115, 42);
+	else if (!ft_strcmp(color_type, "light blue"))
+		color = create_color(110, 220, 220, 42);
+	else if (!ft_strcmp(color_type, "orange"))
+		color = create_color(220, 111, 20, 42);
+	else if (!ft_strcmp(color_type, "dark cyan"))
+		color = create_color(25, 130, 130, 42);
 	else
-		color = create_color(0, 0, 0, 42);
+		color = create_color(39, 39, 39, 42);
 	return color;
 }
 
@@ -102,8 +116,8 @@ int			draw_centred_text(char *text, int size, t_2d_coord *coord, char *color_typ
 	surface = TTF_RenderText_Blended(font, text, color);
 	texture = SDL_CreateTextureFromSurface(get_renderer(), surface);
 	SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-	dstrect.x = coord->x;
-	dstrect.y = coord->y;
+	dstrect.x = coord->x - texW / 2;
+	dstrect.y = coord->y - texH / 2;
 	dstrect.w = texW;
 	dstrect.h = texH;
 	SDL_FreeSurface(surface);

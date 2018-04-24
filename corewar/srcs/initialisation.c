@@ -14,13 +14,12 @@
 
 SDL_Renderer	*renderer = NULL;
 SDL_Window		*window = NULL;
+t_2d_coord		*window_size = NULL;
 int		FPS;
 int		framedelay;
 
 void	window_initialisation(char *window_name)
 {
-	int			window_w;
-	int			window_h;
 
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_DisplayMode current;
@@ -28,15 +27,22 @@ void	window_initialisation(char *window_name)
     window = SDL_CreateWindow(window_name,
                                SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                current.w/1.2, current.h/1.2, SDL_WINDOW_OPENGL);
-	SDL_GetWindowSize(window, &window_w, &window_h);
+	window_size = t_2d_coord_new(0, 0);
+	SDL_GetWindowSize(window, &window_size->x, &window_size->y);
 	TTF_Init();
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-	SDL_WarpMouseInWindow(window, window_w / 2, window_h / 2);
+	SDL_WarpMouseInWindow(window, window_size->x / 2, window_size->y / 2);
 	SDL_SetWindowGrab(window, SDL_TRUE);
-	SDL_ShowCursor(0);
+	SDL_ShowCursor(1);
 	FPS = 60;
 	framedelay = 1000 / FPS;
+}
+
+t_2d_coord	*get_window_size()
+{
+	return (window_size);
 }
 
 t_2d_coord	*get_mouse_coord()
