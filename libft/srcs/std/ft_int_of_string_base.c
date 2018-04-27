@@ -6,10 +6,11 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 17:49:58 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/13 20:25:05 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/04/27 22:51:50 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
 #include "libft_std.h"
 #include "libft_str.h"
 
@@ -62,6 +63,7 @@ int			ft_int_of_string_base(const char *str, int base, int *result)
 	int	positive;
 	int	digit;
 	int	acc;
+	int	tmp;
 
 	if (base < 0 || base == 1 || base > 36)
 		return (0);
@@ -74,7 +76,10 @@ int			ft_int_of_string_base(const char *str, int base, int *result)
 		digit = read_digit(*str++);
 		if (digit < 0 || digit >= base)
 			return (0);
-		acc = acc * base + digit;
+		tmp = acc * base + digit;
+		if (tmp / base != acc && (positive || tmp != INT_MIN || *str != '\0'))
+			return (0);
+		acc = tmp;
 	}
 	if (result != NULL)
 		*result = (positive ? acc : -acc);
