@@ -82,7 +82,7 @@ int			draw_text(char *text, t_2d_coord *coord, char *color_type, TTF_Font *font,
 	int				texW = 0;
 	int				texH = 0;
 
-	TTF_SetFontStyle(font, get_typo(typo));
+	(void)typo;
 	color = get_color(color_type);
 	surface = TTF_RenderText_Blended(font, text, color);
 	texture = SDL_CreateTextureFromSurface(get_renderer(), surface);
@@ -106,7 +106,7 @@ int			draw_centred_text(char *text, t_2d_coord *coord, char *color_type, TTF_Fon
 	int				texW = 0;
 	int				texH = 0;
 
-	TTF_SetFontStyle(font, get_typo(typo));
+	(void)typo;
 	color = get_color(color_type);
 	surface = TTF_RenderText_Blended(font, text, color);
 	texture = SDL_CreateTextureFromSurface(get_renderer(), surface);

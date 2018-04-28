@@ -21,7 +21,6 @@
 
 # include "libft.h"
 # include "ft_printf.h"
-# include "corewar.h"
 
 # define FONT_PATH	"obj/font/Alef-Regular.ttf"
 

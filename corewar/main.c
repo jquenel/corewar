@@ -14,6 +14,7 @@ static t_2d_coord *get_square_size(t_core *core)
 	core->space = i - (i / 1.2);
 	core->text_size = i / 3;
 	core->font = TTF_OpenFont(FONT_PATH, core->text_size);
+	TTF_SetFontStyle(core->font, 0);
 	size = t_2d_coord_new(i - core->space, i - core->space);
 	i = (size->x + core->space) * core->size->x;
 	j = (size->y + core->space) * core->size->y;
@@ -64,13 +65,11 @@ static void		draw_corewar(t_core	*core)
 	}
 }
 
-static t_2d_coord *get_size(char *entry)
+static t_2d_coord *get_size(int	len)
 {
-	int		len;
 	int		i;
 	int		j;
 
-	len = ft_strlen(entry);
 	i = get_root(len);
 	j = i;
 	while (i * j < len)
@@ -79,20 +78,33 @@ static t_2d_coord *get_size(char *entry)
 	return (t_2d_coord_new(i, j));
 }
 
-int main()
+void	usage(void)
+{
+	ft_putendl("Usage : corewar [-dump nbr_cycles] \
+			[[-n number] champion1.cor] ...");
+	exit (1);
+}
+
+int main(int argc, char **argv)
 {
 	t_state state;
-	t_core	core;
+	t_core	sdl_core;
 	int		nb_process;
 	int		i;
+	t_sen		core;
 
+	if (argc < 3)
+		usage();
+	if (parser(argc - 1, &(argv[1]), &core))
+		usage();
 	window_initialisation("char *window_name");
-	core.field = ft_strdup("qwertyuiopasdfghjklqwryuioasdfghjkqwertyuiosdfghjkxcvbnmsdfghjkertosdfghjkrtyuihjkiuytrewsdfvbnjkjhgfsastyui");
-	core.index = ft_strdup("00000000000sdfghjklqwryuioasdfghjkqwertyuiosdfghjkxcvbnmsdfghjkertosdfghjkrtyuihjkiuytrewsdfvbnjk11111111111");
-	core.len = ft_strlen(core.field);
-	core.size = get_size(core.field);
+	sdl_core.field = core.arena.field;
+	sdl_core.index = core.arena.field;
+	sdl_core.len = core.arena.size;
+	printf("len = %d\n", sdl_core.len);
+	sdl_core.size = get_size(sdl_core.len);
 	nb_process = 4;
-	if (!(core.pc = (int *)malloc(sizeof(int) * nb_process)))
+	if (!(sdl_core.pc = (int *)malloc(sizeof(int) * nb_process)))
 		return (1);
 	state.state = 1;
 	state.frame = 0;
@@ -103,7 +115,7 @@ int main()
 	{
 		SDL_SetRenderDrawColor(get_renderer(), 40, 40, 40, 255);
 		SDL_RenderClear(get_renderer());
-		draw_corewar(&core);
+		draw_corewar(&sdl_core);
 		render_screen();
 		update_input(&state);
 		i++;
