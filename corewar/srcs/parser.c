@@ -31,6 +31,7 @@ static void	init_core(t_sen *core)
 	core->pcount = 0;
 	core->proc = NULL;
 	core->opt = 0;
+	core->visu.pause = 0;
 	ft_memset(&core->arena.field, 0, MEM_SIZE);
 	init_state(&core->state);
 	init_player(core->player);

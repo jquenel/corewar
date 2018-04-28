@@ -55,7 +55,7 @@
 **
 */
 
-typedef char	t_arg_type;
+typedef char	arg_type_t;
 
 #define T_REG					1
 #define T_DIR					2

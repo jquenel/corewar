@@ -28,7 +28,6 @@
 
 # define FIELD			core->arena.field
 
-
 typedef struct			s_ban
 {
 	int					size;
@@ -51,12 +50,22 @@ typedef struct			s_bushi
 	char				comment[COMMENT_LENGTH + 1];
 }						t_bushi;
 
+typedef struct			s_arg
+{
+	char				type;
+	char				size;
+	char				data[MAX_ARG_SIZE];
+}						t_arg;
+
 typedef struct			s_bo
 {
 	int					pnum;
 	int					carry;
 	int					pc;
 	int					live;
+	struct s_optab		*op;
+	int					cycle;
+	t_arg				args[MAX_ARGS_NUMBER];
 	char				reg[REG_NUMBER][REG_SIZE];
 	struct s_bo				*next;
 }						t_bo;
@@ -73,27 +82,40 @@ typedef struct			s_sumego
 	int					dump_limit;
 }						t_sumego;
 
+typedef struct			s_visu
+{
+	int					pause;
+}						t_visu;
+
 typedef struct			s_sen
 {
 	int					opt;
 	int					pcount;
 	t_sumego			state;
 	t_ban				arena;
+	t_visu				visu;
 	t_bo				*proc;
 	t_bushi				player[MAX_PLAYERS + 1];
 }						t_sen;
 
 /*
-**		t_arg
-**		type : type de la valeur (1 = registre, 2 = Direct value, 3 = Indirect value)
-**
+**		The extra char is holding extra infomations :
+**			change in IND_SIZE (EX_IS)
+**			presence of an encoding byte (EX_CD)
 */
-typedef struct			s_arg
+
+# define OP_COUNT		16
+# define EX_CD			1
+# define EX_IS			2
+
+typedef struct			s_optab
 {
-	char				*data;
-	char				type;
-	char				size;
-}						t_arg;
+	int					(*op)(t_sen *core, t_bo *actual, t_arg *args);
+	int					arg_count;
+	arg_type_t			arg_types[MAX_ARGS_NUMBER];
+	int					cycle;
+	char				extra;
+}						t_optab;
 
 int		parser(int argc, char **argv, t_sen *core);
 int		get_options(int *argc, char ***argv, t_sen *core);
@@ -101,9 +123,14 @@ int		count_players(int argc, char **argv);
 int		create_player(int *argc, char ***argv, t_sen *core, int i);
 int		load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
 int		is_all_nums(char *s);
+void	start_battle(t_sen *core);
+void	init_optab(t_optab op[OP_COUNT + 1]);
+int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+int		fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 
 void	dump_core(t_sen *core);
 int		destroy_processes(t_bo *proc);
+
 
 int		corewar_live(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args);

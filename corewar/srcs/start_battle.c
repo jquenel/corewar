@@ -30,15 +30,22 @@ static int	count_alive(t_bushi *player)
 
 void		start_battle(t_sen *core)
 {
-	int		alive;
+	int			alive;
+	t_optab		op[OP_COUNT + 1];
+
+	init_optab(op);
 
 	alive = 2;
 	while (alive > 1)
 	{
+		if (!core->visu.pause)
+		{
 		//if (core->opt & (1 << ('f' - 'a')))
 		//	fast_cycle(core);
 		//else
-			cycle(core);
+//			cycle(core);
 		alive = count_alive(core->player);
+		(void)core;
+		}
 	}
 }

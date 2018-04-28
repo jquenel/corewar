@@ -24,5 +24,6 @@ int		corewar_fork(t_sen *core, t_bo *actual, t_arg *args)
 	actual->next->pc = (actual->next->pc +
 				ft_convert(core, args[0].data - FIELD, args[0].size) % IDX_MOD)
 				% core->arena.size;
+	actual->next->cycle = -1;
 	return (1);
 }
