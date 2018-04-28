@@ -149,11 +149,13 @@ int		corewar_lldi(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_lfork(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args);
 
+void	copy_to_arg(t_sen *core, t_arg *arg, int pc);
+int		dtoi(char *data, int size);
 void	core_memcpy(t_ban *arena, t_arg *src, t_arg *dest, int size);
 int		core_getvalue(t_sen *core, t_arg *arg, t_bo *actual);
 int		core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual);
 int		core_regvalue(char *reg);
-int		ft_convert(t_sen *core, int pos, int size);
+int		ft_convert(char *data, int size);
 void	malloc_error(t_sen *core);
 
 #endif
