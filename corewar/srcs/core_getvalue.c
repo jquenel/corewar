@@ -14,12 +14,14 @@
 
 int			core_getvalue(t_sen *core, t_arg *arg, t_bo *actual)
 {
-	if (arg->type == REG_CODE)
-		return (core_regvalue(arg->data));
-	if (arg->type == DIR_CODE)
-		return (ft_convert(core, arg->data - FIELD, arg->size));
-	return (ft_convert(core,
-				((actual->pc +
-				(ft_convert(core, arg->data - FIELD, arg->size) % IDX_MOD))
-						% core->arena.size), DIR_SIZE));
+	int		vpos;
+
+	if (arg->type == t_IND)
+	{
+		vpos = dtoi(arg->data, arg->size) % IDX_MOD;
+		arg->type = T_DIR;
+		arg->size = DIR_SIZE;
+		copy_to_arg(core, arg, pc + vpos);
+	}
+	return (dtoi(arg->data, arg->size);
 }

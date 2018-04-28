@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-int ft_convert(t_sen *core, int pos, int size)
+int		dtoi(char *data, int size)
 {
 	int		result;
 	int		i;
@@ -22,7 +22,7 @@ int ft_convert(t_sen *core, int pos, int size)
 	while (i < size)
 	{
 		result *= 256;
-		result += FIELD[(pos + size) % MEM_SIZE];
+		result += data[i];
 		i++;
 	}
 	return (result);

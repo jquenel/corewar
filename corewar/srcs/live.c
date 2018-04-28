@@ -18,7 +18,7 @@ int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 	int		nb_player;
 
 	actual->live++;
-	nb_player = ft_convert(core, args[0].data - FIELD, args[0].size);
+	nb_player = dtoi(args[0].data, args[0].size);
 	i = 0;
 	while (core->player[i].live != -2)
 	{
