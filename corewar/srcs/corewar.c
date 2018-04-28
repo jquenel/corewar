@@ -15,6 +15,7 @@ int	main(int argc, char **argv)
 	if (argc < 3)
 		usage();
 	if (parser(argc - 1, &(argv[1]), &core))
-		usage()
+		usage();
 	dump_core(&core);
+	start_battle(&core);
 }

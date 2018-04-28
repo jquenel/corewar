@@ -28,6 +28,8 @@ SRC_NAME=	corewar.c\
 			create_player.c\
 			dump_core.c\
 			is_all_nums.c\
+			start_battle.c\
+			init_optab.c\
 			live.c\
 			ld.c\
 			st.c\
@@ -61,7 +63,7 @@ CC=			gcc
 
 LDFLAGS=	-L../libft -L../ft_printf
 
-LIBS=		-lft -lftprintf
+LIBS=		-lftprintf -lft
 
 LDLIBS=		$(LDFLAGS) $(LIBS)
 
