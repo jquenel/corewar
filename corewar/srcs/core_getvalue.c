@@ -12,11 +12,11 @@
 
 #include "corewar.h"
 
-int			core_getvalue(t_sen *core, t_arg *arg, t_bo *actual)
+int			core_getvalue(t_sen *core, t_arg *arg, int pc)
 {
 	int		vpos;
 
-	if (arg->type == t_IND)
+	if (arg->type == T_IND)
 	{
 		vpos = dtoi(arg->data, arg->size) % IDX_MOD;
 		arg->type = T_DIR;
