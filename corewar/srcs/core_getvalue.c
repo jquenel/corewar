@@ -21,7 +21,7 @@ int			core_getvalue(t_sen *core, t_arg *arg, int pc)
 		vpos = dtoi(arg->data, arg->size) % IDX_MOD;
 		arg->type = T_DIR;
 		arg->size = DIR_SIZE;
-		copy_to_arg(core, arg, pc + vpos);
+		copy_data(core, arg->data, pc + vpos, arg->size);
 	}
-	return (dtoi(arg->data, arg->size);
+	return (dtoi(arg->data, arg->size));
 }

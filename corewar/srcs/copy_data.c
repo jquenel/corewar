@@ -6,5 +6,5 @@
 void		copy_data(t_sen *core, char *dest, int pc, int size)
 {
 	while (size--)
-		dest[size] = FIELD_INDEX(pc + size)
+		dest[size] = FIELD_INDEX(pc + size);
 }
