@@ -17,12 +17,11 @@ int		corewar_st(t_sen *core, t_bo *actual, t_arg *args)
 	int		reg1;
 	int		reg2;
 
-
 	reg1 = dtoi(args[0].data, args[0].size) - 1;
-	reg2 = dtoi(args[1].data, args[1].size) - args[1].type == T_REG ? 1 : 0;
+	reg2 = dtoi(args[1].data, args[1].size) - (args[1].type == T_REG ? 1 : 0);
 	if ((unsigned int)reg1 > 15 ||
 			(args[1].type == T_REG && (unsigned int)reg2 > 15))
-		return (0);
+		return (1);
 	if (args[1].type == T_REG)
 	{
 		ft_memset(actual->reg[reg2], 0, REG_SIZE);
@@ -32,7 +31,7 @@ int		corewar_st(t_sen *core, t_bo *actual, t_arg *args)
 	{
 		core_regtomem(&core->arena, actual->reg[reg1],
 				actual->pc + (reg2 % IDX_MOD),
-				REG_SIZE < DIR_SIZE ? REG_SIZE : DIR_SIZE);
+				actual->pnum);
 	}
 	return (1);
 }

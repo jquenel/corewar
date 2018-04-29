@@ -27,11 +27,14 @@
 # endif
 
 # define FIELD			core->arena.field
+# define TRACE_EMPTY	-1
 
 typedef struct			s_ban
 {
 	int					size;
 	char				field[MEM_SIZE];
+	char				empty_char;
+	char				trace[MEM_SIZE];
 }						t_ban;
 
 /*
@@ -65,6 +68,7 @@ typedef struct			s_bo
 	int					live;
 	struct s_optab		*op;
 	int					cycle;
+	int					size;
 	t_arg				args[MAX_ARGS_NUMBER];
 	char				reg[REG_NUMBER][REG_SIZE];
 	struct s_bo				*next;
@@ -78,6 +82,7 @@ typedef struct			s_sumego
 	int					c_delta;
 	int					l_count;
 	int					l_checks;
+	int					l_checks_limit;
 	int					l_limit;
 	int					dump_limit;
 }						t_sumego;
@@ -125,8 +130,10 @@ int		load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
 int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
 void	init_optab(t_optab op[OP_COUNT + 1]);
-int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+void	cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 int		fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+void	do_op(t_sen *core, t_bo *actual);
+int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
 
 void	dump_core(t_sen *core);
 int		destroy_processes(t_bo *proc);
@@ -153,7 +160,7 @@ void	copy_data(t_sen *core, char *dest, int pc, int size);
 int		dtoi(char *data, int size);
 int		core_getvalue(t_sen *core, t_arg *arg, int pc);
 int		core_getlvalue(t_sen *core, t_arg *arg, int pc);
-void	core_regtomem(t_ban *arena, char *src, int dest, int size);
+void	core_regtomem(t_ban *arena, char *src, int dest, int pnum);
 void	malloc_error(t_sen *core);
 
 #endif

@@ -19,7 +19,7 @@ int		corewar_lld(t_sen *core, t_bo *actual, t_arg *args)
 
 	reg = dtoi(args[1].data, args[1].size) - 1;
 	if ((unsigned int)reg > REG_NUMBER)
-		return (0);
+		return (1);
 	if (args[0].type == T_IND)
 	{
 		vpos = dtoi(args[0].data, args[0].size);
