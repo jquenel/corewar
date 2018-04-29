@@ -12,24 +12,45 @@
 
 #include "corewar.h"
 
+static int	get_regs(t_sen *core, t_arg *args, int *reg)
+{
+	int		i;
+
+	i = 3;
+	while (i--)
+	{
+		if (args[i].type == REG_CODE)
+		{
+			reg[i] = ft_convert(core, args[i].data - FIELD, args[i].size) - 1;
+			if ((unsigned int)reg[i] > 15)
+				return (0);
+		}
+		else
+			reg[i] = -1;
+	}
+	return (reg[2] == -1 ? 0 : 1);
+}
+
 int		corewar_lldi(t_sen *core, t_bo *actual, t_arg *args)
 {
-	int		value_size;
-	int		reg;
 	int		vpos;
+	int		reg[3];
 
-	reg = ft_convert(core, args[2].data - FIELD, args[2].size) - 1;
-	if ((unsigned int)reg > 15)
+	if (!get_regs(core, args, reg))
 		return (0);
-	args[2].data = actual->reg[reg];
-	value_size = DIR_SIZE < REG_SIZE ? DIR_SIZE : REG_SIZE;
+	if (args[0].type == T_REG)
+	{
+		ft_memcpy(&args[0].data, actual->reg[reg[0]], REG_SIZE);
+		args[0].size = REG_SIZE;
+	}
+	if (args[1].type == T_REG)
+	{
+		ft_memcpy(&args[1].data, actual->reg[reg[1]], REG_SIZE);
+		args[1].size = REG_SIZE;
+	}
 	vpos = core_getlvalue(core, &args[0], actual) +
 			core_getlvalue(core, &args[1], actual);
-	args[0].data = FIELD + ((actual->pc + vpos) % core->arena.size);
-	args[0].size = DIR_SIZE;
-	args[0].type = DIR_CODE;
-	ft_memset(actual->reg[reg], 0, REG_SIZE);
-	core_memcpy(&core->arena, &args[2], &args[0], value_size);
-	actual->carry = core_regvalue(args[2].data) == 0 ? 1 : 0;
+	ft_memset(actual->reg[reg[2]], 0, REG_SIZE);
+	copy_data(core, actual->reg[reg[2]], actual->pc + vpos, REG_SIZE);
 	return (1);
 }

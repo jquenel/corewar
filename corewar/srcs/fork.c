@@ -22,7 +22,7 @@ int		corewar_fork(t_sen *core, t_bo *actual, t_arg *args)
 	ft_memcpy(actual->next, actual, sizeof(t_bo));
 	actual->next->next = tmp;
 	actual->next->pc = (actual->next->pc +
-				ft_convert(core, args[0].data - FIELD, args[0].size) % IDX_MOD)
+				dtoi(args[0].data, args[0].size) % IDX_MOD)
 				% core->arena.size;
 	actual->next->cycle = -1;
 	return (1);
