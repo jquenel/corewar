@@ -16,6 +16,7 @@ int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int			reg;
 
+	(void)core;
 	reg = dtoi(args[0].data, args[0].size) - 1;
 	if ((unsigned int)reg > 15)
 		return (0);

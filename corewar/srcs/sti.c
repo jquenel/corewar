@@ -12,16 +12,16 @@
 
 #include "corewar.h"
 
-static int	get_regs(t_sen *core, t_arg *args, int *reg)
+static int	get_regs(t_arg *args, int *reg)
 {
 	int		i;
 
 	i = 3;
 	while (i--)
 	{
-		if (args[i].type == REG_CODE)
+		if (args[i].type == T_REG)
 		{
-			reg[i] = ft_convert(core, args[i].data - FIELD, args[i].size) - 1;
+			reg[i] = dtoi(args[i].data, args[i].size) - 1;
 			if ((unsigned int)reg[i] > 15)
 				return (0);
 		}
@@ -35,9 +35,12 @@ int		corewar_sti(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		vpos;
 	int		reg[3];
+	int		s[2];
 
-	if (!get_regs(core, args, reg))
+	if (!get_regs(args, reg))
 		return (0);
+	s[0] = 3;
+	s[1] = s[0] + args[1].size;
 	if (args[2].type == T_REG)
 	{
 		ft_memcpy(&args[2].data, actual->reg[reg[2]], REG_SIZE);
@@ -48,8 +51,8 @@ int		corewar_sti(t_sen *core, t_bo *actual, t_arg *args)
 		ft_memcpy(&args[1].data, actual->reg[reg[1]], REG_SIZE);
 		args[1].size = REG_SIZE;
 	}
-	vpos = (core_getvalue(core, &args[2], actual) +
-			core_getvalue(core, &args[1], actual)) % IDX_MOD;
+	vpos = (core_getvalue(core, &args[2], actual->pc + s[0]) +
+			core_getvalue(core, &args[1], actual->pc + s[1])) % IDX_MOD;
 	core_regtomem(&core->arena, actual->reg[reg[0]],
 				actual->pc + vpos, REG_SIZE);
 	return (1);

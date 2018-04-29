@@ -14,7 +14,6 @@
 
 int		corewar_st(t_sen *core, t_bo *actual, t_arg *args)
 {
-	int		value_size;
 	int		reg1;
 	int		reg2;
 
@@ -31,7 +30,7 @@ int		corewar_st(t_sen *core, t_bo *actual, t_arg *args)
 	}
 	else
 	{
-		core_regtomem(core->arena, actual->reg[reg1],
+		core_regtomem(&core->arena, actual->reg[reg1],
 				actual->pc + (reg2 % IDX_MOD),
 				REG_SIZE < DIR_SIZE ? REG_SIZE : DIR_SIZE);
 	}

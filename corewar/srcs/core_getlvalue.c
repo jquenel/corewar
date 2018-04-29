@@ -16,12 +16,12 @@ int			core_getlvalue(t_sen *core, t_arg *arg, int pc)
 {
 	int		vpos;
 
-	if (arg->type == t_IND)
+	if (arg->type == T_IND)
 	{
 		vpos = dtoi(arg->data, arg->size);
 		arg->type = T_DIR;
 		arg->size = DIR_SIZE;
-		copy_to_arg(core, arg, pc + vpos);
+		copy_data(core, arg->data, pc + vpos, arg->size);
 	}
-	return (dtoi(arg->data, arg->size);
+	return (dtoi(arg->data, arg->size));
 }

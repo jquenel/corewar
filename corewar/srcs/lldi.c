@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-static int	get_regs(t_sen *core, t_arg *args, int *reg)
+static int	get_regs(t_arg *args, int *reg)
 {
 	int		i;
 
@@ -21,7 +21,7 @@ static int	get_regs(t_sen *core, t_arg *args, int *reg)
 	{
 		if (args[i].type == REG_CODE)
 		{
-			reg[i] = ft_convert(core, args[i].data - FIELD, args[i].size) - 1;
+			reg[i] = dtoi(args[i].data, args[i].size) - 1;
 			if ((unsigned int)reg[i] > 15)
 				return (0);
 		}
@@ -35,9 +35,12 @@ int		corewar_lldi(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		vpos;
 	int		reg[3];
+	int		s[2];
 
-	if (!get_regs(core, args, reg))
+	if (!get_regs(args, reg))
 		return (0);
+	s[0] = 2;
+	s[1] = s[0] + args[0].size;
 	if (args[0].type == T_REG)
 	{
 		ft_memcpy(&args[0].data, actual->reg[reg[0]], REG_SIZE);
@@ -48,8 +51,8 @@ int		corewar_lldi(t_sen *core, t_bo *actual, t_arg *args)
 		ft_memcpy(&args[1].data, actual->reg[reg[1]], REG_SIZE);
 		args[1].size = REG_SIZE;
 	}
-	vpos = core_getlvalue(core, &args[0], actual) +
-			core_getlvalue(core, &args[1], actual);
+	vpos = core_getlvalue(core, &args[0], actual->pc + s[0]) +
+			core_getlvalue(core, &args[1], actual->pc + s[1]);
 	ft_memset(actual->reg[reg[2]], 0, REG_SIZE);
 	copy_data(core, actual->reg[reg[2]], actual->pc + vpos, REG_SIZE);
 	return (1);

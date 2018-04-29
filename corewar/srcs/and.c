@@ -17,6 +17,7 @@ int		corewar_and(t_sen *core, t_bo *actual, t_arg *args)
 	int		reg[3];
 	int		i;
 
+	(void)core;
 	reg[0] = dtoi(args[0].data, args[0].size) - 1;
 	reg[1] = dtoi(args[1].data, args[1].size) - 1;
 	reg[2] = dtoi(args[2].data, args[2].size) - 1;

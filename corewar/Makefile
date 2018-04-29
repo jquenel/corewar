@@ -15,10 +15,10 @@ SRC_NAME=	corewar.c\
 			core_getlvalue.c\
 			core_regtomem.c\
 			copy_data.c\
+			dtoi.c\
 			count_players.c\
 			create_player.c\
 			dump_core.c\
-			ft_convert.c\
 			destroy_processes.c\
 			get_options.c\
 			load_program.c\
