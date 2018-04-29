@@ -33,22 +33,24 @@ static int	get_regs(t_sen *core, t_arg *args, int *reg)
 
 int		corewar_sti(t_sen *core, t_bo *actual, t_arg *args)
 {
-	int		value_size;
+	int		vpos;
 	int		reg[3];
 
 	if (!get_regs(core, args, reg))
 		return (0);
-	if (args[1].type == REG_CODE)
-		args[1].data = actual->reg[reg[1]];
-	if (args[2].type == REG_CODE)
-		args[2].data = actual->reg[reg[2]];
-	value_size = REG_CODE < DIR_CODE ? REG_CODE : DIR_CODE;
-	args[1].data = FIELD + ((actual->pc +
-				(core_getvalue(core, &args[1], actual) +
-				core_getvalue(core, &args[2], actual)) % IDX_MOD)
-				% core->arena.size);
-	args[1].type = DIR_CODE;
-	args[1].size = DIR_SIZE;
-	core_memcpy(&core->arena, &args[1], &args[0], value_size);
+	if (args[2].type == T_REG)
+	{
+		ft_memcpy(&args[2].data, actual->reg[reg[2]], REG_SIZE);
+		args[2].size = REG_SIZE;
+	}
+	if (args[1].type == T_REG)
+	{
+		ft_memcpy(&args[1].data, actual->reg[reg[1]], REG_SIZE);
+		args[1].size = REG_SIZE;
+	}
+	vpos = (core_getvalue(core, &args[2], actual) +
+			core_getvalue(core, &args[1], actual)) % IDX_MOD;
+	core_regtomem(&core->arena, actual->reg[reg[0]],
+				actual->pc + vpos, REG_SIZE);
 	return (1);
 }
