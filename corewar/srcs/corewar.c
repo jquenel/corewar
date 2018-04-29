@@ -16,6 +16,7 @@ int	main(int argc, char **argv)
 		usage();
 	if (parser(argc - 1, &(argv[1]), &core))
 		usage();
-	dump_core(&core);
 	start_battle(&core);
+	dump_core(&core);
+	destroy_processes(core.proc);
 }

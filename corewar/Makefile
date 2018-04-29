@@ -29,6 +29,9 @@ SRC_NAME=	corewar.c\
 			is_all_nums.c\
 			start_battle.c\
 			init_optab.c\
+			cycle.c\
+			plan_op.c\
+			do_op.c\
 			live.c\
 			ld.c\
 			st.c\

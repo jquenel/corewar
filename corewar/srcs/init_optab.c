@@ -2,6 +2,7 @@
 
 void		init_optab(t_optab op[OP_COUNT + 1])
 {
+	ft_memset(op, 0, sizeof(t_optab) * OP_COUNT + 1);
 	op[0] = (t_optab){corewar_live, 1, {T_DIR}, 10, 0};
 	op[1] = (t_optab){corewar_ld, 2, {T_DIR | T_IND, T_REG}, 5, EX_CD};
 	op[2] = (t_optab){corewar_st, 2, {T_REG, T_IND | T_REG}, 5, EX_CD};

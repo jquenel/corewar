@@ -38,7 +38,7 @@ int		corewar_ldi(t_sen *core, t_bo *actual, t_arg *args)
 	int		s[2];
 
 	if (!get_regs(args, reg))
-		return (0);
+		return (1);
 	s[0] = 2;
 	s[1] = s[0] + args[0].size;
 	if (args[0].type == T_REG)

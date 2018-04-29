@@ -14,10 +14,11 @@
 
 int		corewar_zjmp(t_sen *core, t_bo *actual, t_arg *args)
 {
-	if (actual->carry != 1)
-		return (0);
-	actual->pc = (actual->pc +
+	actual->pc = actual->carry == 1 ?
+				(actual->pc +
 				(dtoi(args[0].data, DIR_SIZE) % IDX_MOD))
-				% core->arena.size;
-	return (1);
+				% core->arena.size
+				:
+				(actual->pc + 1) % core->arena.size;
+	return (0);
 }

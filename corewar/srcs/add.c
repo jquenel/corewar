@@ -24,7 +24,7 @@ int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
 	if ((unsigned int)reg[0] > REG_NUMBER ||
 		(unsigned int)reg[1] > REG_NUMBER ||
 		(unsigned int)reg[2] > REG_NUMBER)
-		return (0);
+		return (1);
 	reg[0] = dtoi(actual->reg[reg[0]], REG_SIZE) +
 			dtoi(actual->reg[reg[1]], REG_SIZE);
 	i = REG_SIZE;

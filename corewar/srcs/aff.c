@@ -19,7 +19,7 @@ int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args)
 	(void)core;
 	reg = dtoi(args[0].data, args[0].size) - 1;
 	if ((unsigned int)reg > 15)
-		return (0);
+		return (1);
 	ft_printf("%c", actual->reg[reg][REG_SIZE - 1]);
 	return (1);
 }

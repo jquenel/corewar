@@ -12,14 +12,15 @@
 
 #include "corewar.h"
 
-void		core_regtomem(t_ban *arena, char *src, int dest, int size)
+void		core_regtomem(t_ban *arena, char *src, int dest, int pnum)
 {
 	int			i;
 
 	i = 0;
-	while (i < size)
+	while (i < REG_SIZE)
 	{
 		arena->field[(dest + i) % MEM_SIZE] = src[i];
+		arena->trace[(dest + i) % MEM_SIZE] = pnum;
 		i++;
 	}
 }

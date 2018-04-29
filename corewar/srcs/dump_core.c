@@ -31,5 +31,4 @@ void		dump_core(t_sen *core)
 			printf("\n");
 	}
 	printf("\n");
-	exit (0);
 }
