@@ -22,14 +22,16 @@ int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args)
 		return (0);
 	if (args[0].type == T_IND)
 	{
-		vpos = ft_convert(args[0].data, args[0].size) % IDX_MOD;
-		args[0].type = T_DIR;
-		args[0].size = DIR_SIZE;
-		copy_to_arg(core, &args[0], actual->pc + vpos);
+		vpos = dtoi(args[0].data, args[0].size) % IDX_MOD;
+		ft_memset(actual->reg[reg], 0, REG_SIZE);
+		copy_data(core, actual->reg[reg], actual->pc + vpos, REG_SIZE);
 	}
-	ft_memset(actual->reg[reg], 0, REG_SIZE);
-	ft_memcpy(actual->reg[reg], args[0].data,
+	else
+	{
+		ft_memset(actual->reg[reg], 0, REG_SIZE);
+		ft_memcpy(actual->reg[reg], args[0].data,
 				DIR_SIZE < REG_SIZE ? DIR_SIZE : REG_SIZE);
+	}
 	actual->carry = dtoi(actual->reg[reg], REG_SIZE) == 0 ? 1 : 0;
 	return (1);
 }

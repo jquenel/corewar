@@ -14,21 +14,23 @@
 
 int		corewar_ldi(t_sen *core, t_bo *actual, t_arg *args)
 {
-	int		value_size;
-	int		reg;
+	int		reg[2];
 	int		vpos;
 
-	reg = ft_convert(core, args[2].data - FIELD, args[2].size) - 1;
-	if ((unsigned int)reg > 15)
+	reg[0] = dtoi(args[2].data, args[2].size) - 1;
+	if ((unsigned int)reg[0] > 15)
 		return (0);
-	args[2].data = actual->reg[reg];
-	value_size = DIR_SIZE < REG_SIZE ? DIR_SIZE : REG_SIZE;
+	if (args[0].type == T_REG)
+	{
+		reg[1] = dtoi(args[0].data, args[0].size) - 1;
+		if ((unsigned int)reg[1] > 15)
+			return (0);
+		ft_memcpy(&args[0].data, actual->reg[reg[1]], REG_SIZE);
+		args[0].size = REG_SIZE;
+	}
 	vpos = (core_getvalue(core, &args[0], actual) +
 			core_getvalue(core, &args[1], actual)) % IDX_MOD;
-	args[0].data = FIELD + ((actual->pc + vpos) % core->arena.size);
-	args[0].size = DIR_SIZE;
-	args[0].type = DIR_CODE;
-	ft_memset(actual->reg[reg], 0, REG_SIZE);
-	core_memcpy(&core->arena, &args[2], &args[0], value_size);
+	ft_memset(actual->reg[reg[0]], 0, REG_SIZE);
+	copy_data(core, actual->reg[reg[0]], actual->pc + vpos, REG_SIZE);
 	return (1);
 }
