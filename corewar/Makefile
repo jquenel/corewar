@@ -13,9 +13,8 @@ CPPFLAGS=	-Iincludes -I../libft/includes
 SRC_NAME=	corewar.c\
 			core_getvalue.c\
 			core_getlvalue.c\
-			core_memcpy.c\
 			core_regtomem.c\
-			core_regvalue.c\
+			copy_data.c\
 			count_players.c\
 			create_player.c\
 			dump_core.c\
