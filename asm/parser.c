@@ -6,16 +6,17 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/25 23:51:36 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/04/29 01:36:02 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <libft_str.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include "ast.h"
 #include "lexer.h"
 #include "parser.h"
-
 #include <ft_printf.h>
 
 static const int	g_production_rules[][6] = {
@@ -117,18 +118,18 @@ static void			push_production_rule(t_parser_ctx *ctx, int rule_id)
 	}
 }
 
-int					parse(const char *filename, t_ast **ast)
+int					parse(const char *filename, t_ast *ast)
 {
 	t_lexer_ctx		lexer_ctx;
 	t_parser_ctx	parser_ctx;
 	t_token			token;
 	int				current_symbol;
 
-	(void)ast;
 	if ((lexer_ctx.fd = open(filename, O_RDONLY)) < 0)
 		return (0);
 	init_lexer_state(&lexer_ctx);
 	init_parser_state(&parser_ctx);
+	token.str = NULL;
 	while (get_next_token(&lexer_ctx, &token))
 	{
 		ft_dprintf(STDERR_FILENO, "Read token %s.\n", g_terminals[token.terminal]);
@@ -142,6 +143,8 @@ int					parse(const char *filename, t_ast **ast)
 			push_production_rule(
 				&parser_ctx, g_parse_table[current_symbol][token.terminal]);
 			current_symbol = pop_parser_stack(&parser_ctx);
+			free(token.str);
+			token.str = NULL;
 		}
 		ft_dprintf(STDERR_FILENO, "    Current symbol: terminal %s.\n",
 					g_terminals[current_symbol ^ TERMINAL_FLAG]);
@@ -149,8 +152,13 @@ int					parse(const char *filename, t_ast **ast)
 			return (0); // TODO
 		ft_dprintf(STDERR_FILENO, "        Terminals match.\n");
 		if (token.terminal == EndOfFile)
+		{
+			ft_list_reverse((t_list **)&ast->elements);
 			return (1);
-		// TODO
+		}
+		push_to_ast(ast, &token);
+		free(token.str);
+		token.str = NULL;
 	}
 	close(lexer_ctx.fd);
 	return (0);

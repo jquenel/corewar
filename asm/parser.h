@@ -6,12 +6,14 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:11 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/25 18:36:03 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/04/28 16:26:14 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+# include "ast.h"
 
 typedef enum e_non_terminal	t_non_terminal;
 enum	e_non_terminal
@@ -36,12 +38,6 @@ struct	s_parser_ctx
 	int	stack_offset;
 };
 
-typedef struct s_ast	t_ast;
-struct	s_ast
-{
-	void	*padding;
-};
-
-int		parse(const char *filename, t_ast **ast);
+int		parse(const char *filename, t_ast *ast);
 
 #endif
