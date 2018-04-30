@@ -12,9 +12,21 @@
 
 #include "corewar.h"
 
-static int	neg_dtoi(char *data, int size)
+static int	power256(int p)
 {
 	int		result;
+
+	if (p == 0)
+		return (1);
+	result = 1;
+	while (p--)
+		result *= 256;
+	return (result);
+}
+
+static int	neg_dtoi(char *data, int size)
+{
+	int	result;
 	int		i;
 
 	result = 0;
@@ -22,10 +34,10 @@ static int	neg_dtoi(char *data, int size)
 	while (i < size)
 	{
 		result *= 256;
-		result += 256 - (unsigned int)data[i];
+		result += (unsigned char)(data[i]);
 		i++;
 	}
-	return (-result);
+	return (-(power256(size) - result));
 }
 
 int		dtoi(char *data, int size)
@@ -40,7 +52,7 @@ int		dtoi(char *data, int size)
 	while (i < size)
 	{
 		result *= 256;
-		result += (unsigned char)data[i];
+		result += (unsigned char)(data[i]);
 		i++;
 	}
 	return (result);
