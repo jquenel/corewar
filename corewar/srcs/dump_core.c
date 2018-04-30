@@ -20,15 +20,21 @@ void		dump_core(t_sen *core)
 	int		i;
 
 	i = 0;
-	printf("{%s}{%s}[%d]\n", core->player[0].name, core->player[0].comment, core->player[0].pnum);
 	while (i < MEM_SIZE)
 	{
-		printf("%.2hhx", core->arena.field[i]);
+		if (!(i % 64))
+		{
+			if (i)
+				ft_printf("%#.4x : ", i);
+			else
+				ft_printf("0x0000 : ");
+		}
+		ft_printf("%.2hhx", core->arena.field[i]);
 		i++;
-		if (i % 32)
-			printf(" ");
+		if (i % 64)
+			ft_printf(" ");
 		else
-			printf("\n");
+			ft_printf("\n");
 	}
-	printf("\n");
+	ft_printf("\n");
 }

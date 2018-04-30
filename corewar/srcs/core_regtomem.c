@@ -16,11 +16,13 @@ void		core_regtomem(t_ban *arena, char *src, int dest, int pnum)
 {
 	int			i;
 
+	while (dest < 0)
+		dest = arena->size + dest;
 	i = 0;
 	while (i < REG_SIZE)
 	{
-		arena->field[(dest + i) % MEM_SIZE] = src[i];
-		arena->trace[(dest + i) % MEM_SIZE] = pnum;
+		arena->field[(dest + i) % arena->size] = src[i];
+		arena->trace[(dest + i) % arena->size] = pnum;
 		i++;
 	}
 }
