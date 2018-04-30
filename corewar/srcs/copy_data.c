@@ -5,6 +5,8 @@
 
 void		copy_data(t_sen *core, char *dest, int pc, int size)
 {
+	while (pc < 0)
+		pc = core->arena.size + pc;
 	while (size--)
 		dest[size] = FIELD_INDEX(pc + size);
 }

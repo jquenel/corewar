@@ -22,8 +22,10 @@ int		corewar_lfork(t_sen *core, t_bo *actual, t_arg *args)
 	ft_memcpy(actual->next, actual, sizeof(t_bo));
 	actual->next->next = tmp;
 	actual->next->pc = (actual->next->pc +
-				dtoi(args[0].data, args[0].size))
-				% core->arena.size;
+				dtoi(args[0].data, args[0].size));
+	while (actual->next->pc < 0)
+		actual->next->pc = core->arena.size + actual->next->pc;
+	actual->next->pc %= core->arena.size;
 	actual->next->cycle = -1;
 	return (1);
 }
