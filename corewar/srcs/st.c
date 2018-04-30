@@ -17,11 +17,13 @@ int		corewar_st(t_sen *core, t_bo *actual, t_arg *args)
 	int		reg1;
 	int		reg2;
 
+	ft_printf("st.c\n");
 	reg1 = dtoi(args[0].data, args[0].size) - 1;
 	reg2 = dtoi(args[1].data, args[1].size) - (args[1].type == T_REG ? 1 : 0);
 	if ((unsigned int)reg1 > 15 ||
 			(args[1].type == T_REG && (unsigned int)reg2 > 15))
 		return (1);
+	ft_printf("in st --- got reg1 = %d [%x] , reg2 = %d [%x]\n", reg1, reg1, reg2, reg2);
 	if (args[1].type == T_REG)
 	{
 		ft_memset(actual->reg[reg2], 0, REG_SIZE);

@@ -34,9 +34,14 @@ static void	copy_pnum(int *pnum, char *reg)
 	int		j;
 
 	i = REG_SIZE;
+	/*DEPENDING ON ENDIANNESS...
 	j = sizeof(int);
 	while (i-- && j--)
 		reg[i] = ((char *)pnum)[j];
+	*/
+	j = 0;
+	while (i-- && (unsigned int)j < sizeof(int))
+		reg[i] = ((char *)pnum)[j++];
 }
 
 static void	change_empty_char(t_sen *core, int pcount)
