@@ -84,7 +84,6 @@ void		start_battle(t_sen *core)
 
 	init_optab(op);
 	alive = 2;
-	ft_printf("starting battle !!\n");
 	while (alive > 1)
 	{
 		//if (!core->visu.pause)
@@ -99,7 +98,6 @@ void		start_battle(t_sen *core)
 			if (++core->state.c_count == core->state.c_todie)
 			{
 				alive = check_alive(core->player, &core->proc);
-				ft_printf("cycle #%d\n%d players alive", core->state.c_total, alive);
 				if (core->state.l_count >= core->state.l_limit
 						|| ++core->state.l_checks == core->state.l_checks_limit)
 				{
@@ -108,7 +106,6 @@ void		start_battle(t_sen *core)
 						core->state.c_delta
 						< 0 ? 0 : core->state.c_todie - core->state.c_delta;
 				}
-				ft_printf("c_todie = %d\n", core->state.c_todie);
 				core->state.c_count = 0;
 				core->state.l_count = 0;
 			}

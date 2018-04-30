@@ -27,3 +27,20 @@ void		init_optab(t_optab op[OP_COUNT + 1])
 	op[15] = (t_optab){corewar_aff, 1, {T_REG}, 1, EX_CD};
 	op[16] = (t_optab){NULL, 0, {0}, 0, 0};
 }
+
+//basice tests on :
+//live
+//ld
+//st
+//add
+//sub
+//or
+//and
+//xor
+//zjmp
+//ldi
+//sti
+//fork
+//lld
+//lldi
+//lfork

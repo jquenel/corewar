@@ -14,9 +14,9 @@
 
 int		corewar_zjmp(t_sen *core, t_bo *actual, t_arg *args)
 {
-	actual->pc += actual->carry == 1 ?
-				dtoi(args[0].data, IND_SIZE) % IDX_MOD : 1;
-	ft_printf("carry = %d, jumping to [%d] + [%d] ?\n", actual->carry, actual->pc, dtoi(args[0].data, IND_SIZE) % IDX_MOD);
+	if (actual->carry != 1)
+		return (1);
+	actual->pc += dtoi(args[0].data, args[0].size) % IDX_MOD;
 	while (actual->pc < 0)
 		actual->pc = core->arena.size + actual->pc;
 	actual->pc %= core->arena.size;
