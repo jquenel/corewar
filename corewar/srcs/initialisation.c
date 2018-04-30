@@ -12,15 +12,12 @@
 
 #include "template.h"
 
-SDL_Renderer	*renderer = NULL;
-SDL_Window		*window = NULL;
-t_2d_coord		*window_size = NULL;
-int		FPS;
-int		framedelay;
+SDL_Renderer	*renderer;
+SDL_Window		*window;
+t_2d_coord		*window_size;
 
 void	window_initialisation(char *window_name)
 {
-
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_DisplayMode current;
     SDL_GetDesktopDisplayMode(0, &current);
@@ -34,24 +31,6 @@ void	window_initialisation(char *window_name)
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 	SDL_WarpMouseInWindow(window, window_size->x / 2, window_size->y / 2);
-	FPS = 60;
-	framedelay = 1000 / FPS;
-}
-
-t_2d_coord	*get_window_size()
-{
-	return (window_size);
-}
-
-t_2d_coord	*get_mouse_coord()
-{
-	t_2d_coord *coord;
-	int x;
-	int y;
-
-	SDL_GetMouseState(&x, &y);
-	coord = t_2d_coord_new(x, y);
-	return (coord);
 }
 
 SDL_Renderer *get_renderer()
@@ -74,10 +53,13 @@ void error_exit(char *msg, int error)
 void check_frame()
 {
 	int				frame_actual;
-	static int		nb_frame = 0;
-	static int		beginsecond = 0;
-	static Uint32	framestart = 0;
+	static int		nb_frame;
+	static int		beginsecond;
+	static Uint32	framestart;
 
+	nb_frame = 0;
+	beginsecond = 0;
+	framestart = 0;
 	frame_actual = SDL_GetTicks();
 	if (beginsecond == 0)
 		beginsecond = frame_actual;
@@ -89,7 +71,7 @@ void check_frame()
 	}
 	else
 		nb_frame++;
-	if ((unsigned int)framedelay > (frame_actual - framestart))
+	if (framedelay > (frame_actual - framestart))
 		SDL_Delay(framedelay - (frame_actual - framestart));
 	framestart = SDL_GetTicks();
 }

@@ -12,16 +12,20 @@
 
 #include "template.h"
 
-static void control_input(t_state *state)
+static void control_input(SDL_Event *event)
 {
-	if (state->event.type == SDL_QUIT)
-		state->state = 0;
-	if ( state->event.type == SDL_KEYUP && state->event.key.keysym.sym == SDLK_ESCAPE)
-		state->state = 0;
+	if (event->type == SDL_QUIT)
+		exit(0);
+	else if ( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_ESCAPE)
+		exit(0);
 }
 
-void update_input(t_state *state)
+void update_input(t_core *sdl_core)
 {
-	if (SDL_PollEvent(&(state->event)) == 1)
-		control_input(state);
+	SDL_Event *event;
+
+	(void)sdl_core;
+	event = NULL;
+	if (SDL_PollEvent(event) == 1)
+		control_input(event);
 }
