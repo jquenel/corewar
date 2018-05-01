@@ -16,11 +16,11 @@ int		count_players(int argc, char **argv)
 		}
 		else
 		{
-			i++;
-			if (i >= argc || !is_all_nums(argv[i]))
+			if (++i >= argc ||
+			(!is_all_nums(argv[i])
+					&& !(argv[i][0] == '-' && is_all_nums(&(argv[i][1])))))
 				return (-1);
-			i++;
-			if (i >= argc || argv[i][0] == '-')
+			if (++i >= argc || argv[i][0] == '-')
 				return (-1);
 		}
 		if (++pc > MAX_PLAYERS)
