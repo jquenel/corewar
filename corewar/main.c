@@ -1,19 +1,6 @@
 #include "template.h"
 #include "corewar.h"
 
-static t_2d_coord *get_size(int	len)
-{
-	int		i;
-	int		j;
-
-	i = get_root(len);
-	j = i;
-	while (i * j < len)
-		i++;
-	printf("%d / %d\n", i, j);
-	return (t_2d_coord_new(i, j));
-}
-
 void	usage(void)
 {
 	ft_putendl("Usage : corewar [-dump nbr_cycles] \
@@ -21,17 +8,61 @@ void	usage(void)
 	exit (1);
 }
 
-static t_core *create_t_core(t_sen *core)
+static char *get_player_color(char i)
 {
-	t_core		*sdl_core;
+	if (i == 0)
+		return ("blue");
+	else if (i == 1)
+		return ("red");
+	else if (i == 2)
+		return ("green");
+	else if (i == 3)
+		return ("orange");
+	return ("grey");
+}
 
-	if (!(sdl_core = (t_core *)malloc(sizeof(t_core))))
-		error_exit("Can't malloc a t_core", 152);
-	sdl_core->field = core->arena.field;
-	sdl_core->index = core->arena.field;
-	sdl_core->len = core->arena.size;
-	sdl_core->size = get_size(sdl_core->len);
-	return (sdl_core);
+void draw_core(t_core *core)
+{
+	int			i;
+	int 		j;
+	char		*text;
+	int			pos;
+	t_2d_coord	coord;
+	t_2d_coord	size;
+
+	SDL_SetRenderDrawColor(get_renderer(), 40, 40, 40, 255);
+	SDL_RenderClear(get_renderer());
+	if (core->font_size != (core->unit * 1.5) * core->zoom)
+	{
+		TTF_CloseFont(core->font);
+		core->font = TTF_OpenFont(FONT_PATH, (core->unit * 1.2) * core->zoom);
+	}
+	size.x = (core->unit * 2) * core->zoom;
+	size.y = core->unit * core->zoom;
+	i = 0;
+	while (i < core->tab_size->x)
+	{
+		j = 0;
+		while (j < core->tab_size->y)
+		{
+			coord.x = (core->base_pos->x + (i * ((core->unit * 2) + core->space)) + core->space / 2) * core->zoom;
+			coord.y = (core->base_pos->y + (j * (core->unit + core->space)) + core->space / 2) * core->zoom;
+			if (coord.x + (core->unit * 2) * core->zoom >= 0 && coord.x < get_window_size()->x && coord.y + core->unit * core->zoom >= 0 && coord.y < get_window_size()->y)
+			{
+				pos = i + (j * core->tab_size->x);
+				draw_border_rectangle(&coord, &size, get_player_color(core->index[pos]));
+				coord.x = coord.x + (core->unit * core->zoom);
+				coord.y = coord.y + ((core->unit / 2) * core->zoom);
+				text = ft_itoa_base(ft_abs(core->field[pos]), "0123456789abcdef");
+		        if (ft_strlen(text) < 2)
+		            ft_stradd_front("0", &text);
+				draw_centred_text(text, &coord, "black", core->font, "normal");
+				free(text);
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
@@ -45,14 +76,11 @@ int main(int argc, char **argv)
 		usage();
 	window_initialisation("char *window_name");
 	sdl_core = create_t_core(&core);
-	printf("Bouh1\n");
 	while (1)
 	{
-		printf("Bouh2\n");
+		draw_core(sdl_core);
 		render_screen();
-		printf("Bouh3\n");
 		update_input(sdl_core);
-		printf("Bouh4\n");
 	}
 	return (0);
 }

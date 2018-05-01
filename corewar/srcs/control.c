@@ -12,27 +12,49 @@
 
 #include "template.h"
 
-static void control_input(SDL_Event *event)
+static void control_camera(t_core *sdl_core)
+{
+	int		x;
+	int		y;
+
+	SDL_GetMouseState(&x , &y);
+	if (x == 0 || x == get_window_size()->x - 1 || y == 0 || y == get_window_size()->y - 1)
+	{
+		if (x == 0)
+			sdl_core->base_pos->x += 10;
+		if (x == get_window_size()->x - 1)
+			sdl_core->base_pos->x += -10;
+		if (y == 0)
+			sdl_core->base_pos->y += 10;
+		if (y == get_window_size()->y - 1)
+			sdl_core->base_pos->y += -10;
+	}
+}
+
+static void control_input(SDL_Event *event, t_core *sdl_core)
 {
 	if (event->type == SDL_QUIT)
 		exit(0);
 	else if ( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_ESCAPE)
 		exit(0);
-	printf("Bouh haha\n");
+	else if (event->type == SDL_MOUSEWHEEL)
+	{
+		if (event->wheel.y > 0)
+			sdl_core->zoom *= 1.1;
+        else if (event->wheel.y < 0)
+			sdl_core->zoom *= 0.9;
+	}
 }
 
 void update_input(t_core *sdl_core)
 {
-	SDL_Event *event;
+	SDL_Event event;
 
-	(void)sdl_core;
-	printf("a1\n");
-	event = NULL;
-	printf("a2\n");
-	if (SDL_PollEvent(event) == 1 && event != NULL)
+	control_camera(sdl_core);
+	if (SDL_PollEvent(&event) == 1)
 	{
-		printf("a3\n");
-		control_input(event);
-		printf("a4\n");
+		control_input(&event, sdl_core);
 	}
+	SDL_PumpEvents();
+	SDL_FlushEvent(SDL_MOUSEMOTION);
 }

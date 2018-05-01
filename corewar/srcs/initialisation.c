@@ -12,9 +12,13 @@
 
 #include "template.h"
 
-SDL_Renderer	*renderer;
-SDL_Window		*window;
-t_2d_coord		*window_size;
+SDL_Renderer	    *renderer;
+SDL_Window		    *window;
+t_2d_coord		    *window_size;
+const int           FPS = 64;
+const unsigned int  framedelay = 1000 / 64;
+static int		    nb_frame = 0;
+static int		    beginsecond = 0;
 
 void	window_initialisation(char *window_name)
 {
@@ -27,15 +31,22 @@ void	window_initialisation(char *window_name)
 	window_size = t_2d_coord_new(0, 0);
 	SDL_GetWindowSize(window, &window_size->x, &window_size->y);
 	TTF_Init();
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 	SDL_WarpMouseInWindow(window, window_size->x / 2, window_size->y / 2);
+    SDL_SetWindowGrab(window, SDL_TRUE);
+    SDL_ShowCursor(1);
 }
 
 SDL_Renderer *get_renderer()
 {
 	return (renderer);
+}
+
+t_2d_coord  *get_window_size()
+{
+    return (window_size);
 }
 
 void close_renderer()
@@ -53,13 +64,8 @@ void error_exit(char *msg, int error)
 void check_frame()
 {
 	int				frame_actual;
-	static int		nb_frame;
-	static int		beginsecond;
 	static Uint32	framestart;
 
-	nb_frame = 0;
-	beginsecond = 0;
-	framestart = 0;
 	frame_actual = SDL_GetTicks();
 	if (beginsecond == 0)
 		beginsecond = frame_actual;
@@ -73,7 +79,7 @@ void check_frame()
 		nb_frame++;
 	if (framedelay > (frame_actual - framestart))
 		SDL_Delay(framedelay - (frame_actual - framestart));
-	framestart = SDL_GetTicks();
+    framestart = SDL_GetTicks();
 }
 
 void	render_screen()

@@ -51,6 +51,17 @@ void draw_SDLSurface(SDL_Surface *bmp, t_2d_coord *coord, t_2d_coord *size, doub
 	SDL_DestroyTexture(texture);
 }
 
+void draw_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, t_2d_coord *size, double angle)
+{
+	SDL_Rect		dstrect;
+	
+	dstrect.x = coord->x;
+	dstrect.y = coord->y;
+	dstrect.w = size->x;
+	dstrect.h = size->y;
+	SDL_RenderCopyEx(get_renderer(), texture, NULL, &dstrect, angle, NULL, SDL_FLIP_NONE);
+}
+
 void draw_centred_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, double angle)
 {
 	SDL_Rect		dstrect;
