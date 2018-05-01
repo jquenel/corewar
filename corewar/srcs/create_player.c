@@ -25,6 +25,8 @@ static int	get_player_num(int *argc, char ***argv, t_sen *core)
 			i++;
 		}
 	}
+
+	ft_printf("got a player num : %d\n", num);
 	return (num);
 }
 
