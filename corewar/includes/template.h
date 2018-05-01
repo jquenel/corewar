@@ -23,6 +23,8 @@
 # include "ft_printf.h"
 
 # define FONT_PATH	"obj/font/Alef-Regular.ttf"
+# define FPS		64
+# define framedelay	1000 / FPS
 
 typedef struct	s_2d_coord
 {
@@ -40,26 +42,12 @@ typedef struct 		s_tileset
 	t_2d_coord		*size;
 }					t_tileset;
 
-typedef struct	s_state
-{
-	SDL_Event	event;
-	int			state;
-	int			frame;
-	int			frame_state;
-	int			direction;
-}				t_state;
-
 typedef struct	s_core
 {
 	char		*field;
 	char		*index;
-	int			*pc;
 	int			len;
 	t_2d_coord	*size;
-	int			text_size;
-	int			space;
-	t_2d_coord	*start;
-	TTF_Font	*font;
 }				t_core;
 
 void			draw_image(char *path, t_2d_coord *coord, t_2d_coord *size, double angle);
@@ -94,9 +82,9 @@ t_tileset		*create_tileset(char *path);
 t_tileset		*initiate_tileset(char *path, int value_x, int value_y);
 void			draw_tileset(t_tileset *tile, int sprite, t_2d_coord *coord, t_2d_coord *size, double angle);
 
-void 			update_input(t_state *state);
+void 			update_input(t_core *core);
 
 int				get_root(int size);
-char			*ft_itoa_base(int value, int base);
+char			*ft_itoa_base(int value, char *base);
 
 #endif

@@ -18,6 +18,7 @@ static void control_input(SDL_Event *event)
 		exit(0);
 	else if ( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_ESCAPE)
 		exit(0);
+	printf("Bouh haha\n");
 }
 
 void update_input(t_core *sdl_core)
@@ -25,7 +26,13 @@ void update_input(t_core *sdl_core)
 	SDL_Event *event;
 
 	(void)sdl_core;
+	printf("a1\n");
 	event = NULL;
-	if (SDL_PollEvent(event) == 1)
+	printf("a2\n");
+	if (SDL_PollEvent(event) == 1 && event != NULL)
+	{
+		printf("a3\n");
 		control_input(event);
+		printf("a4\n");
+	}
 }

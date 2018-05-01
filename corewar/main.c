@@ -45,10 +45,14 @@ int main(int argc, char **argv)
 		usage();
 	window_initialisation("char *window_name");
 	sdl_core = create_t_core(&core);
+	printf("Bouh1\n");
 	while (1)
 	{
+		printf("Bouh2\n");
 		render_screen();
+		printf("Bouh3\n");
 		update_input(sdl_core);
+		printf("Bouh4\n");
 	}
 	return (0);
 }
