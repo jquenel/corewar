@@ -32,6 +32,7 @@ SRC_NAME=	corewar.c\
 			cycle.c\
 			plan_op.c\
 			do_op.c\
+			declare_winner.c\
 			live.c\
 			ld.c\
 			st.c\

@@ -24,6 +24,7 @@ static void	init_state(t_sumego *state)
 	state->l_checks_limit = MAX_CHECKS;
 	state->l_limit = NBR_LIVE;
 	state->dump_limit = -1;
+	state->l_last = -1;
 }
 
 static void	init_core(t_sen *core)
