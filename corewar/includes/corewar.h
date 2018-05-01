@@ -84,6 +84,7 @@ typedef struct			s_sumego
 	int					l_checks;
 	int					l_checks_limit;
 	int					l_limit;
+	int					l_last;
 	int					dump_limit;
 }						t_sumego;
 
@@ -134,6 +135,7 @@ void	cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 int		fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 void	do_op(t_sen *core, t_bo *actual);
 int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
+void	declare_winner(t_sen *core, int alive);
 
 void	dump_core(t_sen *core);
 int		destroy_processes(t_bo *proc);

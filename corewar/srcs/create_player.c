@@ -25,8 +25,6 @@ static int	get_player_num(int *argc, char ***argv, t_sen *core)
 			i++;
 		}
 	}
-
-	ft_printf("got a player num : %d\n", num);
 	return (num);
 }
 
@@ -72,6 +70,7 @@ static void	change_empty_char(t_sen *core, int pcount)
 		if (core->arena.trace[i] == tmp)
 			core->arena.trace[i] = core->arena.empty_char;
 	}
+	core->state.l_last = core->arena.empty_char;
 }
 
 int			create_player(int *argc, char ***argv, t_sen *core, int i)

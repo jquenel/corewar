@@ -33,7 +33,8 @@ int			load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc)
 		return (1);
 	ft_strncpy(player->name, h.prog_name, PROG_NAME_LENGTH);
 	ft_strncpy(player->comment, h.comment, COMMENT_LENGTH);
-	h.prog_size = get_prog_size(h.prog_size);
+	if ((h.prog_size = get_prog_size(h.prog_size)) > CHAMP_MAX_SIZE)
+		return (1);
 	if (read(fd, arena->field + proc->pc, h.prog_size + 1) != h.prog_size)
 		return (1);
 	return (0);

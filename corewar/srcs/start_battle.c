@@ -111,4 +111,5 @@ void		start_battle(t_sen *core)
 			}
 		//}
 	}
+	declare_winner(core, alive);
 }

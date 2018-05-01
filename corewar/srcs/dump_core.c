@@ -37,4 +37,6 @@ void		dump_core(t_sen *core)
 			ft_printf("\n");
 	}
 	ft_printf("\n");
+	destroy_processes(core->proc);
+	exit(0);
 }
