@@ -48,38 +48,3 @@ void draw_border_rectangle(t_2d_coord *coord, t_2d_coord *size, char *color_type
     SDL_SetRenderDrawColor(get_renderer(), color2.r, color2.g, color2.b, color2.a);
     SDL_RenderFillRect(get_renderer(), &Rect2);
 }
-
-static void	draw_square_line(t_tileset *tile, t_2d_coord *coord, t_2d_coord *size, int size_unit, int sprite)
-{
-	t_2d_coord *tmp_coord;
-	t_2d_coord *tmp_size;
-
-	tmp_coord = t_2d_coord_new(coord->x, coord->y);
-	tmp_size = t_2d_coord_new(size_unit, size_unit);
-	draw_tileset(tile, sprite, tmp_coord, tmp_size, 0);
-	while (tmp_coord->x + size_unit < coord->x + size->x - size_unit)
-	{
-		t_2d_coord_actualize(tmp_coord, tmp_coord->x + size_unit, tmp_coord->y);
-		draw_tileset(tile, sprite + 1, tmp_coord, tmp_size, 0);
-	}
-	t_2d_coord_actualize(tmp_coord, coord->x + size->x - size_unit, coord->y);
-	draw_tileset(tile, sprite + 2, tmp_coord, tmp_size, 0);
-	free(tmp_size);
-	free(tmp_coord);
-}
-
-void	draw_tiled_square(t_tileset *tile, t_2d_coord *coord, t_2d_coord *size, int size_unit)
-{
-	t_2d_coord *tmp_coord;
-
-	tmp_coord = t_2d_coord_new(coord->x, coord->y);
-	draw_square_line(tile, tmp_coord, size, size_unit, 0);
-	while (tmp_coord->y + size_unit < coord->y + size->y - size_unit)
-	{
-		t_2d_coord_actualize(tmp_coord, tmp_coord->x, tmp_coord->y + size_unit);
-		draw_square_line(tile, tmp_coord, size, size_unit, 3);
-	}
-	t_2d_coord_actualize(tmp_coord, coord->x, coord->y + size->y - size_unit);
-	draw_square_line(tile, tmp_coord, size, size_unit, 6);
-	free(tmp_coord);
-}

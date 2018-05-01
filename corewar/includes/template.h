@@ -20,11 +20,10 @@
 # include <SDL_ttf.h>
 
 # include "libft.h"
+# include "corewar.h"
 # include "ft_printf.h"
 
 # define FONT_PATH	"obj/font/Alef-Regular.ttf"
-# define FPS		64
-# define framedelay	1000 / FPS
 
 typedef struct	s_2d_coord
 {
@@ -47,11 +46,18 @@ typedef struct	s_core
 	char		*field;
 	char		*index;
 	int			len;
-	t_2d_coord	*size;
+	TTF_Font 	*font;
+	int			font_size;
+	t_2d_coord	*tab_size;
+	t_2d_coord	*base_pos;
+	double		zoom;
+	int			unit;
+	int			space;
 }				t_core;
 
 void			draw_image(char *path, t_2d_coord *coord, t_2d_coord *size, double angle);
 void			draw_SDLSurface(SDL_Surface *bmp, t_2d_coord *coord, t_2d_coord *size, double angle);
+void 			draw_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, t_2d_coord *size, double angle);
 
 SDL_Color 		create_color(int r, int g, int b, int a);
 SDL_Color		get_color(char *color_type);
@@ -65,7 +71,6 @@ int				draw_centred_text(char *text, t_2d_coord *coord, char *color_type, TTF_Fo
 void			window_initialisation(char *window_name);
 SDL_Renderer	*get_renderer();
 t_2d_coord		*get_window_size();
-t_2d_coord		*get_mouse_coord();
 void			close_renderer();
 void			error_exit(char *msg, int error);
 void			check_frame();
@@ -86,5 +91,8 @@ void 			update_input(t_core *core);
 
 int				get_root(int size);
 char			*ft_itoa_base(int value, char *base);
+void			ft_stradd_front(char *s1, char **s2);
 
+t_core			*create_t_core(t_sen *core);
+void 			draw_core(t_core *core);
 #endif
