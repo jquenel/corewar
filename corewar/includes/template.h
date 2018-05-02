@@ -47,6 +47,7 @@ typedef struct	s_core
 	char		*index;
 	int			len;
 	TTF_Font 	*font;
+	SDL_Texture *texture_list[256];
 	int			font_size;
 	t_2d_coord	*tab_size;
 	t_2d_coord	*base_pos;
@@ -58,6 +59,7 @@ typedef struct	s_core
 void			draw_image(char *path, t_2d_coord *coord, t_2d_coord *size, double angle);
 void			draw_SDLSurface(SDL_Surface *bmp, t_2d_coord *coord, t_2d_coord *size, double angle);
 void 			draw_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, t_2d_coord *size, double angle);
+void 			draw_centred_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, double angle);
 
 SDL_Color 		create_color(int r, int g, int b, int a);
 SDL_Color		get_color(char *color_type);
@@ -95,4 +97,6 @@ void			ft_stradd_front(char *s1, char **s2);
 
 t_core			*create_t_core(t_sen *core);
 void 			draw_core(t_core *core);
+void 			set_texture_list(t_core *core);
+
 #endif

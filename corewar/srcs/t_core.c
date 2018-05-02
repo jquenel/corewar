@@ -29,8 +29,8 @@ static void define_base(t_core *core)
 	core->base_pos = t_2d_coord_new(get_window_size()->x / 2 - i / 2,
 									get_window_size()->y / 2 - j / 2);
 	core->zoom = 1;
-    core->font = TTF_OpenFont(FONT_PATH, core->unit);
-    core->font_size = 0;
+	core->font = NULL;
+    set_texture_list(core);
 }
 
 t_core *create_t_core(t_sen *core)

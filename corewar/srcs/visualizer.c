@@ -14,22 +14,40 @@ static char *get_player_color(char i)
 	return ("grey");
 }
 
+void set_texture_list(t_core *core)
+{
+	int			i;
+	char		*text;
+	SDL_Surface	*surface;
+
+	if (core->font != NULL)
+		TTF_CloseFont(core->font);
+	core->font_size = (core->unit * 1.5) * core->zoom;
+	core->font = TTF_OpenFont(FONT_PATH, core->font_size);
+	i = 0;
+	while (i < 256)
+	{
+		text = ft_itoa_base(i, "0123456789abcdef");
+		if (ft_strlen(text) < 2)
+			ft_stradd_front("0", &text);
+		surface = TTF_RenderText_Blended(core->font, text, get_color("black"));
+		core->texture_list[i] = SDL_CreateTextureFromSurface(get_renderer(), surface);
+		SDL_FreeSurface(surface);
+		free(text);
+		i++;
+	}
+}
+
 void draw_core(t_core *core)
 {
 	int			i;
 	int 		j;
-	char		*text;
 	int			pos;
 	t_2d_coord	coord;
 	t_2d_coord	size;
 
 	SDL_SetRenderDrawColor(get_renderer(), 40, 40, 40, 255);
 	SDL_RenderClear(get_renderer());
-	if (core->font_size != (core->unit * 1.5) * core->zoom)
-	{
-		TTF_CloseFont(core->font);
-		core->font = TTF_OpenFont(FONT_PATH, (core->unit * 1.2) * core->zoom);
-	}
 	size.x = (core->unit * 2) * core->zoom;
 	size.y = core->unit * core->zoom;
 	i = 0;
@@ -46,11 +64,7 @@ void draw_core(t_core *core)
 				draw_border_rectangle(&coord, &size, get_player_color(core->index[pos]));
 				coord.x = coord.x + (core->unit * core->zoom);
 				coord.y = coord.y + ((core->unit / 2) * core->zoom);
-				text = ft_itoa_base(ft_abs(core->field[pos]), "0123456789abcdef");
-		        if (ft_strlen(text) < 2)
-		            ft_stradd_front("0", &text);
-				//draw_centred_text(text, &coord, "black", core->font, "normal");
-				free(text);
+				draw_centred_SDLTexture(core->texture_list[ft_abs(core->field[pos])], &coord, 0);
 			}
 			j++;
 		}

@@ -43,6 +43,7 @@ static void control_input(SDL_Event *event, t_core *sdl_core)
 			sdl_core->zoom *= 1.1;
         else if (event->wheel.y < 0)
 			sdl_core->zoom *= 0.9;
+		set_texture_list(sdl_core);
 	}
 }
 
