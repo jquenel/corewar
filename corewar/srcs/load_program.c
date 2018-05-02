@@ -37,5 +37,6 @@ int			load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc)
 		return (1);
 	if (read(fd, arena->field + proc->pc, h.prog_size + 1) != h.prog_size)
 		return (1);
+	ft_memset(arena->trace + proc->pc, player->pnum, h.prog_size);
 	return (0);
 }
