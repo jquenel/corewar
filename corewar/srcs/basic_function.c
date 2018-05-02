@@ -12,6 +12,22 @@
 
 #include "template.h"
 
+static char	*ft_strnew(size_t size)
+{
+	char		*dest;
+	size_t		i;
+
+	if (!(dest = (char *)malloc(sizeof(char) * size + 1)))
+		error_exit("Can't execute a ft_strnew", 1);
+	i = 0;
+	while (i < size + 1)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
 int		get_root(int size)
 {
 	int		i;

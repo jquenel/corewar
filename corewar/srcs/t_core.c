@@ -30,7 +30,7 @@ static void define_base(t_core *core)
 									get_window_size()->y / 2 - j / 2);
 	core->zoom = 1;
     core->font = TTF_OpenFont(FONT_PATH, core->unit);
-    core->font_size = core->unit;
+    core->font_size = 0;
 }
 
 t_core *create_t_core(t_sen *core)
@@ -40,7 +40,7 @@ t_core *create_t_core(t_sen *core)
 	if (!(sdl_core = (t_core *)malloc(sizeof(t_core))))
 		error_exit("Can't malloc a t_core", 152);
 	sdl_core->field = core->arena.field;
-	sdl_core->index = core->arena.field;
+	sdl_core->index = core->arena.trace;
 	sdl_core->len = core->arena.size;
 	sdl_core->tab_size = get_size(sdl_core->len);
 	define_base(sdl_core);

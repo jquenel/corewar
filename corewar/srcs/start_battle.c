@@ -6,11 +6,12 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/03 23:19:49 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/04 19:37:19 by jboissy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "template.h"
 
 static int	do_cycle(t_sen *core, t_optab *op)
 {
@@ -36,9 +37,12 @@ void		start_battle(t_sen *core)
 	int			alive;
 	int			cycles;
 	t_optab		op[OP_COUNT + 1];
+	t_core		*sdl_core;
 
 	init_optab(op);
 	alive = 2;
+	window_initialisation("char *window_name");
+	sdl_core = create_t_core(core);
 	while (alive > 1)
 	{
 		if ((cycles = do_cycle(core, op)) < 0)
@@ -50,6 +54,9 @@ void		start_battle(t_sen *core)
 		core->state.c_count += cycles;
 		if (core->state.c_count >= core->state.c_todie)
 			alive = tsumego(core);
+		draw_core(sdl_core);
+		render_screen();
+		update_input(sdl_core);
 	}
 	declare_winner(core, alive);
 }

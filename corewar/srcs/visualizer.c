@@ -49,7 +49,7 @@ void draw_core(t_core *core)
 				text = ft_itoa_base(ft_abs(core->field[pos]), "0123456789abcdef");
 		        if (ft_strlen(text) < 2)
 		            ft_stradd_front("0", &text);
-				draw_centred_text(text, &coord, "black", core->font, "normal");
+				//draw_centred_text(text, &coord, "black", core->font, "normal");
 				free(text);
 			}
 			j++;

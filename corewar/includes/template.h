@@ -23,7 +23,7 @@
 # include "corewar.h"
 # include "ft_printf.h"
 
-# define FONT_PATH	"obj/font/Alef-Regular.ttf"
+# define FONT_PATH	"font/Alef-Regular.ttf"
 
 typedef struct	s_2d_coord
 {
