@@ -28,6 +28,7 @@ int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 //			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
 //					nb_player, core->player[i].name);
 			core->player[i].live++;
+			core->state.l_last = nb_player;
 			return (1);
 		}
 		i++;
