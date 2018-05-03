@@ -89,10 +89,12 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	copy_pnum(&core->player[i].pnum, proc->reg[0]);
 	proc->pnum = core->player[i].pnum;
 	proc->next = core->proc;
+	proc->cycle = -1;
+	proc->op = NULL;
 	core->proc = proc;
 	if (load_program(**argv, &core->arena, &core->player[i], proc))
 		return (destroy_processes(core->proc));
 	(*argv)++;
 	(*argc)--;
-	return (proc->pnum);
+	return (1);
 }

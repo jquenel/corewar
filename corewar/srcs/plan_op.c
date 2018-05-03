@@ -27,6 +27,12 @@ static void	input_types(t_sen *core, t_bo *actual)
 	}
 }
 
+static void	set_arg_attr(t_arg *arg, int type, int size)
+{
+	arg->type = type;
+	arg->size = size;
+}
+
 static void	decode_types(t_sen *core, t_bo *actual)
 {
 	int		i;
@@ -39,21 +45,12 @@ static void	decode_types(t_sen *core, t_bo *actual)
 		t = (FIELD_INDEX(actual->pc + 1) >> ((MAX_ARGS_NUMBER - 1 - i) * 2))
 			& 0x3;
 		if (t == REG_CODE)
-		{
-			actual->args[i].type = T_REG;
-			actual->args[i].size = 1;
-		}
+			set_arg_attr(&actual->args[i], T_REG, 1);
 		else if (t == DIR_CODE)
-		{
-			actual->args[i].type = T_DIR;
-			actual->args[i].size = actual->op->extra & EX_IS ?
-									IND_SIZE : DIR_SIZE;
-		}
+			set_arg_attr(&actual->args[i], T_DIR, actual->op->extra & EX_IS ?
+												IND_SIZE : DIR_SIZE);
 		else if (t == IND_CODE)
-		{
-			actual->args[i].type = T_IND;
-			actual->args[i].size = IND_SIZE;
-		}
+			set_arg_attr(&actual->args[i], T_IND, IND_SIZE);
 		else
 			actual->args[i].type = 0;
 		copy_data(core, actual->args[i].data, actual->pc + actual->size,
@@ -68,6 +65,7 @@ int			plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1])
 	if (OP_BYTE < 1 || OP_BYTE > OP_COUNT)
 	{
 		actual->pc = (actual->pc + 1) % core->arena.size;
+		actual->op = NULL;
 		return (0);
 	}
 	ft_memset(actual->args, 0, sizeof(t_arg) * (MAX_ARGS_NUMBER));

@@ -30,8 +30,10 @@ SRC_NAME=	corewar.c\
 			start_battle.c\
 			init_optab.c\
 			cycle.c\
+			fast_cycle.c\
 			plan_op.c\
 			do_op.c\
+			check_alive.c\
 			declare_winner.c\
 			live.c\
 			ld.c\

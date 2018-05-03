@@ -1,6 +1,6 @@
 #include "corewar.h"
 
-void		cycle(t_sen *core, t_optab op[OP_COUNT + 1])
+int		cycle(t_sen *core, t_optab op[OP_COUNT + 1])
 {
 	t_bo	*tmp;
 
@@ -14,4 +14,5 @@ void		cycle(t_sen *core, t_optab op[OP_COUNT + 1])
 		tmp->cycle--;
 		tmp = tmp->next;
 	}
+	return (1);
 }
