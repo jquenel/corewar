@@ -16,6 +16,7 @@
 # include "op.h"
 # include "libft.h"
 # include "ft_printf.h"
+
 #include <stdio.h>
 
 # include <fcntl.h>
@@ -26,8 +27,16 @@
 #  define BUFF_SIZE		512
 # endif
 
+# ifndef INT_MAX
+#  define INT_MAX		2147483647
+# endif
+
 # define FIELD			core->arena.field
 # define TRACE_EMPTY	-1
+
+# define OPT_DUMP		(1 << ('d' - 'a'))
+# define OPT_FAST		(1 << ('f' - 'a'))
+# define OPT_VISU		(1 << ('v' - 'a'))
 
 typedef struct			s_ban
 {
@@ -132,9 +141,10 @@ int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
 void	init_optab(t_optab op[OP_COUNT + 1]);
 void	cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
-int		fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+void	fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 void	do_op(t_sen *core, t_bo *actual);
 int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
+int		check_alive(t_bushi *player, t_bo **proc);
 void	declare_winner(t_sen *core, int alive);
 
 void	dump_core(t_sen *core);

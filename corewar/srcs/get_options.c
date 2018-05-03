@@ -15,11 +15,13 @@ int		get_options(int *argc, char ***argv, t_sen *core)
 			if (!is_all_nums((*argv)[i + 1]) ||
 			!(core->state.dump_limit = ft_atoi((*argv)[i + 1])))
 				return (-1);
+			core->opt |= OPT_DUMP;
 			i += 2;
 		}
-		else if (!(ft_strcmp((*argv)[i], "-f")))
+		else if (!(ft_strcmp((*argv)[i], "-f"))
+			|| !(ft_strcmp((*argv)[i], "-v")))
 		{
-			core->opt |= (1 << (int)('f' - 'a'));
+			core->opt |= (1 << (int)((*argv)[i][1] - 'a'));
 			i++;
 		}
 		else
