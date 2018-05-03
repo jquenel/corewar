@@ -10,7 +10,6 @@ static t_2d_coord *get_size(int	len)
 	j = i;
 	while (i * j < len)
 		i++;
-	printf("%d / %d\n", i, j);
 	return (t_2d_coord_new(i, j));
 }
 

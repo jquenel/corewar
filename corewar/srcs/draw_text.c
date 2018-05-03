@@ -52,7 +52,9 @@ SDL_Color get_color(char *color_type)
 	else if (!ft_strcmp(color_type, "light blue"))
 		color = create_color(110, 220, 220, 42);
 	else if (!ft_strcmp(color_type, "orange"))
-		color = create_color(220, 111, 20, 42);
+		color = create_color(255, 165, 0, 42);
+	else if (!ft_strcmp(color_type, "dark orange"))
+		color = create_color(255, 130, 0, 42);
 	else if (!ft_strcmp(color_type, "dark cyan"))
 		color = create_color(25, 130, 130, 42);
 	else

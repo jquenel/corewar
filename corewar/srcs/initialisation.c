@@ -15,8 +15,8 @@
 SDL_Renderer	    *renderer;
 SDL_Window		    *window;
 t_2d_coord		    *window_size;
-const int           FPS = 64;
-const unsigned int  framedelay = 1000 / 64;
+const int           FPS = 60;
+const unsigned int  framedelay = 1000 / 60;
 static int		    nb_frame = 0;
 static int		    beginsecond = 0;
 

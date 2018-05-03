@@ -97,6 +97,7 @@ void			ft_stradd_front(char *s1, char **s2);
 
 t_core			*create_t_core(t_sen *core);
 void 			draw_core(t_core *core);
+void			draw_pc(t_sen *core, t_core *sdl_core);
 void 			set_texture_list(t_core *core);
 
 #endif

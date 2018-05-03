@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/04 19:37:19 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/04 19:45:35 by jboissy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void		start_battle(t_sen *core)
 		if (core->state.c_count >= core->state.c_todie)
 			alive = tsumego(core);
 		draw_core(sdl_core);
+		draw_pc(core, sdl_core);
 		render_screen();
 		update_input(sdl_core);
 	}

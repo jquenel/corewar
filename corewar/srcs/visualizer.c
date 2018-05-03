@@ -14,6 +14,19 @@ static char *get_player_color(char i)
 	return ("grey");
 }
 
+static char *get_pc_player_color(char i)
+{
+	if (i == 0)
+		return ("dark blue");
+	else if (i == 1)
+		return ("dark red");
+	else if (i == 2)
+		return ("dark green");
+	else if (i == 3)
+		return ("dark orange");
+	return ("grey");
+}
+
 void set_texture_list(t_core *core)
 {
 	int			i;
@@ -35,6 +48,36 @@ void set_texture_list(t_core *core)
 		SDL_FreeSurface(surface);
 		free(text);
 		i++;
+	}
+}
+
+void draw_pc(t_sen *core, t_core *sdl_core)
+{
+	t_bo	*tmp;
+	int		pos;
+	int		i;
+	int		j;
+	t_2d_coord	coord;
+	t_2d_coord	size;
+
+	size.x = (sdl_core->unit * 2) * sdl_core->zoom;
+	size.y = sdl_core->unit * sdl_core->zoom;
+	tmp = core->proc;
+	while (tmp != NULL)
+	{
+		j = (tmp->pc / sdl_core->tab_size->y) - 1;
+		i = tmp->pc - (j * sdl_core->tab_size->x);
+		coord.x = (sdl_core->base_pos->x + (i * ((sdl_core->unit * 2) + sdl_core->space)) + sdl_core->space / 2) * sdl_core->zoom;
+		coord.y = (sdl_core->base_pos->y + (j * (sdl_core->unit + sdl_core->space)) + sdl_core->space / 2) * sdl_core->zoom;
+		if (coord.x + (sdl_core->unit * 2) * sdl_core->zoom >= 0 && coord.x < get_window_size()->x && coord.y + sdl_core->unit * sdl_core->zoom >= 0 && coord.y < get_window_size()->y)
+		{
+			pos = i + (j * sdl_core->tab_size->x);
+			draw_border_rectangle(&coord, &size, get_pc_player_color(sdl_core->index[pos]));
+			coord.x = coord.x + (sdl_core->unit * sdl_core->zoom);
+			coord.y = coord.y + ((sdl_core->unit / 2) * sdl_core->zoom);
+			draw_centred_SDLTexture(sdl_core->texture_list[ft_abs(sdl_core->field[pos])], &coord, 0);
+		}
+		tmp = tmp->next;
 	}
 }
 
