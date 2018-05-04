@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_alive.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/03 23:13:58 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/03 23:13:59 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static t_bo	*kill_proc(t_bo **proc, t_bo *dead, t_bo *prev)
@@ -42,7 +54,7 @@ static int	check_alive_proc(t_bo **proc)
 	return (count);
 }
 
-int			check_alive(t_bushi *player, t_bo **proc)
+static int	check_alive(t_bushi *player, t_bo **proc)
 {
 	int		i;
 	int		count;
@@ -65,4 +77,19 @@ int			check_alive(t_bushi *player, t_bo **proc)
 	return (count);
 }
 
+int			tsumego(t_sen *core)
+{
+	int		alive;
 
+	alive = check_alive(core->player, &core->proc);
+	core->state.c_count -= core->state.c_todie;
+	if (core->state.l_count >= core->state.l_limit
+			|| ++core->state.l_checks == core->state.l_checks_limit)
+	{
+		core->state.l_checks = 0;
+		if ((core->state.c_todie -= core->state.c_delta) < 0)
+			core->state.c_todie = 0;
+	}
+	core->state.l_count = 0;
+	return (alive);
+}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_player.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/04 16:22:01 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static int	get_player_num(int *argc, char ***argv, t_sen *core)
@@ -44,50 +56,21 @@ static void	copy_pnum(int *pnum, char *reg)
 		reg[i] = ((char *)pnum)[j++];
 }
 
-static void	change_empty_char(t_sen *core, int pcount)
-{
-	int		i;
-	int		f;
-	char	tmp;
-
-	tmp = core->arena.empty_char;
-	f = 1;
-	while (f)
-	{
-		f = 0;
-		i = pcount;
-		while (i--)
-			if ((int)core->arena.empty_char == core->player[i].pnum)
-			{
-				f = 1;
-				i = 0;
-				core->arena.empty_char--;
-			}
-	}
-	i = core->arena.size;
-	while (i--)
-	{
-		if (core->arena.trace[i] == tmp)
-			core->arena.trace[i] = core->arena.empty_char;
-	}
-	core->state.l_last = core->arena.empty_char;
-}
-
 int			create_player(int *argc, char ***argv, t_sen *core, int i)
 {
 	t_bo		*proc;
 
 	if (!(proc = malloc(sizeof(t_bo))))
 		malloc_error(core);
-	if ((core->player[i].pnum = get_player_num(argc, argv, core))
-		== core->arena.empty_char)
-		change_empty_char(core, i + 1);
+	core->player[i].pnum = get_player_num(argc, argv, core);
+	core->player[i].pindex = i + 1;
 	core->player[i].live = 0;
 	proc->carry = 0;
 	proc->pc = (MEM_SIZE * i) / core->pcount;
 	ft_memset(proc->reg, 0, REG_NUMBER * REG_SIZE);
 	copy_pnum(&core->player[i].pnum, proc->reg[0]);
 	proc->pnum = core->player[i].pnum;
+	proc->pindex = core->player[i].pindex;
 	proc->next = core->proc;
 	proc->cycle = -1;
 	proc->op = NULL;

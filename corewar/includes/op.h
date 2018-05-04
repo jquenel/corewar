@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/04/23 18:20:06 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/03 21:36:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ typedef struct		s_header
 {
   uint32_t			magic;
   char				prog_name[PROG_NAME_LENGTH];
-  uint32_t			null1;
+  uint32_t			must_be_null;
   uint32_t			prog_size;
   char				comment[COMMENT_LENGTH];
-  uint32_t			null2;
+  uint32_t			must_also_be_null;
 }					t_header;

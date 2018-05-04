@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   declare_winner.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/03 21:48:31 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/03 21:50:48 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void		declare_winner(t_sen *core, int alive)
@@ -7,8 +19,8 @@ void		declare_winner(t_sen *core, int alive)
 	if (!alive)
 	{
 		if (core->state.l_last == core->arena.empty_char)
-			ft_printf("No winner today !\n\
-Next time, try using REAL champions ?\n");
+			ft_printf("No winner today !\n"
+					"Next time, try using REAL champions ?\n");
 		else
 		{
 			i = 0;

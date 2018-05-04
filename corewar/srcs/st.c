@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/24 23:26:52 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/04 16:21:09 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		corewar_st(t_sen *core, t_bo *actual, t_arg *args)
 	{
 		core_regtomem(&core->arena, actual->reg[reg1],
 				actual->pc + (reg2 % IDX_MOD),
-				actual->pnum);
+				actual->pindex);
 	}
 	return (1);
 }

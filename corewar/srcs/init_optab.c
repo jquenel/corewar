@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_optab.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/03 23:19:26 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/03 23:19:32 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void		init_optab(t_optab op[OP_COUNT + 1])
@@ -27,20 +39,3 @@ void		init_optab(t_optab op[OP_COUNT + 1])
 	op[15] = (t_optab){corewar_aff, 1, {T_REG}, 1, EX_CD};
 	op[16] = (t_optab){NULL, 0, {0}, 0, 0};
 }
-
-//basice tests on :
-//live
-//ld
-//st
-//add
-//sub
-//or
-//and
-//xor
-//zjmp
-//ldi
-//sti
-//fork
-//lld
-//lldi
-//lfork
