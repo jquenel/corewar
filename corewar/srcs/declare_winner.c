@@ -18,6 +18,7 @@ void		declare_winner(t_sen *core, int alive)
 
 	if (!alive)
 	{
+		ft_printf("[%d][%d]\n", core->state.l_last, core->arena.empty_char);
 		if (core->state.l_last == core->arena.empty_char)
 			ft_printf("No winner today !\n"
 					"Next time, try using REAL champions ?\n");

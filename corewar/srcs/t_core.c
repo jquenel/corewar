@@ -42,6 +42,11 @@ t_core *create_t_core(t_sen *core)
 	sdl_core->index = core->arena.trace;
 	sdl_core->len = core->arena.size;
 	sdl_core->tab_size = get_size(sdl_core->len);
+	sdl_core->p_color[0] = GREY;
+	sdl_core->p_color[1] = P1_COLOR;
+	sdl_core->p_color[2] = P2_COLOR;
+	sdl_core->p_color[3] = P3_COLOR;
+	sdl_core->p_color[4] = P4_COLOR;
 	define_base(sdl_core);
 	return (sdl_core);
 }
