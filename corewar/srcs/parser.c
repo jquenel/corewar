@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/04 16:19:52 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/04 16:19:53 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static void	init_player(t_bushi *player)
@@ -36,7 +48,7 @@ static void	init_core(t_sen *core)
 	core->visu.pause = 0;
 	ft_memset(core->arena.field, 0, MEM_SIZE);
 	core->arena.empty_char = TRACE_EMPTY;
-	ft_memset(core->arena.trace, core->arena.empty_char, MEM_SIZE);
+	ft_memset(core->arena.trace, TRACE_EMPTY, MEM_SIZE);
 	init_state(&core->state);
 	init_player(core->player);
 }

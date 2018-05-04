@@ -6,13 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 15:54:47 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:13:23 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/04 16:19:35 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		core_regtomem(t_ban *arena, char *src, int dest, int pnum)
+void		core_regtomem(t_ban *arena, char *src, int dest, int pindex)
 {
 	int			i;
 
@@ -22,7 +22,7 @@ void		core_regtomem(t_ban *arena, char *src, int dest, int pnum)
 	while (i < REG_SIZE)
 	{
 		arena->field[(dest + i) % arena->size] = src[i];
-		arena->trace[(dest + i) % arena->size] = pnum;
+		arena->trace[(dest + i) % arena->size] = pindex;
 		i++;
 	}
 }

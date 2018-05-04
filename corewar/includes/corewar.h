@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:20:47 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/04 16:20:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@
 # endif
 
 # define FIELD			core->arena.field
-# define TRACE_EMPTY	-1
+# define TRACE_EMPTY	0
 
 # define OPT_DUMP		(1 << ('d' - 'a'))
 # define OPT_FAST		(1 << ('f' - 'a'))
 # define OPT_VISU		(1 << ('v' - 'a'))
+# define OPT_VERB		(1 << ('w' - 'a'))
 
 typedef struct			s_ban
 {
@@ -57,6 +58,7 @@ typedef struct			s_ban
 typedef struct			s_bushi
 {
 	int					pnum;
+	int					pindex;
 	int					live;
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
@@ -72,6 +74,7 @@ typedef struct			s_arg
 typedef struct			s_bo
 {
 	int					pnum;
+	int					pindex;
 	int					carry;
 	int					pc;
 	int					live;
@@ -140,11 +143,11 @@ int		load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
 int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
 void	init_optab(t_optab op[OP_COUNT + 1]);
-void	cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
-void	fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+int			fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 void	do_op(t_sen *core, t_bo *actual);
 int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
-int		check_alive(t_bushi *player, t_bo **proc);
+int		tsumego(t_sen *core);
 void	declare_winner(t_sen *core, int alive);
 
 void	dump_core(t_sen *core);

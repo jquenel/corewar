@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   do_op.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/03 23:20:01 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/03 23:20:02 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static int	check_args_validity(t_bo *actual)
@@ -19,4 +31,5 @@ void	do_op(t_sen *core, t_bo *actual)
 		actual->pc = (actual->pc + actual->size) % core->arena.size;
 	else if (actual->op->op(core, actual, actual->args))
 		actual->pc = (actual->pc + actual->size) % core->arena.size;
+	actual->op = NULL;
 }
