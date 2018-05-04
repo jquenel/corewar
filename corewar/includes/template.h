@@ -23,7 +23,36 @@
 # include "corewar.h"
 # include "ft_printf.h"
 
-# define FONT_PATH	"font/Alef-Regular.ttf"
+# define FONT_PATH		"font/KeepCalm-Medium.ttf"
+
+# define NB_COLOR		20
+
+# define BLACK			0
+# define WHITE			1
+# define LIGHT_BLUE		2
+# define BLUE			3
+# define DARK_BLUE		4
+# define LIGHT_RED		5
+# define RED			6
+# define DARK_RED		7
+# define LIGHT_GREEN	8
+# define GREEN			9
+# define DARK_GREEN		10
+# define LIGHT_CYAN		11
+# define CYAN			12
+# define DARK_CYAN		13
+# define LIGHT_GREY		14
+# define GREY			15
+# define DARK_GREY		16
+# define LIGHT_ORANGE	17
+# define ORANGE			18
+# define DARK_ORANGE	19
+
+# define P1_COLOR		BLUE
+# define P2_COLOR		RED
+# define P3_COLOR		GREEN
+# define P4_COLOR		CYAN
+
 
 typedef struct	s_2d_coord
 {
@@ -43,10 +72,12 @@ typedef struct 		s_tileset
 
 typedef struct	s_core
 {
+	int			*corewar_opt;
 	char		*field;
 	char		*index;
 	int			len;
 	TTF_Font 	*font;
+	int			p_color[5];
 	SDL_Texture *texture_list[256];
 	int			font_size;
 	t_2d_coord	*tab_size;
@@ -62,13 +93,13 @@ void 			draw_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, t_2d_coord *siz
 void 			draw_centred_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, double angle);
 
 SDL_Color 		create_color(int r, int g, int b, int a);
-SDL_Color		get_color(char *color_type);
-void 			draw_rectangle(t_2d_coord *coord, t_2d_coord *size, char *color_type);
-void 			draw_border_rectangle(t_2d_coord *coord, t_2d_coord *size, char *color_type);
+SDL_Color		get_color(int i);
+void 			draw_rectangle(t_2d_coord *coord, t_2d_coord *size, int color_type);
+void 			draw_border_rectangle(t_2d_coord *coord, t_2d_coord *size, int color_type);
 void			draw_tiled_square(t_tileset *tile, t_2d_coord *coord, t_2d_coord *size, int size_unit);
 
-int				draw_text(char *text, t_2d_coord *coord, char *color_type, TTF_Font *font, char *typo);
-int				draw_centred_text(char *text, t_2d_coord *coord, char *color_type, TTF_Font *font, char *typo);
+int				draw_text(char *text, t_2d_coord *coord, int color_type, TTF_Font *font, char *typo);
+int				draw_centred_text(char *text, t_2d_coord *coord, int color_type, TTF_Font *font, char *typo);
 
 void			window_initialisation(char *window_name);
 SDL_Renderer	*get_renderer();

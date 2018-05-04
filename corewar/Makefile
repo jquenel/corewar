@@ -8,12 +8,13 @@ SRC_PATH=	srcs
 
 OBJ_PATH=	obj
 
-CPPFLAGS=	-Iincludes -Ilibft/includes -Ilibsdl/includes
+CPPFLAGS=	-Iincludes -I../libft/includes -I../libsdl/includes
 
 SRC_NAME=	add.c\
 			aff.c\
 			and.c\
 			basic_function.c\
+			check_alive.c\
 			control.c\
 			copy_data.c\
 			core_getlvalue.c\
@@ -31,6 +32,7 @@ SRC_NAME=	add.c\
 			draw_text.c\
 			dtoi.c\
 			dump_core.c\
+			fast_cycle.c\
 			fork.c\
 			get_options.c\
 			init_optab.c\
@@ -64,22 +66,6 @@ OBJ=		$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 OBJ_NAME=	$(SRC_NAME:.c=.o)
 
 ##
-##		SDL INCLUDE/LIB
-##
-
-SDL2_MAIN_SRC =				SDL2
-
-SDL2_IMAGE_SRC =			SDL2_image
-
-SDL2_TTF_SRC =				SDL2_ttf
-
-FREETYPE_SRC =				freetype
-
-SDL2_PATH =					sdl
-
-INCLUDE_SDL2 =				sdl/includes
-
-##
 ##		COMPILER FLAGS
 ##
 
@@ -87,7 +73,7 @@ CFLAGS=		-Wextra -Wall -Werror -g -fsanitize=address
 
 CC=			gcc
 
-LDFLAGS=	-Llibft -Lft_printf -Llibsdl/lib
+LDFLAGS=	-L../libft -L../ft_printf -L../libsdl/lib
 
 LIBS=		-lftprintf -lft -lSDL2 -lSDL2_image -lfreetype -lSDL2_ttf
 
@@ -103,10 +89,10 @@ all:			clibs $(NAME)
 clibs:
 				@$(MAKE) -C ../libft
 				@$(MAKE) -C ../ft_printf
-				@cp -rf ~/goinfre/sdl/FREETYPE/lib libsdl
-				@cp -rf ~/goinfre/sdl/SDL2/lib libsdl
-				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib libsdl
-				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib libsdl
+				@cp -rf ~/goinfre/sdl/FREETYPE/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib ../libsdl
 
 $(NAME):		$(OBJ)
 				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
@@ -118,10 +104,10 @@ $(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
 
 sdl:
 				@make -C ~/goinfre/sdl
-				@cp -rf ~/goinfre/sdl/FREETYPE/lib libsdl
-				@cp -rf ~/goinfre/sdl/SDL2/lib libsdl
-				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib libsdl
-				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib libsdl
+				@cp -rf ~/goinfre/sdl/FREETYPE/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib ../libsdl
 
 ##
 ##		Use fclean to clean this program.
