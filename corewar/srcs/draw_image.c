@@ -12,7 +12,7 @@
 
 #include "template.h"
 
-void draw_image(char *path, t_2d_coord *coord, t_2d_coord *size, double angle)
+void draw_image(char *path, t_vect *coord, t_vect *size, double angle)
 {
 	SDL_Surface		*bmp;
 	SDL_Texture		*texture;
@@ -33,7 +33,7 @@ void draw_image(char *path, t_2d_coord *coord, t_2d_coord *size, double angle)
 	SDL_DestroyTexture(texture);
 }
 
-void draw_SDLSurface(SDL_Surface *bmp, t_2d_coord *coord, t_2d_coord *size, double angle)
+void draw_SDLSurface(SDL_Surface *bmp, t_vect *coord, t_vect *size, double angle)
 {
 	SDL_Texture		*texture;
 	SDL_Rect		dstrect;
@@ -51,10 +51,10 @@ void draw_SDLSurface(SDL_Surface *bmp, t_2d_coord *coord, t_2d_coord *size, doub
 	SDL_DestroyTexture(texture);
 }
 
-void draw_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, t_2d_coord *size, double angle)
+void draw_SDLTexture(SDL_Texture *texture, t_vect *coord, t_vect *size, double angle)
 {
 	SDL_Rect		dstrect;
-	
+
 	dstrect.x = coord->x;
 	dstrect.y = coord->y;
 	dstrect.w = size->x;
@@ -62,7 +62,7 @@ void draw_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, t_2d_coord *size, 
 	SDL_RenderCopyEx(get_renderer(), texture, NULL, &dstrect, angle, NULL, SDL_FLIP_NONE);
 }
 
-void draw_centred_SDLTexture(SDL_Texture *texture, t_2d_coord *coord, double angle)
+void draw_centred_SDLTexture(SDL_Texture *texture, t_vect *coord, double angle)
 {
 	SDL_Rect		dstrect;
 	int				texW = 0;

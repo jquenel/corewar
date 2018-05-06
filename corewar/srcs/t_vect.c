@@ -12,23 +12,23 @@
 
 #include "template.h"
 
-t_2d_coord	*t_2d_coord_new(int x, int y)
+t_vect	*t_vect_new(int x, int y)
 {
-	t_2d_coord *tmp;
+	t_vect *tmp;
 
-	if (!(tmp = (t_2d_coord *)malloc(sizeof(t_2d_coord))))
-		error_exit("Can't malloc a t_2d_coord", 152);
+	if (!(tmp = (t_vect *)malloc(sizeof(t_vect))))
+		error_exit("Can't malloc a t_vect", 152);
 	tmp->x = x;
 	tmp->y = y;
 	return (tmp);
 }
 
-void t_2d_coord_free(t_2d_coord *coord)
+void t_vect_free(t_vect *coord)
 {
 	free(coord);
 }
 
-void t_2d_coord_actualize(t_2d_coord *coord, int new_x, int new_y)
+void t_vect_actualize(t_vect *coord, int new_x, int new_y)
 {
 	coord->x = new_x;
 	coord->y = new_y;

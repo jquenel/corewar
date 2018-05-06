@@ -12,26 +12,26 @@
 
 #include "template.h"
 
-static void control_camera(t_core *sdl_core)
+static void control_camera(t_visu *visu)
 {
 	int		x;
 	int		y;
 
 	SDL_GetMouseState(&x , &y);
-	if (x == 0 || x >= (get_window_size()->x * 0.7) - 1 || y == 0 || y == get_window_size()->y - 1)
+	if (x == 0 || x >= (get_win_size()->x * 0.7) - 1 || y == 0 || y == get_win_size()->y - 1)
 	{
 		if (x == 0)
-			sdl_core->base_pos->x += 10 * sdl_core->zoom;
-		if (x >= (get_window_size()->x * 0.7) - 1)
-			sdl_core->base_pos->x += -10 * sdl_core->zoom;
+			visu->base_pos->x += 10 * visu->zoom;
+		if (x >= (get_win_size()->x * 0.7) - 1)
+			visu->base_pos->x += -10 * visu->zoom;
 		if (y == 0)
-			sdl_core->base_pos->y += 10 * sdl_core->zoom;
-		if (y == get_window_size()->y - 1)
-			sdl_core->base_pos->y += -10 * sdl_core->zoom;
+			visu->base_pos->y += 10 * visu->zoom;
+		if (y == get_win_size()->y - 1)
+			visu->base_pos->y += -10 * visu->zoom;
 	}
 }
 
-static void control_input(SDL_Event *event, t_core *sdl_core)
+static void control_input(SDL_Event *event, t_visu *visu)
 {
 	if (event->type == SDL_QUIT)
 		exit(0);
@@ -40,26 +40,26 @@ static void control_input(SDL_Event *event, t_core *sdl_core)
 	else if (event->type == SDL_MOUSEWHEEL)
 	{
 		if (event->wheel.y > 0)
-			sdl_core->zoom *= 1.1;
+			visu->zoom *= 1.1;
         else if (event->wheel.y < 0)
-			sdl_core->zoom *= 0.9;
-		set_texture_list(sdl_core);
+			visu->zoom *= 0.9;
+		set_texture_list(visu);
 	}
 	if (event->type == SDL_MOUSEMOTION && event->button.button == SDL_BUTTON_LEFT)
 	{
-		sdl_core->base_pos->x += event->motion.xrel;
-		sdl_core->base_pos->y += event->motion.yrel;
+		visu->base_pos->x += event->motion.xrel;
+		visu->base_pos->y += event->motion.yrel;
 	}
 }
 
-void update_input(t_core *sdl_core)
+void update_input(t_visu *visu)
 {
 	SDL_Event event;
 
-	control_camera(sdl_core);
+	control_camera(visu);
 	if (SDL_PollEvent(&event) == 1)
 	{
-		control_input(&event, sdl_core);
+		control_input(&event, visu);
 	}
 	SDL_PumpEvents();
 	SDL_FlushEvent(SDL_MOUSEMOTION);

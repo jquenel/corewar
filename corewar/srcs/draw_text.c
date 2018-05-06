@@ -36,7 +36,7 @@ static int		get_typo(char *typo)
 	return (0);
 }
 
-int			draw_text(char *text, t_2d_coord *coord, int color_type, TTF_Font *font, char *typo)
+int			draw_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char *typo)
 {
 	SDL_Color		color;
 	SDL_Surface		*surface;
@@ -60,7 +60,7 @@ int			draw_text(char *text, t_2d_coord *coord, int color_type, TTF_Font *font, c
 	return (texW);
 }
 
-int			draw_centred_text(char *text, t_2d_coord *coord, int color_type, TTF_Font *font, char *typo)
+int			draw_centred_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char *typo)
 {
 	SDL_Color		color;
 	SDL_Surface		*surface;

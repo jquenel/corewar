@@ -45,7 +45,6 @@ static void	init_core(t_sen *core)
 	core->pcount = 0;
 	core->proc = NULL;
 	core->opt = 0;
-	core->visu.pause = 0;
 	ft_memset(core->arena.field, 0, MEM_SIZE);
 	core->arena.empty_char = TRACE_EMPTY;
 	ft_memset(core->arena.trace, TRACE_EMPTY, MEM_SIZE);

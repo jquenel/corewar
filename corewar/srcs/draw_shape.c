@@ -12,7 +12,7 @@
 
 #include "template.h"
 
-void draw_rectangle(t_2d_coord *coord, t_2d_coord *size, int color_type)
+void draw_rectangle(t_vect *coord, t_vect *size, int color_type)
 {
 	SDL_Rect			Rect;
 	SDL_Color			color;
@@ -26,7 +26,7 @@ void draw_rectangle(t_2d_coord *coord, t_2d_coord *size, int color_type)
     SDL_RenderFillRect(get_renderer(), &Rect);
 }
 
-void draw_border_rectangle(t_2d_coord *coord, t_2d_coord *size, int color_type)
+void draw_border_rectangle(t_vect *coord, t_vect *size, int color_type)
 {
 	SDL_Rect			Rect1;
 	SDL_Rect			Rect2;
