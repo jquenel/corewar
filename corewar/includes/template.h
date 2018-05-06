@@ -86,6 +86,7 @@ typedef struct	s_visu
 	double		zoom;
 	int			unit;
 	int			space;
+	char		pause;
 }				t_visu;
 
 void			draw_image(char *path, t_vect *coord, t_vect *size, double angle);
@@ -103,6 +104,9 @@ int				draw_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char
 int				draw_centred_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char *typo);
 
 void			window_initialisation(char *window_name);
+void			set_fps(int i);
+void			reset_fps(int i);
+int				get_fps();
 SDL_Renderer	*get_renderer();
 t_vect			*get_win_size();
 void			close_renderer();
@@ -133,5 +137,7 @@ void 			draw_core(t_visu *core);
 void			draw_pc(t_sen *core, t_visu *sdl_core);
 void			draw_menu(t_sen *core, t_visu *sdl_core, int cycles);
 void 			set_texture_list(t_visu *core);
+
+void			reset_visu(t_visu *visu);
 
 #endif
