@@ -56,6 +56,7 @@ void		start_battle(t_sen *core)
 			alive = tsumego(core);
 		draw_core(sdl_core);
 		draw_pc(core, sdl_core);
+		draw_player(core, sdl_core, core->state.c_count);
 		render_screen();
 		update_input(sdl_core);
 	}

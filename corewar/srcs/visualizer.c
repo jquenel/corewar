@@ -25,6 +25,55 @@ void set_texture_list(t_core *core)
 	}
 }
 
+void draw_player(t_sen *core, t_core *sdl_core, int cycles)
+{
+	static TTF_Font	*font = NULL;
+	char			*text;
+	int				i;
+	t_2d_coord		coord;
+	t_2d_coord		size;
+
+	if (font == NULL)
+		font = TTF_OpenFont(FONT_PATH, sdl_core->unit);
+	coord.x = get_window_size()->x * 0.7;
+	coord.y = 0;
+	size.x = get_window_size()->x - coord.x;
+	size.y = get_window_size()->y - coord.y;
+	draw_rectangle(&coord, &size, DARK_GREY);
+	coord.x = coord.x + sdl_core->unit;
+	coord.y = coord.y + sdl_core->unit;
+	text = ft_strdup("Cycles : ");
+	ft_stradd_back(&text, ft_itoa(cycles));
+	draw_text(text, &coord, LIGHT_GREY, font, "normal");
+	free(text);
+	coord.y = coord.y + sdl_core->unit * 2;
+	draw_text("Players :", &coord, LIGHT_GREY, font, "normal");
+	i = 0;
+	coord.x = coord.x + sdl_core->unit * 2;
+	while (core->player[i].live != -2)
+	{
+		coord.y = coord.y + sdl_core->unit * 2;
+		text = ft_strdup("Player name : ");
+		ft_stradd_back(&text, core->player[i].name);
+		draw_text(text, &coord, sdl_core->p_color[core->player[i].pindex], font, "underline");
+		coord.y = coord.y + sdl_core->unit * 2;
+		text = ft_strdup("Player num : ");
+		ft_stradd_back(&text, ft_itoa(core->player[i].pnum));
+		draw_text(text, &coord, LIGHT_GREY, font, "normal");
+		coord.y = coord.y + sdl_core->unit * 2;
+		text = ft_strdup("This player ");
+		if (core->player[i].live == 1)
+			ft_stradd_back(&text, "is alive this cycle");
+		else
+			ft_stradd_back(&text, "isn't alive this cycle");
+		draw_text(text, &coord, LIGHT_GREY, font, "normal");
+		coord.y = coord.y + sdl_core->unit * 2;
+		free(text);
+		i++;
+	}
+	(void)sdl_core;
+}
+
 void draw_pc(t_sen *core, t_core *sdl_core)
 {
 	t_bo	*tmp;

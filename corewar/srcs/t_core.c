@@ -25,7 +25,7 @@ static void define_base(t_core *core)
 	core->unit = i - core->space;
 	i = (core->unit + core->space) * core->tab_size->x + core->space;
 	j = (core->unit + core->space) * core->tab_size->y + core->space;
-	core->base_pos = t_2d_coord_new(get_window_size()->x / 2 - i / 2,
+	core->base_pos = t_2d_coord_new((get_window_size()->x * 0.7) / 2 - i / 2,
 									get_window_size()->y / 2 - j / 2);
 	core->zoom = 1;
 	core->font = NULL;

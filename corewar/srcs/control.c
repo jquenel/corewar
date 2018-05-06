@@ -18,16 +18,16 @@ static void control_camera(t_core *sdl_core)
 	int		y;
 
 	SDL_GetMouseState(&x , &y);
-	if (x == 0 || x == get_window_size()->x - 1 || y == 0 || y == get_window_size()->y - 1)
+	if (x == 0 || x >= (get_window_size()->x * 0.7) - 1 || y == 0 || y == get_window_size()->y - 1)
 	{
 		if (x == 0)
-			sdl_core->base_pos->x += 10;
-		if (x == get_window_size()->x - 1)
-			sdl_core->base_pos->x += -10;
+			sdl_core->base_pos->x += 10 * sdl_core->zoom;
+		if (x >= (get_window_size()->x * 0.7) - 1)
+			sdl_core->base_pos->x += -10 * sdl_core->zoom;
 		if (y == 0)
-			sdl_core->base_pos->y += 10;
+			sdl_core->base_pos->y += 10 * sdl_core->zoom;
 		if (y == get_window_size()->y - 1)
-			sdl_core->base_pos->y += -10;
+			sdl_core->base_pos->y += -10 * sdl_core->zoom;
 	}
 }
 
@@ -44,6 +44,11 @@ static void control_input(SDL_Event *event, t_core *sdl_core)
         else if (event->wheel.y < 0)
 			sdl_core->zoom *= 0.9;
 		set_texture_list(sdl_core);
+	}
+	if (event->type == SDL_MOUSEMOTION && event->button.button == SDL_BUTTON_LEFT)
+	{
+		sdl_core->base_pos->x += event->motion.xrel;
+		sdl_core->base_pos->y += event->motion.yrel;
 	}
 }
 

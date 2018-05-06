@@ -21,26 +21,26 @@ SDL_Color			color_tab[NB_COLOR];
 
 void	set_color_tab()
 {
-	color_tab[BLACK] = create_color(39, 39, 39, 42); //black
-	color_tab[WHITE] = create_color(114, 140, 114, 42); //white
-	color_tab[LIGHT_BLUE] = create_color(135, 206, 250, 42); //light blue
-	color_tab[3] = create_color(30, 144, 255, 42); //blue
-	color_tab[4] = create_color(0, 0, 139, 42); //dark blue
-	color_tab[5] = create_color(221, 110, 110, 42); //light red
-	color_tab[6] = create_color(165, 89, 89, 42); //red
-	color_tab[7] = create_color(110, 70, 70, 42); //dark red
-	color_tab[8] = create_color(170, 220, 115, 42); //light green
-	color_tab[9] = create_color(89, 165, 89, 42); //green
-	color_tab[10] = create_color(30, 100, 60, 42); //dark green
-	color_tab[11] = create_color(30, 220, 220, 42); //light cyan
-	color_tab[12] = create_color(27, 190, 190, 42); //cyan
-	color_tab[13] = create_color(25, 130, 130, 42); //dark cyan
-	color_tab[14] = create_color(175, 175, 175, 42); //light grey
-	color_tab[15] = create_color(156, 156, 156, 42); //grey
-	color_tab[16] = create_color(56, 56, 56, 42); //dark grey
-	color_tab[17] = create_color(255, 195, 0, 42); //light orange
-	color_tab[18] = create_color(255, 165, 0, 42); //orange
-	color_tab[19] = create_color(255, 130, 0, 42); //dark orange
+	color_tab[BLACK] = create_color(39, 39, 39, 42);
+	color_tab[WHITE] = create_color(240, 240, 240, 42);
+	color_tab[LIGHT_BLUE] = create_color(135, 206, 250, 42);
+	color_tab[BLUE] = create_color(30, 144, 255, 42);
+	color_tab[DARK_BLUE] = create_color(0, 0, 139, 42);
+	color_tab[LIGHT_RED] = create_color(221, 110, 110, 42);
+	color_tab[RED] = create_color(165, 89, 89, 42);
+	color_tab[DARK_RED] = create_color(110, 70, 70, 42);
+	color_tab[LIGHT_GREEN] = create_color(170, 220, 115, 42);
+	color_tab[GREEN] = create_color(89, 165, 89, 42);
+	color_tab[DARK_GREEN] = create_color(30, 100, 60, 42);
+	color_tab[LIGHT_CYAN] = create_color(30, 220, 220, 42);
+	color_tab[CYAN] = create_color(27, 190, 190, 42);
+	color_tab[DARK_CYAN] = create_color(25, 110, 110, 42);
+	color_tab[LIGHT_GREY] = create_color(175, 175, 175, 42);
+	color_tab[GREY] = create_color(156, 156, 156, 42);
+	color_tab[DARK_GREY] = create_color(56, 56, 56, 42);
+	color_tab[LIGHT_ORANGE] = create_color(255, 195, 0, 42);
+	color_tab[ORANGE] = create_color(255, 165, 0, 42);
+	color_tab[DARK_ORANGE] = create_color(255, 130, 0, 42);
 }
 
 SDL_Color get_color(int i)

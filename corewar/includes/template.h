@@ -125,10 +125,12 @@ void 			update_input(t_core *core);
 int				get_root(int size);
 char			*ft_itoa_base(int value, char *base);
 void			ft_stradd_front(char *s1, char **s2);
+void			ft_stradd_back(char **s1, char *s2);
 
 t_core			*create_t_core(t_sen *core);
 void 			draw_core(t_core *core);
 void			draw_pc(t_sen *core, t_core *sdl_core);
+void			draw_player(t_sen *core, t_core *sdl_core, int cycles);
 void 			set_texture_list(t_core *core);
 
 #endif
