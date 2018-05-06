@@ -23,6 +23,7 @@ SRC_NAME=	add.c\
 			corewar.c\
 			count_players.c\
 			create_player.c\
+			create_t_visu.c\
 			cycle.c\
 			declare_winner.c\
 			destroy_processes.c\
@@ -53,8 +54,7 @@ SRC_NAME=	add.c\
 			start_battle.c\
 			sti.c\
 			sub.c\
-			t_coord.c\
-			t_core.c\
+			t_vect.c\
 			visualizer.c\
 			xor.c\
 			zjmp.c

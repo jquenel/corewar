@@ -40,14 +40,18 @@ static char *poor_itoa(int nbr, char *buffer)
 	if (nbr < 0)
 	{
 		buffer[0] = '-';
+		nbr = -nbr;
 		i++;
 	}
-	while (nbr != 0)
+	if (nbr == 0)
+		return ("0");
+	while (nbr > 0)
 	{
-		buffer[i] = (nbr / 10) + '0';
-		nbr = nbr % 10;
+		buffer[i] = (nbr % 10) + '0';
+		nbr = nbr / 10;
 		i++;
 	}
+	buffer[i] = '\0';
 	return (buffer);
 }
 
@@ -59,7 +63,6 @@ static void draw_player(t_visu *visu, t_vect *coord_base,
 	t_vect		coord_txt;
 	t_vect		coord_nbr;
 
-	(void)buffer;
 	t_vect_actualize(&size, menu_size->x - visu->unit * 6, (visu->unit * 10));
 	t_vect_actualize(&coord_txt, coord_base->x + visu->unit, coord_base->y + visu->unit / 2);
 	t_vect_actualize(&coord_nbr, coord_base->x + menu_size->x * 0.6, coord_base->y + visu->unit / 2);

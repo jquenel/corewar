@@ -32,22 +32,22 @@ static int		do_cycle(t_sen *core, t_optab *op)
 		return (cycle(core, op));
 }
 
-static void		draw_corewar(t_sen *core, t_core *sdl_core)
+static void		draw_corewar(t_sen *core, t_visu *visu)
 {
-	draw_core(sdl_core);
-	draw_pc(core, sdl_core);
-	draw_players(core, sdl_core, core->state.c_count);
+	draw_core(visu);
+	draw_pc(core, visu);
+	draw_players(core, visu, core->state.c_count);
 	render_screen();
-	update_input(sdl_core);
+	update_input(visu);
 }
 
-static t_core	*init_visu(t_sen *core)
+static t_visu	*init_visu(t_sen *core)
 {
-	t_core		*sdl_core;
+	t_visu		*visu;
 
 	window_initialisation("char *window_name");
-	sdl_core = create_t_core(core);
-	return (sdl_core);
+	visu = create_t_visu(core);
+	return (visu);
 }
 
 void			start_battle(t_sen *core)
@@ -55,12 +55,12 @@ void			start_battle(t_sen *core)
 	int			alive;
 	int			cycles;
 	t_optab		op[OP_COUNT + 1];
-	t_core		*sdl_core;
+	t_visu		*visu;
 
 	init_optab(op);
 	alive = 2;
 	if (core->opt & OPT_VISU)
-		sdl_core = init_visu(core);
+		visu = init_visu(core);
 	while (alive > 1)
 	{
 		if ((cycles = do_cycle(core, op)) < 0)
@@ -73,7 +73,7 @@ void			start_battle(t_sen *core)
 		if (core->state.c_count >= core->state.c_todie)
 			alive = tsumego(core);
 		if (core->opt & OPT_VISU)
-			draw_corewar(core, sdl_core);
+			draw_corewar(core, visu);
 	}
 	declare_winner(core, alive);
 }
