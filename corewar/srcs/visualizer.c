@@ -28,30 +28,52 @@ void set_texture_list(t_visu *core)
 static void draw_line(char *text, t_vect *coord, t_visu *visu,
 																	int color)
 {
-	t_vect_actualize(coord, coord->x, coord->y + visu->unit * 2);
 	draw_text(text, coord, color, visu->menu_font, "normal");
+	t_vect_actualize(coord, coord->x, coord->y + visu->unit * 2);
+}
+
+static int		ft_intlen(intmax_t nbr)
+{
+	int		size;
+
+	if (nbr == 0)
+		return (1);
+	size = 0;
+	if (nbr < 0)
+	{
+		size++;
+		nbr = -nbr;
+	}
+	while (nbr != 0)
+	{
+		nbr /= 10;
+		size++;
+	}
+	return (size++);
 }
 
 static char *poor_itoa(int nbr, char *buffer)
 {
 	int		i;
+	int		negative;
+	int		len;
 
 	i = 0;
+	len = ft_intlen(nbr);
+	buffer[len] = '\0';
+	len--;
+	negative = 0;
 	if (nbr < 0)
 	{
 		buffer[0] = '-';
-		nbr = -nbr;
-		i++;
+		negative = 1;
 	}
-	if (nbr == 0)
-		return ("0");
-	while (nbr > 0)
+	while (len >= negative)
 	{
-		buffer[i] = (nbr % 10) + '0';
-		nbr = nbr / 10;
-		i++;
+		buffer[len] = ((nbr % 10) >= 0 ? (nbr % 10) : (nbr % 10) * -1) + '0';
+		len--;
+		nbr /= 10;
 	}
-	buffer[i] = '\0';
 	return (buffer);
 }
 
@@ -70,6 +92,8 @@ static void draw_player(t_visu *visu, t_vect *base,	t_vect	*menu_size, t_bushi *
 	draw_text(poor_itoa(player->pnum, buffer), &nbr, visu->p_color[player->pindex], visu->menu_font, "normal");
 	t_vect_actualize(&txt, txt.x, txt.y + visu->unit);
 	t_vect_actualize(&nbr, nbr.x, nbr.y + visu->unit);
+	t_vect_actualize(&txt, txt.x, txt.y + visu->unit * 2);
+	t_vect_actualize(&nbr, nbr.x, nbr.y + visu->unit * 2);
 	draw_line("live last :", &txt, visu, LIGHT_GREY);
 	draw_line(poor_itoa(player->live_last, buffer), &nbr, visu, LIGHT_GREY);
 	draw_line("live this period :", &txt, visu, LIGHT_GREY);
@@ -79,20 +103,37 @@ static void draw_player(t_visu *visu, t_vect *base,	t_vect	*menu_size, t_bushi *
 	t_vect_actualize(base, base->x, base->y + visu->unit * 8);
 }
 
-void draw_players(t_sen *core, t_visu *visu, int cycles)
+static void		draw_cycles(t_sen *core, t_visu *visu, t_vect *txt,	t_vect	*menu_size)
 {
-	int				i;
+	char		buffer[25];
+	t_vect		nbr1;
+	t_vect		nbr2;
+	t_vect		nbr3;
+
+	t_vect_actualize(&nbr1, txt->x + menu_size->x * 0.6, txt->y);
+	t_vect_actualize(&nbr2, txt->x + menu_size->x * 0.7, txt->y + visu->unit * 2);
+	t_vect_actualize(&nbr3, txt->x + menu_size->x * 0.75, txt->y + visu->unit * 2);
+	draw_line("Cycles : ", txt, visu, LIGHT_GREY);
+	draw_line(poor_itoa(core->state.c_total, buffer), &nbr1, visu, LIGHT_GREY);
+	draw_line("Period : ", txt, visu, LIGHT_GREY);
+	draw_line(poor_itoa(core->state.c_count, buffer), &nbr1, visu, LIGHT_GREY);
+	draw_line(" / ", &nbr2, visu, LIGHT_GREY);
+	draw_line(poor_itoa(core->state.c_todie, buffer), &nbr3, visu, LIGHT_GREY);
+}
+
+void draw_menu(t_sen *core, t_visu *visu, int cycles)
+{
+	int			i;
 	t_vect		txt;
 	t_vect		menu_size;
 
 	t_vect_actualize(&txt, get_win_size()->x * 0.7, 0);
 	t_vect_actualize(&menu_size, get_win_size()->x - txt.x,
-											get_win_size()->y - txt.y);
+													get_win_size()->y - txt.y);
 	draw_rectangle(&txt, &menu_size, DARK_GREY);
-	t_vect_actualize(&txt, txt.x + visu->unit, txt.y +
-																visu->unit);
+	t_vect_actualize(&txt, txt.x + visu->unit, txt.y + visu->unit);
+	draw_cycles(core, visu, &txt, &menu_size);
 	i = 0;
-	txt.x = txt.x + visu->unit * 2;
 	while (core->player[i].live != -2)
 	{
 		draw_player(visu, &txt, &menu_size, &(core->player[i]));

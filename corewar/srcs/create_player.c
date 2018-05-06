@@ -67,7 +67,6 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	ft_memset(proc->reg, 0, REG_NUMBER * REG_SIZE);
 	copy_pnum(&core->player[i].pnum, proc->reg[0]);
 	proc->parent = &core->player[i];
-	proc->pindex = core->player[i].pindex;
 	proc->next = core->proc;
 	proc->cycle = -1;
 	proc->op = NULL;

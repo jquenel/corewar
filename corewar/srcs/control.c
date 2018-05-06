@@ -12,25 +12,6 @@
 
 #include "template.h"
 
-static void control_camera(t_visu *visu)
-{
-	int		x;
-	int		y;
-
-	SDL_GetMouseState(&x , &y);
-	if (x == 0 || x >= (get_win_size()->x * 0.7) - 1 || y == 0 || y == get_win_size()->y - 1)
-	{
-		if (x == 0)
-			visu->base_pos->x += 10 * visu->zoom;
-		if (x >= (get_win_size()->x * 0.7) - 1)
-			visu->base_pos->x += -10 * visu->zoom;
-		if (y == 0)
-			visu->base_pos->y += 10 * visu->zoom;
-		if (y == get_win_size()->y - 1)
-			visu->base_pos->y += -10 * visu->zoom;
-	}
-}
-
 static void control_input(SDL_Event *event, t_visu *visu)
 {
 	if (event->type == SDL_QUIT)
@@ -56,7 +37,6 @@ void update_input(t_visu *visu)
 {
 	SDL_Event event;
 
-	control_camera(visu);
 	if (SDL_PollEvent(&event) == 1)
 	{
 		control_input(&event, visu);

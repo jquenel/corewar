@@ -36,7 +36,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 {
 	draw_core(visu);
 	draw_pc(core, visu);
-	draw_players(core, visu, core->state.c_count);
+	draw_menu(core, visu, core->state.c_count);
 	render_screen();
 	update_input(visu);
 }

@@ -11,17 +11,17 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "template.h"
+
+#define NO_WINNER	"No winner today !\nNext time, try using REAL champions ?\n"
 
 void		declare_winner(t_sen *core, int alive)
 {
 	int		i;
 
 	if (!alive)
-	{
-		ft_printf("[%d][%d]\n", core->state.l_last, core->arena.empty_char);
 		if (core->state.l_last == core->arena.empty_char)
-			ft_printf("No winner today !\n"
-					"Next time, try using REAL champions ?\n");
+			ft_printf(NO_WINNER);
 		else
 		{
 			i = 0;
@@ -30,7 +30,6 @@ void		declare_winner(t_sen *core, int alive)
 			ft_printf("Player %d(%s) won !\n", core->player[i].pnum,
 				core->player[i].name);
 		}
-	}
 	else
 	{
 		i = 0;
@@ -39,4 +38,6 @@ void		declare_winner(t_sen *core, int alive)
 		ft_printf("Player %d(%s) won !\n", core->player[i].pnum,
 				core->player[i].name);
 	}
+	if (core->opt & OPT_VISU)
+		close_renderer();
 }
