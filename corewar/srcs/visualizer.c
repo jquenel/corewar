@@ -55,49 +55,48 @@ static char *poor_itoa(int nbr, char *buffer)
 	return (buffer);
 }
 
-static void draw_player(t_visu *visu, t_vect *coord_base,
-											t_vect	*menu_size, t_bushi *player)
+static void draw_player(t_visu *visu, t_vect *base,	t_vect	*menu_size, t_bushi *player)
 {
 	char		buffer[12];
 	t_vect		size;
-	t_vect		coord_txt;
-	t_vect		coord_nbr;
+	t_vect		txt;
+	t_vect		nbr;
 
 	t_vect_actualize(&size, menu_size->x - visu->unit * 6, (visu->unit * 10));
-	t_vect_actualize(&coord_txt, coord_base->x + visu->unit, coord_base->y + visu->unit / 2);
-	t_vect_actualize(&coord_nbr, coord_base->x + menu_size->x * 0.6, coord_base->y + visu->unit / 2);
-	draw_rectangle(coord_base, &size, GREY);
-	draw_text(player->name, &coord_txt, visu->p_color[player->pindex], visu->menu_font, "underline");
-	draw_text(poor_itoa(player->pnum, buffer), &coord_nbr, visu->p_color[player->pindex], visu->menu_font, "normal");
-	t_vect_actualize(&coord_txt, coord_txt.x, coord_txt.y + visu->unit);
-	t_vect_actualize(&coord_nbr, coord_nbr.x, coord_nbr.y + visu->unit);
-	draw_line("live last :", &coord_txt, visu, LIGHT_GREY);
-	draw_line("nb live last", &coord_nbr, visu, LIGHT_GREY);
-	draw_line("live total :", &coord_txt, visu, LIGHT_GREY);
-	draw_line("nb live total", &coord_nbr, visu, LIGHT_GREY);
-	draw_line("nb_process :", &coord_txt, visu, LIGHT_GREY);
-	draw_line("nb nb_process", &coord_nbr, visu, LIGHT_GREY);
-	t_vect_actualize(coord_base, coord_base->x, coord_base->y + visu->unit * 8);
+	t_vect_actualize(&txt, base->x + visu->unit, base->y + visu->unit / 2);
+	t_vect_actualize(&nbr, base->x + menu_size->x * 0.6, base->y + visu->unit / 2);
+	draw_rectangle(base, &size, GREY);
+	draw_text(player->name, &txt, visu->p_color[player->pindex], visu->menu_font, "underline");
+	draw_text(poor_itoa(player->pnum, buffer), &nbr, visu->p_color[player->pindex], visu->menu_font, "normal");
+	t_vect_actualize(&txt, txt.x, txt.y + visu->unit);
+	t_vect_actualize(&nbr, nbr.x, nbr.y + visu->unit);
+	draw_line("live last :", &txt, visu, LIGHT_GREY);
+	draw_line(poor_itoa(player->live_last, buffer), &nbr, visu, LIGHT_GREY);
+	draw_line("live this period :", &txt, visu, LIGHT_GREY);
+	draw_line(poor_itoa(player->live, buffer), &nbr, visu, LIGHT_GREY);
+	draw_line("nb_process :", &txt, visu, LIGHT_GREY);
+	draw_line(poor_itoa(player->proc_count, buffer), &nbr, visu, LIGHT_GREY);
+	t_vect_actualize(base, base->x, base->y + visu->unit * 8);
 }
 
 void draw_players(t_sen *core, t_visu *visu, int cycles)
 {
 	int				i;
-	t_vect		coord_txt;
+	t_vect		txt;
 	t_vect		menu_size;
 
-	t_vect_actualize(&coord_txt, get_win_size()->x * 0.7, 0);
-	t_vect_actualize(&menu_size, get_win_size()->x - coord_txt.x,
-											get_win_size()->y - coord_txt.y);
-	draw_rectangle(&coord_txt, &menu_size, DARK_GREY);
-	t_vect_actualize(&coord_txt, coord_txt.x + visu->unit, coord_txt.y +
+	t_vect_actualize(&txt, get_win_size()->x * 0.7, 0);
+	t_vect_actualize(&menu_size, get_win_size()->x - txt.x,
+											get_win_size()->y - txt.y);
+	draw_rectangle(&txt, &menu_size, DARK_GREY);
+	t_vect_actualize(&txt, txt.x + visu->unit, txt.y +
 																visu->unit);
 	i = 0;
-	coord_txt.x = coord_txt.x + visu->unit * 2;
+	txt.x = txt.x + visu->unit * 2;
 	while (core->player[i].live != -2)
 	{
-		draw_player(visu, &coord_txt, &menu_size, &(core->player[i]));
-		t_vect_actualize(&coord_txt, coord_txt.x, coord_txt.y +	visu->unit * 3);
+		draw_player(visu, &txt, &menu_size, &(core->player[i]));
+		t_vect_actualize(&txt, txt.x, txt.y + visu->unit * 3);
 		i++;
 	}
 	(void)cycles;
@@ -112,8 +111,7 @@ void draw_pc(t_sen *core, t_visu *visu)
 	t_vect	coord;
 	t_vect	size;
 
-	size.x = (visu->unit) * visu->zoom;
-	size.y = visu->unit * visu->zoom;
+	t_vect_actualize(&size, (visu->unit) * visu->zoom, visu->unit * visu->zoom);
 	tmp = core->proc;
 	while (tmp != NULL)
 	{
@@ -121,7 +119,9 @@ void draw_pc(t_sen *core, t_visu *visu)
 		i = tmp->pc - (j * visu->tab_size->x);
 		coord.x = (visu->base_pos->x + (i * (visu->unit + visu->space)) + visu->space / 2) * visu->zoom;
 		coord.y = (visu->base_pos->y + (j * (visu->unit + visu->space)) + visu->space / 2) * visu->zoom;
-		if (coord.x + (visu->unit) * visu->zoom >= 0 && coord.x < get_win_size()->x && coord.y + visu->unit * visu->zoom >= 0 && coord.y < get_win_size()->y)
+		if (coord.x + (visu->unit) * visu->zoom >= 0 && coord.x <
+			get_win_size()->x && coord.y + visu->unit * visu->zoom >= 0 &&
+			coord.y < get_win_size()->y)
 		{
 			pos = i + (j * visu->tab_size->x);
 			draw_border_rectangle(&coord, &size, visu->p_color[(int)(visu->index[pos])] + 1);
