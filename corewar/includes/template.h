@@ -131,7 +131,7 @@ void			ft_stradd_back(char **s1, char *s2);
 t_visu			*create_t_visu(t_sen *core);
 void 			draw_core(t_visu *core);
 void			draw_pc(t_sen *core, t_visu *sdl_core);
-void			draw_players(t_sen *core, t_visu *sdl_core, int cycles);
+void			draw_menu(t_sen *core, t_visu *sdl_core, int cycles);
 void 			set_texture_list(t_visu *core);
 
 #endif
