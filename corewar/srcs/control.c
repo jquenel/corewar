@@ -18,6 +18,18 @@ static void control_input(SDL_Event *event, t_visu *visu)
 		exit(0);
 	else if ( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_ESCAPE)
 		exit(0);
+	else if ( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_p)
+		visu->pause = (visu->pause == 0 ? 1 : 0);
+	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_LEFT)
+		set_fps(-1);
+	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RIGHT)
+		set_fps(1);
+	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)
+		set_fps(10);
+	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)
+		set_fps(-10);
+	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)
+		reset_visu(visu);
 	else if (event->type == SDL_MOUSEWHEEL)
 	{
 		if (event->wheel.y > 0)
@@ -42,5 +54,7 @@ void update_input(t_visu *visu)
 		control_input(&event, visu);
 	}
 	SDL_PumpEvents();
+	SDL_FlushEvent(SDL_KEYDOWN);
+	SDL_FlushEvent(SDL_KEYUP);
 	SDL_FlushEvent(SDL_MOUSEMOTION);
 }

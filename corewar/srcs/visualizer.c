@@ -119,6 +119,8 @@ static void		draw_cycles(t_sen *core, t_visu *visu, t_vect *txt,	t_vect	*menu_si
 	draw_line(poor_itoa(core->state.c_count, buffer), &nbr1, visu, LIGHT_GREY);
 	draw_line(" / ", &nbr2, visu, LIGHT_GREY);
 	draw_line(poor_itoa(core->state.c_todie, buffer), &nbr3, visu, LIGHT_GREY);
+	draw_line("Cycles per second : ", txt, visu, LIGHT_GREY);
+	draw_line(poor_itoa(get_fps(), buffer), &nbr1, visu, LIGHT_GREY);
 }
 
 void draw_menu(t_sen *core, t_visu *visu, int cycles)

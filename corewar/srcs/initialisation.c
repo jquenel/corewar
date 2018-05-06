@@ -15,8 +15,7 @@
 SDL_Renderer	    *renderer;
 SDL_Window		    *window;
 t_vect		    	*window_size;
-const int           FPS = 60;
-const unsigned int  framedelay = 1000 / FPS;
+int           		FPS = 60;
 SDL_Color			color_tab[NB_COLOR];
 
 void	set_color_tab()
@@ -41,6 +40,21 @@ void	set_color_tab()
 	color_tab[LIGHT_ORANGE] = create_color(255, 195, 0, 42);
 	color_tab[ORANGE] = create_color(255, 165, 0, 42);
 	color_tab[DARK_ORANGE] = create_color(255, 130, 0, 42);
+}
+
+void		set_fps(int i)
+{
+	FPS = (FPS + i > 120 ? 120 : (FPS + i < 1 ? 1 : FPS + i));
+}
+
+void		reset_fps(int i)
+{
+	FPS = i;
+}
+
+int			get_fps()
+{
+	return (FPS);
 }
 
 SDL_Color get_color(int i)
@@ -94,6 +108,7 @@ void error_exit(char *msg, int error)
 
 void check_frame()
 {
+	unsigned int	framedelay = 1000 / FPS;
 	int				frame_actual;
 	static Uint32	framestart;
 	static int		beginsecond;

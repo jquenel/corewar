@@ -57,7 +57,8 @@ SRC_NAME=	corewar.c\
 			corewar_sti.c\
 			corewar_sub.c\
 			corewar_xor.c\
-			corewar_zjmp.c
+			corewar_zjmp.c\
+			reset_visu.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
