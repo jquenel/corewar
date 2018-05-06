@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   corewar.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/06 15:29:20 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/06 15:30:26 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 #include <unistd.h>
 
-void	usage(void)
+static void		usage(void)
 {
 	ft_putendl("Usage : corewar [-dump nbr_cycles] \
 			[[-n number] champion1.cor] ...");
-	exit (1);
+	exit(1);
 }
 
-int	main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_sen		core;
 
@@ -17,6 +29,5 @@ int	main(int argc, char **argv)
 	if (parser(argc - 1, &(argv[1]), &core))
 		usage();
 	start_battle(&core);
-//	dump_core(&core);
 	destroy_processes(core.proc);
 }

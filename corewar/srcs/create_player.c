@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/04 16:22:01 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:31:30 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ static void	copy_pnum(int *pnum, char *reg)
 	int		j;
 
 	i = REG_SIZE;
-	/*DEPENDING ON ENDIANNESS...
-	j = sizeof(int);
-	while (i-- && j--)
-		reg[i] = ((char *)pnum)[j];
-	*/
 	j = 0;
 	while (i-- && (unsigned int)j < sizeof(int))
 		reg[i] = ((char *)pnum)[j++];

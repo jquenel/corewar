@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:20:01 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/03 23:20:02 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:31:46 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	check_args_validity(t_bo *actual)
 	return (1);
 }
 
-void	do_op(t_sen *core, t_bo *actual)
+void		do_op(t_sen *core, t_bo *actual)
 {
 	if (!check_args_validity(actual))
 		actual->pc = (actual->pc + actual->size) % core->arena.size;

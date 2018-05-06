@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 19:58:20 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:29:12 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:37:02 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	get_regs(t_arg *args, int *reg)
 	return (reg[2] == -1 ? 0 : 1);
 }
 
-int		corewar_ldi(t_sen *core, t_bo *actual, t_arg *args)
+int			corewar_ldi(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		vpos;
 	int		reg[3];

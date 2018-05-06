@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/23 17:20:53 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:32:15 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	power256(int p)
 
 static int	neg_dtoi(char *data, int size)
 {
-	int	result;
+	int		result;
 	int		i;
 
 	result = 0;
@@ -40,7 +40,7 @@ static int	neg_dtoi(char *data, int size)
 	return (-(power256(size) - result));
 }
 
-int		dtoi(char *data, int size)
+int			dtoi(char *data, int size)
 {
 	int		result;
 	int		i;

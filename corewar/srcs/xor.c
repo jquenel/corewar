@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 19:37:29 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:28:40 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:18:46 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ int		corewar_xor(t_sen *core, t_bo *actual, t_arg *args)
 		return (1);
 	reg[0] = dtoi(actual->reg[reg[0]], REG_SIZE) ^
 			dtoi(actual->reg[reg[1]], REG_SIZE);
-	i = REG_SIZE;
-
-	/* this part depends on endianness
-	i = REG_SIZE;
-	while (i--)
-		actual->reg[reg[2]][i] = ((char *)(&reg[0]))[i];
-	*/
 	i = REG_SIZE;
 	while (i--)
 		actual->reg[reg[2]][REG_SIZE - i - 1] = ((char *)(&reg[0]))[i];

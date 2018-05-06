@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 22:08:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/04 16:22:52 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 14:39:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ int			fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1])
 	t_bo	*tmp;
 	int		min;
 
+	tmp = core->proc;
+	while (tmp)
+	{
+		if (tmp->cycle < 0)
+			tmp->cycle += plan_op(core, tmp, op);
+		tmp = tmp->next;
+	}
 	min = get_min_cycle(core->proc);
 	ft_printf("%d   %d\n", core->state.c_count, min);
 	if (core->state.c_count + min >= core->state.c_todie)
@@ -48,11 +55,9 @@ int			fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1])
 	tmp = core->proc;
 	while (tmp)
 	{
-		if (tmp->cycle < 0)
-			tmp->cycle += plan_op(core, tmp, op);
 		if (tmp->cycle == 0 && tmp->op)
 			do_op(core, tmp);
 		tmp = tmp->next;
 	}
-	return (min < 0 ? 1 : min);
+	return (min <= 0 ? 1 : min);
 }

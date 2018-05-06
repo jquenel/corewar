@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/04/24 23:27:27 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:17:48 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
 		return (1);
 	reg[0] = dtoi(actual->reg[reg[0]], REG_SIZE) +
 			dtoi(actual->reg[reg[1]], REG_SIZE);
-
-	/* this part depends on endianness
-	i = REG_SIZE;
-	while (i--)
-		actual->reg[reg[2]][i] = ((char *)(&reg[0]))[i];
-	*/
 	i = REG_SIZE;
 	while (i--)
 		actual->reg[reg[2]][REG_SIZE - i - 1] = ((char *)(&reg[0]))[i];

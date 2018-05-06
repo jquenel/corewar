@@ -6,20 +6,20 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:24:00 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "template.h"
 
-SDL_Renderer	    *renderer;
-SDL_Window		    *window;
-t_2d_coord		    *window_size;
-const int           FPS = 60;
-const unsigned int  framedelay = 1000 / 60;
+SDL_Renderer		*renderer;
+SDL_Window			*window;
+t_2d_coord			*window_size;
+const int			FPS = 60;
+const unsigned int	framedelay = 1000 / 60;
 SDL_Color			color_tab[NB_COLOR];
 
-void	set_color_tab()
+void		set_color_tab()
 {
 	color_tab[BLACK] = create_color(39, 39, 39, 42);
 	color_tab[WHITE] = create_color(240, 240, 240, 42);
@@ -43,14 +43,14 @@ void	set_color_tab()
 	color_tab[DARK_ORANGE] = create_color(255, 130, 0, 42);
 }
 
-SDL_Color get_color(int i)
+SDL_Color	get_color(int i)
 {
 	if (i < 0 || i > NB_COLOR)
 		return (color_tab[0]);
 	return (color_tab[i]);
 }
 
-void	window_initialisation(char *window_name)
+void		window_initialisation(char *window_name)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_DisplayMode current;
