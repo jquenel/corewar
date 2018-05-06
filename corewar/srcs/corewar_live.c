@@ -6,13 +6,13 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/06 15:36:48 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 16:10:13 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
+int			corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		i;
 	int		nb_player;
@@ -25,9 +25,11 @@ int		corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 	{
 		if (core->player[i].pnum == nb_player && core->player[i].live >= 0)
 		{
-			ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
+			if (core->opt & OPT_VERB)
+				ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
 					nb_player, core->player[i].name);
 			core->player[i].live++;
+			core->player[i].live_last = core->state.c_count;
 			core->state.l_last = nb_player;
 			return (1);
 		}

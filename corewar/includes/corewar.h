@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/04 16:20:38 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 16:15:37 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct			s_bushi
 	int					pnum;
 	int					pindex;
 	int					live;
+	int					live_last;
+	int					proc_count;
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
 	char				*txt_pnum;
@@ -74,8 +76,7 @@ typedef struct			s_arg
 
 typedef struct			s_bo
 {
-	int					pnum;
-	int					pindex;
+	t_bushi				*parent;
 	int					carry;
 	int					pc;
 	int					live;
@@ -147,7 +148,6 @@ void	declare_winner(t_sen *core, int alive);
 
 void	dump_core(t_sen *core);
 int		destroy_processes(t_bo *proc);
-
 
 int		corewar_live(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args);

@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:02:14 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:31:16 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 16:12:12 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		corewar_fork(t_sen *core, t_bo *actual, t_arg *args)
 {
 	t_bo	*tmp;
 
+	actual->parent->proc_count++;
 	tmp = actual->next;
 	if (!(actual->next = malloc(sizeof(t_bo))))
 		malloc_error(core);

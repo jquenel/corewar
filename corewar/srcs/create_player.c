@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 15:31:30 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 16:12:45 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	core->player[i].pnum = get_player_num(argc, argv, core);
 	core->player[i].pindex = i + 1;
 	core->player[i].live = 0;
+	core->player[i].live_last = 0;
+	core->player[i].proc_count = 1;
 	proc->carry = 0;
 	proc->pc = (MEM_SIZE * i) / core->pcount;
 	ft_memset(proc->reg, 0, REG_NUMBER * REG_SIZE);
 	copy_pnum(&core->player[i].pnum, proc->reg[0]);
-	proc->pnum = core->player[i].pnum;
+	proc->parent = &core->player[i];
 	proc->pindex = core->player[i].pindex;
 	proc->next = core->proc;
 	proc->cycle = -1;
