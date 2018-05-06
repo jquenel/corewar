@@ -6,14 +6,14 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/04 19:45:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/06 15:11:58 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "template.h"
 
-static int	do_cycle(t_sen *core, t_optab *op)
+static int		do_cycle(t_sen *core, t_optab *op)
 {
 	int		cycles;
 
@@ -32,7 +32,25 @@ static int	do_cycle(t_sen *core, t_optab *op)
 		return (cycle(core, op));
 }
 
-void		start_battle(t_sen *core)
+static void		draw_corewar(t_sen *core, t_core *sdl_core)
+{
+	draw_core(sdl_core);
+	draw_pc(core, sdl_core);
+	draw_player(core, sdl_core, core->state.c_count);
+	render_screen();
+	update_input(sdl_core);
+}
+
+static t_core	*init_visu(t_sen *core)
+{
+	t_core		*sdl_core;
+
+	window_initialisation("char *window_name");
+	sdl_core = create_t_core(core);
+	return (sdl_core);
+}
+
+void			start_battle(t_sen *core)
 {
 	int			alive;
 	int			cycles;
@@ -41,8 +59,8 @@ void		start_battle(t_sen *core)
 
 	init_optab(op);
 	alive = 2;
-	window_initialisation("char *window_name");
-	sdl_core = create_t_core(core);
+	if (core->opt & OPT_VISU)
+		init_visu(core);
 	while (alive > 1)
 	{
 		if ((cycles = do_cycle(core, op)) < 0)
@@ -54,11 +72,8 @@ void		start_battle(t_sen *core)
 		core->state.c_count += cycles;
 		if (core->state.c_count >= core->state.c_todie)
 			alive = tsumego(core);
-		draw_core(sdl_core);
-		draw_pc(core, sdl_core);
-		draw_player(core, sdl_core, core->state.c_count);
-		render_screen();
-		update_input(sdl_core);
+		if (core->opt & OPT_CORE)
+			draw_corewar(core, sdl_core);
 	}
 	declare_winner(core, alive);
 }
