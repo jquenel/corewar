@@ -52,7 +52,7 @@ typedef struct			s_ban
 **		live <= -2 : not a player in this game
 **		live == -1 : dead
 **		live == 0 alive
-**		live == 1 alive this cycle
+**		live >= 1 alive this cycle
 */
 
 typedef struct			s_bushi
@@ -62,6 +62,7 @@ typedef struct			s_bushi
 	int					live;
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
+	char				*txt_pnum;
 }						t_bushi;
 
 typedef struct			s_arg
@@ -100,18 +101,12 @@ typedef struct			s_sumego
 	int					dump_limit;
 }						t_sumego;
 
-typedef struct			s_visu
-{
-	int					pause;
-}						t_visu;
-
 typedef struct			s_sen
 {
 	int					opt;
 	int					pcount;
 	t_sumego			state;
 	t_ban				arena;
-	t_visu				visu;
 	t_bo				*proc;
 	t_bushi				player[MAX_PLAYERS + 1];
 }						t_sen;
