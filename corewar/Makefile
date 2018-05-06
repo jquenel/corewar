@@ -10,9 +10,7 @@ OBJ_PATH=	obj
 
 CPPFLAGS=	-Iincludes -I../libft/includes -I../libsdl/includes
 
-SRC_NAME=	add.c\
-			aff.c\
-			and.c\
+SRC_NAME=	corewar.c\
 			basic_function.c\
 			check_alive.c\
 			control.c\
@@ -20,7 +18,6 @@ SRC_NAME=	add.c\
 			core_getlvalue.c\
 			core_getvalue.c\
 			core_regtomem.c\
-			corewar.c\
 			count_players.c\
 			create_player.c\
 			create_t_visu.c\
@@ -34,30 +31,33 @@ SRC_NAME=	add.c\
 			dtoi.c\
 			dump_core.c\
 			fast_cycle.c\
-			fork.c\
 			get_options.c\
 			init_optab.c\
 			initialisation.c\
 			is_all_nums.c\
-			ld.c\
-			ldi.c\
-			lfork.c\
-			live.c\
-			lld.c\
-			lldi.c\
 			load_program.c\
 			malloc_error.c\
-			or.c\
 			parser.c\
 			plan_op.c\
-			st.c\
 			start_battle.c\
-			sti.c\
-			sub.c\
 			t_vect.c\
 			visualizer.c\
-			xor.c\
-			zjmp.c
+			corewar_add.c\
+			corewar_aff.c\
+			corewar_and.c\
+			corewar_fork.c\
+			corewar_ld.c\
+			corewar_ldi.c\
+			corewar_lfork.c\
+			corewar_live.c\
+			corewar_lld.c\
+			corewar_lldi.c\
+			corewar_or.c\
+			corewar_st.c\
+			corewar_sti.c\
+			corewar_sub.c\
+			corewar_xor.c\
+			corewar_zjmp.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
