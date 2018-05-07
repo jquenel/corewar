@@ -38,7 +38,7 @@ static void		define_str(t_visu *visu)
 	visu->str_list[1] = "Load (5 cycles)";
 	visu->str_list[2] = "Store (5 cycles)";
 	visu->str_list[3] = "Addition (10 cycles)";
-	visu->str_list[4] = "Soustraction (10 cycles)";
+	visu->str_list[4] = "Subtraction (10 cycles)";
 	visu->str_list[5] = "Binary and (6 cycles)";
 	visu->str_list[6] = "Binary or (6 cycles)";
 	visu->str_list[7] = "Binary xor (6 cycles)";

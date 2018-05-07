@@ -123,36 +123,6 @@ static void		draw_cycles(t_sen *core, t_visu *visu, t_vect *txt,	t_vect	*menu_si
 	draw_line(poor_itoa(get_fps(), buffer), &nbr1, visu, LIGHT_GREY);
 }
 
-void draw_info(t_sen *core, t_visu *visu)
-{
-	t_vect	mpos;
-	t_vect	size;
-	t_vect	coord;
-	int		pos;
-	char	c;
-
-	SDL_GetMouseState(&(mpos.x), &(mpos.y));
-	size.x = visu->unit * 15;
-	size.y = visu->unit * 2;
-	coord.x = (mpos.x - (visu->base_pos->x * visu->zoom)) /
-									((visu->unit + visu->space) * visu->zoom);
-	coord.y = (mpos.y - (visu->base_pos->y * visu->zoom)) /
-									((visu->unit + visu->space) * visu->zoom);
-	pos = (coord.x + (coord.y * visu->tab_size->x));
-	if (pos >= 0 && pos < MEM_SIZE)
-	{
-		c = core->arena.field[pos];
-		if (c < OP_COUNT && c > 0)
-		{
-			t_vect_actualize(&mpos, mpos.x + visu->unit, mpos.y + visu->unit);
-			draw_border_rectangle(&mpos, &size, GREY);
-			t_vect_actualize(&mpos, mpos.x + size.x / 2, mpos.y + size.y / 2);
-			draw_centred_text(visu->str_list[(int)c - 1], &mpos, BLACK, visu->menu_font, "normal");
-		}
-	}
-
-}
-
 void draw_menu(t_sen *core, t_visu *visu, int cycles)
 {
 	int			i;
@@ -173,6 +143,35 @@ void draw_menu(t_sen *core, t_visu *visu, int cycles)
 		i++;
 	}
 	(void)cycles;
+}
+
+void draw_info(t_sen *core, t_visu *visu)
+{
+	t_vect	mpos;
+	t_vect	size;
+	t_vect	coord;
+	int		pos;
+	char	c;
+
+	SDL_GetMouseState(&(mpos.x), &(mpos.y));
+	size.x = visu->unit * 18;
+	size.y = visu->unit * 2;
+	coord.x = (mpos.x - (visu->base_pos->x * visu->zoom)) /
+									((visu->unit + visu->space) * visu->zoom);
+	coord.y = (mpos.y - (visu->base_pos->y * visu->zoom)) /
+									((visu->unit + visu->space) * visu->zoom);
+	pos = (coord.x + (coord.y * visu->tab_size->x));
+	if (pos >= 0 && pos < MEM_SIZE)
+	{
+		c = core->arena.field[pos];
+		if (c < OP_COUNT && c > 0)
+		{
+			t_vect_actualize(&mpos, mpos.x + visu->unit, mpos.y + visu->unit);
+			draw_border_rectangle(&mpos, &size, GREY);
+			t_vect_actualize(&mpos, mpos.x + size.x / 2, mpos.y + size.y / 2);
+			draw_centred_text(visu->str_list[(int)c - 1], &mpos, BLACK, visu->menu_font, "normal");
+		}
+	}
 }
 
 void draw_pc(t_sen *core, t_visu *visu)
