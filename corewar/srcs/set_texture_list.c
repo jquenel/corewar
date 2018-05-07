@@ -6,60 +6,34 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/07 16:08:49 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/04 19:13:33 by jboissy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "template.h"
+#include "corewar.h"
 
-int					get_root(int size)
+void			set_texture_list(t_visu *visu)
 {
-	int		i;
-
-	i = 1;
-	while ((i + 1) * (i + 1) <= size)
-		i++;
-	return (i);
-}
-
-static int			ft_intlen_base(uintmax_t nbr, unsigned int base_size)
-{
-	int		size;
-
-	if (nbr == 0)
-		return (1);
-	size = 0;
-	while (nbr >= base_size)
-	{
-		nbr /= base_size;
-		size++;
-	}
-	return (size);
-}
-
-char				*ft_itoa_base(int nbr, char *base)
-{
-	int			len;
-	int			base_size;
 	int			i;
-	char		*dest;
+	char		*text;
+	SDL_Surface	*surface;
 
-	base_size = ft_strlen(base);
-	len = ft_intlen_base(nbr, base_size);
-	dest = ft_strnew(len + 1);
+	if (visu->font != NULL)
+		TTF_CloseFont(visu->font);
+	visu->font_size = (visu->unit / 1.8) * visu->zoom;
+	visu->font = TTF_OpenFont(FONT_PATH, visu->font_size);
 	i = 0;
-	while (nbr > 0)
+	while (i < 256)
 	{
-		dest[len - i] = base[nbr % base_size];
-		nbr /= base_size;
+		text = ft_itoa_base(i, "0123456789abcdef");
+		if (ft_strlen(text) < 2)
+			ft_stradd_front("0", &text);
+		surface = TTF_RenderText_Blended(visu->font, text, get_color(BLACK));
+		visu->texture_list[i] = SDL_CreateTextureFromSurface(get_renderer(),
+																	surface);
+		SDL_FreeSurface(surface);
+		free(text);
 		i++;
 	}
-	dest[len + 1] = '\0';
-	return (dest);
-}
-
-void				error_exit(char *msg, int error)
-{
-	ft_printf("Error %d : %s\n", error, msg);
-	exit(error);
 }

@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core_getlvalue.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/24 22:48:39 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/07 16:57:00 by jquenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "template.h"
 #include "corewar.h"
 
-static t_vect *get_size(int	len)
+static t_vect		*get_size(int len)
 {
 	int		i;
 	int		j;
@@ -13,10 +25,10 @@ static t_vect *get_size(int	len)
 	return (t_vect_new(i, j));
 }
 
-static void define_base(t_visu *visu)
+static void			define_base(t_visu *visu)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = get_win_size()->x / visu->tab_size->x;
 	if (get_win_size()->y / visu->tab_size->y < i)
@@ -29,10 +41,10 @@ static void define_base(t_visu *visu)
 									get_win_size()->y / 2 - j / 2);
 	visu->zoom = 1;
 	visu->font = NULL;
-    set_texture_list(visu);
+	set_texture_list(visu);
 }
 
-static void		define_str(t_visu *visu)
+static void			define_str(t_visu *visu)
 {
 	visu->str_list[0] = "Live (10 cycles)";
 	visu->str_list[1] = "Load (5 cycles)";
@@ -52,7 +64,7 @@ static void		define_str(t_visu *visu)
 	visu->str_list[15] = "Aff (2 cycles)";
 }
 
-t_visu *create_t_visu(t_sen *core)
+t_visu				*create_t_visu(t_sen *core)
 {
 	t_visu		*visu;
 

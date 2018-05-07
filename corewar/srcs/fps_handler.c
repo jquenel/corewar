@@ -6,60 +6,55 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/07 16:08:49 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 17:32:56 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "template.h"
 
-int					get_root(int size)
-{
-	int		i;
+int			g_fps = 60;
 
-	i = 1;
-	while ((i + 1) * (i + 1) <= size)
-		i++;
-	return (i);
+void		set_fps(int i)
+{
+	if (g_fps + i < 24)
+		g_fps = 24;
+	else if (g_fps + i > 120)
+		g_fps = 120;
+	else
+		g_fps += i;
 }
 
-static int			ft_intlen_base(uintmax_t nbr, unsigned int base_size)
+void		reset_fps(int i)
 {
-	int		size;
+	g_fps = i;
+}
 
-	if (nbr == 0)
-		return (1);
-	size = 0;
-	while (nbr >= base_size)
+int			get_fps(void)
+{
+	return (g_fps);
+}
+
+void		check_frame(void)
+{
+	unsigned int	framedelay;
+	int				frame_actual;
+	static Uint32	framestart;
+	static int		beginsecond;
+	static int		nb_frame;
+
+	framedelay = 1000 / g_fps;
+	frame_actual = SDL_GetTicks();
+	if (beginsecond == 0)
+		beginsecond = frame_actual;
+	if (frame_actual - beginsecond > 1000)
 	{
-		nbr /= base_size;
-		size++;
+		printf("FPS = %d\n", nb_frame);
+		nb_frame = 0;
+		beginsecond = 0;
 	}
-	return (size);
-}
-
-char				*ft_itoa_base(int nbr, char *base)
-{
-	int			len;
-	int			base_size;
-	int			i;
-	char		*dest;
-
-	base_size = ft_strlen(base);
-	len = ft_intlen_base(nbr, base_size);
-	dest = ft_strnew(len + 1);
-	i = 0;
-	while (nbr > 0)
-	{
-		dest[len - i] = base[nbr % base_size];
-		nbr /= base_size;
-		i++;
-	}
-	dest[len + 1] = '\0';
-	return (dest);
-}
-
-void				error_exit(char *msg, int error)
-{
-	ft_printf("Error %d : %s\n", error, msg);
-	exit(error);
+	else
+		nb_frame++;
+	if (framedelay > frame_actual - framestart)
+		SDL_Delay(framedelay - (frame_actual - framestart));
+	framestart = SDL_GetTicks();
 }

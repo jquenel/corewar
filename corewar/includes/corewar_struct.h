@@ -142,4 +142,11 @@ typedef struct	s_visu
 	char		one_cycle;
 }				t_visu;
 
+typedef struct	s_typo
+{
+	int			color_type;
+	TTF_Font	*font;
+	char		*typo;
+}				t_typo;
+
 #endif

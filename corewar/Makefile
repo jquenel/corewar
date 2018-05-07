@@ -34,7 +34,6 @@ SRC_NAME=	corewar.c\
 			get_options.c\
 			get_regs.c\
 			init_optab.c\
-			initialisation.c\
 			is_all_nums.c\
 			load_program.c\
 			malloc_error.c\
@@ -42,7 +41,10 @@ SRC_NAME=	corewar.c\
 			plan_op.c\
 			start_battle.c\
 			t_vect.c\
-			visualizer.c\
+			draw_pc.c\
+			draw_menu.c\
+			draw_core.c\
+			draw_info.c\
 			corewar_add.c\
 			corewar_aff.c\
 			corewar_and.c\
@@ -59,7 +61,13 @@ SRC_NAME=	corewar.c\
 			corewar_sub.c\
 			corewar_xor.c\
 			corewar_zjmp.c\
-			reset_visu.c
+			reset_visu.c\
+			ft_strbonus.c\
+			fps_handler.c\
+			color_handler.c\
+			screen_handler.c\
+			set_t_typo.c\
+			poor_itoa.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

@@ -12,7 +12,7 @@
 
 #include "template.h"
 
-t_vect	*t_vect_new(int x, int y)
+t_vect			*t_vect_new(int x, int y)
 {
 	t_vect *tmp;
 
@@ -23,12 +23,12 @@ t_vect	*t_vect_new(int x, int y)
 	return (tmp);
 }
 
-void t_vect_free(t_vect *coord)
+void			t_vect_free(t_vect *coord)
 {
 	free(coord);
 }
 
-void t_vect_actualize(t_vect *coord, int new_x, int new_y)
+void			t_vect_actualize(t_vect *coord, int new_x, int new_y)
 {
 	coord->x = new_x;
 	coord->y = new_y;

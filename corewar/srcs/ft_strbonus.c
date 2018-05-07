@@ -12,54 +12,56 @@
 
 #include "template.h"
 
-int					get_root(int size)
+char		*ft_strnew(size_t size)
 {
-	int		i;
-
-	i = 1;
-	while ((i + 1) * (i + 1) <= size)
-		i++;
-	return (i);
-}
-
-static int			ft_intlen_base(uintmax_t nbr, unsigned int base_size)
-{
-	int		size;
-
-	if (nbr == 0)
-		return (1);
-	size = 0;
-	while (nbr >= base_size)
-	{
-		nbr /= base_size;
-		size++;
-	}
-	return (size);
-}
-
-char				*ft_itoa_base(int nbr, char *base)
-{
-	int			len;
-	int			base_size;
-	int			i;
 	char		*dest;
+	size_t		i;
 
-	base_size = ft_strlen(base);
-	len = ft_intlen_base(nbr, base_size);
-	dest = ft_strnew(len + 1);
+	if (!(dest = (char *)malloc(sizeof(char) * size + 1)))
+		error_exit("Can't execute a ft_strnew", 1);
 	i = 0;
-	while (nbr > 0)
+	while (i < size + 1)
 	{
-		dest[len - i] = base[nbr % base_size];
-		nbr /= base_size;
+		dest[i] = '\0';
 		i++;
 	}
-	dest[len + 1] = '\0';
 	return (dest);
 }
 
-void				error_exit(char *msg, int error)
+void		ft_stradd_front(char *s1, char **s2)
 {
-	ft_printf("Error %d : %s\n", error, msg);
-	exit(error);
+	char	*tmp;
+	size_t	new_size;
+
+	tmp = ft_strdup(*s2);
+	free(*s2);
+	new_size = 0;
+	if (s1)
+		new_size += ft_strlen(s1);
+	if (tmp)
+		new_size += ft_strlen(tmp);
+	if (!(*s2 = ft_strnew(new_size)))
+		return ;
+	ft_strcpy(*s2, s1);
+	ft_strcat(*s2, tmp);
+	free(tmp);
+}
+
+void		ft_stradd_back(char **s1, char *s2)
+{
+	char	*tmp;
+	size_t	new_size;
+
+	tmp = ft_strdup(*s1);
+	free(*s1);
+	new_size = 0;
+	if (s2)
+		new_size += ft_strlen(s2);
+	if (tmp)
+		new_size += ft_strlen(tmp);
+	if (!(*s1 = ft_strnew(new_size)))
+		return ;
+	ft_strcpy(*s1, tmp);
+	ft_strcat(*s1, s2);
+	free(tmp);
 }

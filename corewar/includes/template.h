@@ -54,17 +54,17 @@
 # define P4_COLOR		CYAN
 
 void			draw_image(char *path, t_vect *coord, t_vect *size, double angle);
-void			draw_SDLSurface(SDL_Surface *bmp, t_vect *coord, t_vect *size, double angle);
-void 			draw_SDLTexture(SDL_Texture *texture, t_vect *coord, t_vect *size, double angle);
-void 			draw_centred_SDLTexture(SDL_Texture *texture, t_vect *coord, double angle);
+void			draw_sdlsurface(SDL_Surface *bmp, t_vect *coord, t_vect *size, double angle);
+void 			draw_sdltexture(SDL_Texture *texture, t_vect *coord, t_vect *size, double angle);
+void 			draw_centred_sdltexture(SDL_Texture *texture, t_vect *coord, double angle);
 
 SDL_Color 		create_color(int r, int g, int b, int a);
 SDL_Color		get_color(int i);
 void 			draw_rectangle(t_vect *coord, t_vect *size, int color_type);
 void 			draw_border_rectangle(t_vect *coord, t_vect *size, int color_type);
 
-int				draw_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char *typo);
-int				draw_centred_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char *typo);
+int				draw_text(char *text, t_vect *coord, t_typo *v_typo);
+int				draw_centred_text(char *text, t_vect *coord, t_typo *v_typo);
 
 void			window_initialisation(char *window_name);
 void			set_fps(int i);
@@ -88,6 +88,7 @@ void 			update_input(t_visu *core);
 
 int				get_root(int size);
 char			*ft_itoa_base(int value, char *base);
+char			*ft_strnew(size_t size);
 void			ft_stradd_front(char *s1, char **s2);
 void			ft_stradd_back(char **s1, char *s2);
 
@@ -99,5 +100,12 @@ void			draw_info(t_sen *core, t_visu *visu);
 void 			set_texture_list(t_visu *core);
 
 void			reset_visu(t_visu *visu);
+
+void			set_color_tab(void);
+
+char			*poor_itoa(int nbr, char *buffer);
+
+t_typo			*set_t_typo(t_typo *v_font, char *typo, int color_type,
+																TTF_Font *font);
 
 #endif
