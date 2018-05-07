@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 14:42:21 by sboilard          #+#    #+#             */
-/*   Updated: 2018/03/26 04:59:01 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/07 02:41:24 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 t_list	**ft_list_last(t_list **list)
 {
-	if (*list == NULL)
-		return (NULL);
-	while ((*list)->next != NULL)
-		list = &(*list)->next;
-	return (list);
+	t_list	*iter;
+
+	iter = (t_list *)list;
+	while (iter->next != NULL)
+		iter = iter->next;
+	return (&iter->next);
 }
