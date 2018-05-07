@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/07 17:31:07 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,22 @@ static void control_input(SDL_Event *event, t_visu *visu)
 {
 	if (event->type == SDL_QUIT)
 		exit(0);
-	else if ( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_ESCAPE)
+	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_ESCAPE)
 		exit(0);
-	else if ( event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_p)
+	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_p)
 		visu->pause = (visu->pause == 0 ? 1 : 0);
-	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_LEFT)
+	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_LEFT)
 		set_fps(-1);
-	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RIGHT)
+	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RIGHT)
 		set_fps(1);
-	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)
+	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)
 		set_fps(10);
-	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)
+	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)
 		set_fps(-10);
-	else if ( event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)
+	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)
 		reset_visu(visu);
+	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_s)
+		visu->one_cycle = 1;
 	else if (event->type == SDL_MOUSEWHEEL)
 	{
 		if (event->wheel.y > 0)

@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 16:10:09 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 17:26:19 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,18 @@ static int		do_cycle(t_sen *core, t_optab *op)
 
 static void		draw_corewar(t_sen *core, t_visu *visu)
 {
+	visu->one_cycle = 0;
 	draw_core(visu);
 	draw_pc(core, visu);
 	draw_menu(core, visu, core->state.c_count);
-	render_screen();
+	render_screen(visu->pause);
 	update_input(visu);
-	while (visu->pause == 1)
+	while (visu->pause == 1 && !visu->one_cycle)
 	{
 		draw_core(visu);
 		draw_pc(core, visu);
 		draw_menu(core, visu, core->state.c_count);
-		render_screen();
+		render_screen(visu->pause);
 		update_input(visu);
 	}
 }

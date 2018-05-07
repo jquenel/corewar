@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/07 17:32:56 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 SDL_Renderer	    *renderer;
 SDL_Window		    *window;
 t_vect		    	*window_size;
-int           		FPS = 60;
+int           		fps = 60;
 SDL_Color			color_tab[NB_COLOR];
 
-void	set_color_tab()
+void	set_color_tab(void)
 {
 	color_tab[BLACK] = create_color(39, 39, 39, 42);
 	color_tab[WHITE] = create_color(240, 240, 240, 42);
@@ -44,17 +44,17 @@ void	set_color_tab()
 
 void		set_fps(int i)
 {
-	FPS = (FPS + i > 120 ? 120 : (FPS + i < 1 ? 1 : FPS + i));
+	fps = (fps + i > 120 ? 120 : (fps + i < 24 ? 24 : fps + i));
 }
 
 void		reset_fps(int i)
 {
-	FPS = i;
+	fps = i;
 }
 
-int			get_fps()
+int			get_fps(void)
 {
-	return (FPS);
+	return (fps);
 }
 
 SDL_Color get_color(int i)
@@ -84,17 +84,17 @@ void	window_initialisation(char *window_name)
 	set_color_tab();
 }
 
-SDL_Renderer *get_renderer()
+SDL_Renderer *get_renderer(void)
 {
 	return (renderer);
 }
 
-t_vect  *get_win_size()
+t_vect  *get_win_size(void)
 {
     return (window_size);
 }
 
-void close_renderer()
+void close_renderer(void)
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -106,32 +106,35 @@ void error_exit(char *msg, int error)
 	exit(error);
 }
 
-void check_frame()
+void check_frame(void)
 {
-	unsigned int	framedelay = 1000 / FPS;
+	unsigned int	framedelay = 1000 / fps;
 	int				frame_actual;
 	static Uint32	framestart;
 	static int		beginsecond;
 	static int		nb_frame;
 
+	ft_printf("HALLO\n");
 	frame_actual = SDL_GetTicks();
 	if (beginsecond == 0)
 		beginsecond = frame_actual;
 	if (frame_actual - beginsecond > 1000)
 	{
-		ft_printf("FPS = %d\n", nb_frame);
+		ft_printf("fps = %d\n", nb_frame);
 		nb_frame = 0;
 		beginsecond = 0;
 	}
 	else
 		nb_frame++;
-	if (framedelay > (frame_actual - framestart))
+	if (framedelay > frame_actual - framestart)
 		SDL_Delay(framedelay - (frame_actual - framestart));
     framestart = SDL_GetTicks();
 }
 
-void	render_screen()
+void	render_screen(int pause)
 {
-	check_frame();
+	ft_printf("%d\n", pause);
+	if (!pause)
+		check_frame();
 	SDL_RenderPresent(get_renderer());
 }

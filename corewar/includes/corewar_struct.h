@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 18:59:09 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 17:25:36 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct	s_visu
 	int			unit;
 	int			space;
 	char		pause;
+	char		one_cycle;
 }				t_visu;
 
 #endif
