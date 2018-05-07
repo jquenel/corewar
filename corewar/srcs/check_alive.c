@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:13:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/03 23:13:59 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 19:04:20 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,15 @@ static int	check_alive_proc(t_bo **proc)
 	return (count);
 }
 
+static void	set_live_zero(t_bushi *player)
+{
+	int		i;
+
+	i = MAX_PLAYERS;
+	while (i--)
+		player[i].live = player[i].live == -2 ? -2 : 0;
+}
+
 static int	check_alive(t_bushi *player, t_bo **proc)
 {
 	int		i;
@@ -81,7 +90,13 @@ int			tsumego(t_sen *core)
 {
 	int		alive;
 
-	alive = check_alive(core->player, &core->proc);
+	if (core->opt & OPT_DETH)
+		alive = check_alive(core->player, &core->proc);
+	else
+	{
+		set_live_zero(core->player);
+		alive = check_alive_proc(&(core->proc));
+	}
 	core->state.c_count -= core->state.c_todie;
 	if (core->state.l_count >= core->state.l_limit
 			|| ++core->state.l_checks == core->state.l_checks_limit)

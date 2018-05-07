@@ -39,7 +39,7 @@ t_visu *create_t_visu(t_sen *visu)
 	if (!(sdl_visu = (t_visu *)malloc(sizeof(t_visu))))
 		error_exit("Can't malloc a t_visu", 152);
 	sdl_visu->field = visu->arena.field;
-	sdl_visu->pause = 0;
+	sdl_visu->pause = 1;
 	sdl_visu->index = visu->arena.trace;
 	sdl_visu->len = visu->arena.size;
 	sdl_visu->tab_size = get_size(sdl_visu->len);

@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:38:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 15:38:39 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 21:23:16 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int			plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1])
 	{
 		actual->pc = (actual->pc + 1) % core->arena.size;
 		actual->op = NULL;
-		return (0);
+		return (core->opt & OPT_FAST ? 1 : 0);
 	}
 	ft_memset(actual->args, 0, sizeof(t_arg) * (MAX_ARGS_NUMBER));
 	actual->op = &op[(int)OP_BYTE - 1];

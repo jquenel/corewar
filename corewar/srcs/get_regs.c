@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core_getlvalue.c                                   :+:      :+:    :+:   */
+/*   get_regs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 22:48:39 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 20:12:41 by jquenel          ###   ########.fr       */
+/*   Created: 2018/05/06 19:57:45 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/06 20:26:03 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int			core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual, int pc)
+int	get_regs(t_arg *args, int *is_reg)
 {
-	int		vpos;
+	int		i;
 
-	if (arg->type == T_REG)
-		return (dtoi(actual->reg[(int)(arg->data[0])], REG_SIZE));
-	if (arg->type == T_IND)
+	i = 3;
+	while (i--)
 	{
-		vpos = dtoi(arg->data, arg->size);
-		arg->type = T_DIR;
-		arg->size = DIR_SIZE;
-		copy_data(core, arg->data, pc + vpos, arg->size);
+		if (args[i].type == T_REG)
+		{
+			if ((unsigned int)(args[i].data[0]
+				= (char)(dtoi(args[i].data, args[i].size) - 1)) > 15)
+				return (0);
+			is_reg[i] = 1;
+		}
+		else
+			is_reg[i] = 0;
 	}
-	return (dtoi(arg->data, arg->size));
+	return (1);
 }

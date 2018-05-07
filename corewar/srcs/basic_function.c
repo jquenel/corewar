@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/07 16:08:49 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char			*ft_itoa_base(int nbr, char *base)
 	int			i;
 	char		*dest;
 
-	if (nbr == 0)
-		return (ft_strdup("0"));
 	base_size = ft_strlen(base);
 	len = ft_intlen_base(nbr, base_size);
 	dest = ft_strnew(len + 1);

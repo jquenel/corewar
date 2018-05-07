@@ -202,7 +202,7 @@ void draw_core(t_visu *core)
 				draw_border_rectangle(&coord, &size, core->p_color[(int)(core->index[pos])]);
 				coord.x = coord.x + (size.x / 2);
 				coord.y = coord.y + (size.y / 2);
-				draw_centred_SDLTexture(core->texture_list[ft_abs(core->field[pos])], &coord, 0);
+				draw_centred_SDLTexture(core->texture_list[(unsigned char)(core->field[pos])], &coord, 0);
 			}
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2017/11/25 00:41:35 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/07 15:47:30 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,42 +52,6 @@
 # define P2_COLOR		RED
 # define P3_COLOR		GREEN
 # define P4_COLOR		CYAN
-
-
-typedef struct	s_vect
-{
-	int		x;
-	int		y;
-}				t_vect;
-
-typedef struct 		s_tileset
-{
-	SDL_Rect		*sprite_list;
-	SDL_Surface		*image;
-	SDL_Texture		*texture;
-	int				nb_tile_x;
-	int				nb_tile_y;
-	t_vect			*size;
-}					t_tileset;
-
-typedef struct	s_visu
-{
-	int			*corewar_opt;
-	char		*field;
-	char		*index;
-	int			len;
-	TTF_Font 	*font;
-	TTF_Font 	*menu_font;
-	int			p_color[5];
-	SDL_Texture *texture_list[256];
-	int			font_size;
-	t_vect	*tab_size;
-	t_vect	*base_pos;
-	double		zoom;
-	int			unit;
-	int			space;
-	char		pause;
-}				t_visu;
 
 void			draw_image(char *path, t_vect *coord, t_vect *size, double angle);
 void			draw_SDLSurface(SDL_Surface *bmp, t_vect *coord, t_vect *size, double angle);

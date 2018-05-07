@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 15:16:01 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 16:10:09 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		do_cycle(t_sen *core, t_optab *op)
 		if (core->opt & OPT_DUMP &&
 			core->state.c_total - cycles >= core->state.dump_limit)
 			dump_core(core);
-		if (tsumego(core) < 2)
+		if (tsumego(core) < 1)
 			return (-1);
 		return (fast_cycle(core, op));
 	}
@@ -69,7 +69,7 @@ void			start_battle(t_sen *core)
 	alive = 2;
 	if (core->opt & OPT_VISU)
 		visu = init_visu(core);
-	while (alive > 1)
+	while (alive)
 	{
 		if ((cycles = do_cycle(core, op)) < 0)
 			break ;
@@ -83,5 +83,5 @@ void			start_battle(t_sen *core)
 		if (core->opt & OPT_VISU)
 			draw_corewar(core, visu);
 	}
-	declare_winner(core, alive);
+	declare_winner(core, visu);
 }

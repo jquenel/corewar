@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:33:54 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 16:00:41 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/06 19:07:39 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int		get_options(int *argc, char ***argv, t_sen *core)
 			i += 2;
 		}
 		else if (!(ft_strcmp((*argv)[i], "-f"))
-	|| !(ft_strcmp((*argv)[i], "-v")) || !(ft_strcmp((*argv)[i], "-w")))
+	|| !(ft_strcmp((*argv)[i], "-v")) || !(ft_strcmp((*argv)[i], "-w"))
+	|| !(ft_strcmp((*argv)[i], "-s")))
 		{
 			core->opt |= (1 << (int)((*argv)[i][1] - 'a'));
 			i++;
