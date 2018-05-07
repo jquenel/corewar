@@ -6,13 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:48:39 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 20:12:41 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 16:57:00 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int			core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual, int pc)
+int			core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual)
 {
 	int		vpos;
 
@@ -23,7 +23,7 @@ int			core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual, int pc)
 		vpos = dtoi(arg->data, arg->size);
 		arg->type = T_DIR;
 		arg->size = DIR_SIZE;
-		copy_data(core, arg->data, pc + vpos, arg->size);
+		copy_data(core, arg->data, actual->pc + vpos, arg->size);
 	}
 	return (dtoi(arg->data, arg->size));
 }

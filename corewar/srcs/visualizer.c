@@ -170,7 +170,7 @@ void draw_pc(t_sen *core, t_visu *visu)
 			draw_border_rectangle(&coord, &size, visu->p_color[(int)(visu->index[pos])] + 1);
 			coord.x = coord.x + ((visu->unit / 2) * visu->zoom);
 			coord.y = coord.y + ((visu->unit / 2) * visu->zoom);
-			draw_centred_SDLTexture(visu->texture_list[ft_abs(visu->field[pos])], &coord, 0);
+			draw_centred_SDLTexture(visu->texture_list[(unsigned char)(visu->field[pos])], &coord, 0);
 		}
 		tmp = tmp->next;
 	}

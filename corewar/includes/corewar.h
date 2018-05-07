@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 20:32:42 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 16:56:17 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args);
 void	copy_data(t_sen *core, char *dest, int pc, int size);
 int		dtoi(char *data, int size);
 int		get_regs(t_arg *args, int *is_reg);
-int		core_getvalue(t_sen *core, t_arg *arg, t_bo *actual, int pc);
-int		core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual, int pc);
+int		core_getvalue(t_sen *core, t_arg *arg, t_bo *actual);
+int		core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual);
 void	core_regtomem(t_ban *arena, char *src, int dest, int pnum);
 void	malloc_error(t_sen *core);
 
