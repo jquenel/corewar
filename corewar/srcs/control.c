@@ -36,6 +36,8 @@ static void		control_input(SDL_Event *event, t_visu *visu)
 		visu->pause = (visu->pause == 0 ? 1 : 0);
 	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_s)
 		visu->one_cycle = 1;
+	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_j)
+		visu->cycle_to_jump += 1000;
 	else if (event->type == SDL_MOUSEWHEEL)
 	{
 		if (event->wheel.y > 0)

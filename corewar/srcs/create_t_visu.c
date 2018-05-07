@@ -72,6 +72,7 @@ t_visu				*create_t_visu(t_sen *core)
 		error_exit("Can't malloc a t_visu", 152);
 	visu->field = core->arena.field;
 	visu->pause = 1;
+	visu->cycle_to_jump = 0;
 	visu->index = core->arena.trace;
 	visu->len = core->arena.size;
 	visu->tab_size = get_size(visu->len);

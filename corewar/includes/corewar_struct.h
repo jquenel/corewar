@@ -140,6 +140,7 @@ typedef struct	s_visu
 	int			space;
 	char		pause;
 	char		one_cycle;
+	int			cycle_to_jump;
 }				t_visu;
 
 typedef struct	s_typo

@@ -32,19 +32,29 @@ static int		do_cycle(t_sen *core, t_optab *op)
 		return (cycle(core, op));
 }
 
-static void		draw_corewar(t_sen *core, t_visu *visu)
+static void		draw_all(t_sen *core, t_visu *visu)
 {
-	visu->one_cycle = 0;
 	draw_core(visu);
 	draw_pc(core, visu);
 	draw_menu(core, visu, core->state.c_count);
 	draw_info(core, visu);
 	render_screen(visu->pause);
+}
+
+static void		draw_corewar(t_sen *core, t_visu *visu)
+{
+	visu->one_cycle = 0;
+	if (visu->cycle_to_jump <= 0 && visu->pause == 0)
+		draw_all(core, visu);
+	else
+		visu->cycle_to_jump--;
 	update_input(visu);
-	while (visu->pause == 1 && !visu->one_cycle)
+	while (visu->pause == 1 && !visu->one_cycle && visu->cycle_to_jump <= 0)
 	{
-		draw_core(visu);
-		draw_pc(core, visu);
+		if (visu->cycle_to_jump <= 0)
+			draw_all(core, visu);
+		else
+			visu->cycle_to_jump--;
 		draw_menu(core, visu, core->state.c_count);
 		draw_info(core, visu);
 		render_screen(visu->pause);
