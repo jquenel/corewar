@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 19:37:29 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 17:30:40 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 22:52:47 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int		corewar_xor(t_sen *core, t_bo *actual, t_arg *args)
 
 	if (!get_regs(args, is_reg))
 		return (1);
+	if (!is_reg[2])
+		return (1);
 	dest = (int)(args[2].data[0]);
-	value = core_getvalue(core, &args[1], actual) ^
-			core_getvalue(core, &args[2], actual);
+	value = core_getvalue(core, &args[0], actual) ^
+			core_getvalue(core, &args[1], actual);
 	i = REG_SIZE;
 	while (i--)
 		actual->reg[dest][REG_SIZE - i - 1] = ((char *)(&value))[i];

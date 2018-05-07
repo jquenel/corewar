@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 21:08:58 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 18:59:55 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	copy_pnum(&core->player[i].pnum, proc->reg[0]);
 	proc->parent = &core->player[i];
 	proc->next = core->proc;
-	proc->cycle = 0;
+	proc->cycle = -1;
 	proc->op = NULL;
 	core->proc = proc;
 	if (load_program(**argv, &core->arena, &core->player[i], proc))
