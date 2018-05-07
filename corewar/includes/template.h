@@ -62,7 +62,6 @@ SDL_Color 		create_color(int r, int g, int b, int a);
 SDL_Color		get_color(int i);
 void 			draw_rectangle(t_vect *coord, t_vect *size, int color_type);
 void 			draw_border_rectangle(t_vect *coord, t_vect *size, int color_type);
-void			draw_tiled_square(t_tileset *tile, t_vect *coord, t_vect *size, int size_unit);
 
 int				draw_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char *typo);
 int				draw_centred_text(char *text, t_vect *coord, int color_type, TTF_Font *font, char *typo);
@@ -85,10 +84,6 @@ t_vect			*t_vect_new(int x, int y);
 void			t_vect_free(t_vect *coord);
 void			t_vect_actualize(t_vect *coord, int new_x, int new_y);
 
-t_tileset		*create_tileset(char *path);
-t_tileset		*initiate_tileset(char *path, int value_x, int value_y);
-void			draw_tileset(t_tileset *tile, int sprite, t_vect *coord, t_vect *size, double angle);
-
 void 			update_input(t_visu *core);
 
 int				get_root(int size);
@@ -100,6 +95,7 @@ t_visu			*create_t_visu(t_sen *core);
 void 			draw_core(t_visu *core);
 void			draw_pc(t_sen *core, t_visu *sdl_core);
 void			draw_menu(t_sen *core, t_visu *sdl_core, int cycles);
+void			draw_info(t_sen *core, t_visu *visu);
 void 			set_texture_list(t_visu *core);
 
 void			reset_visu(t_visu *visu);

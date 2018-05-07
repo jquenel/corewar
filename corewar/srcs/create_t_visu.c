@@ -32,23 +32,44 @@ static void define_base(t_visu *visu)
     set_texture_list(visu);
 }
 
-t_visu *create_t_visu(t_sen *visu)
+static void		define_str(t_visu *visu)
 {
-	t_visu		*sdl_visu;
+	visu->str_list[0] = "Live (10 cycles)";
+	visu->str_list[1] = "Load (5 cycles)";
+	visu->str_list[2] = "Store (5 cycles)";
+	visu->str_list[3] = "Addition (10 cycles)";
+	visu->str_list[4] = "Soustraction (10 cycles)";
+	visu->str_list[5] = "Binary and (6 cycles)";
+	visu->str_list[6] = "Binary or (6 cycles)";
+	visu->str_list[7] = "Binary xor (6 cycles)";
+	visu->str_list[8] = "Jump (20 cycles)";
+	visu->str_list[9] = "Load index (25 cycles)";
+	visu->str_list[10] = "Store index (25 cycles)";
+	visu->str_list[11] = "Fork (800 cycles)";
+	visu->str_list[12] = "Long load (10 cycles)";
+	visu->str_list[13] = "Long load index (50 cycles)";
+	visu->str_list[14] = "Long fork (1000 cycles)";
+	visu->str_list[15] = "Aff (2 cycles)";
+}
 
-	if (!(sdl_visu = (t_visu *)malloc(sizeof(t_visu))))
+t_visu *create_t_visu(t_sen *core)
+{
+	t_visu		*visu;
+
+	if (!(visu = (t_visu *)malloc(sizeof(t_visu))))
 		error_exit("Can't malloc a t_visu", 152);
-	sdl_visu->field = visu->arena.field;
-	sdl_visu->pause = 1;
-	sdl_visu->index = visu->arena.trace;
-	sdl_visu->len = visu->arena.size;
-	sdl_visu->tab_size = get_size(sdl_visu->len);
-	sdl_visu->p_color[0] = GREY;
-	sdl_visu->p_color[1] = P1_COLOR;
-	sdl_visu->p_color[2] = P2_COLOR;
-	sdl_visu->p_color[3] = P3_COLOR;
-	sdl_visu->p_color[4] = P4_COLOR;
-	define_base(sdl_visu);
-	sdl_visu->menu_font = TTF_OpenFont(FONT_PATH, sdl_visu->unit);
-	return (sdl_visu);
+	visu->field = core->arena.field;
+	visu->pause = 1;
+	visu->index = core->arena.trace;
+	visu->len = core->arena.size;
+	visu->tab_size = get_size(visu->len);
+	visu->p_color[0] = GREY;
+	visu->p_color[1] = P1_COLOR;
+	visu->p_color[2] = P2_COLOR;
+	visu->p_color[3] = P3_COLOR;
+	visu->p_color[4] = P4_COLOR;
+	define_base(visu);
+	define_str(visu);
+	visu->menu_font = TTF_OpenFont(FONT_PATH, visu->unit);
+	return (visu);
 }

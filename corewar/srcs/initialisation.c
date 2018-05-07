@@ -114,18 +114,19 @@ void check_frame(void)
 	static int		beginsecond;
 	static int		nb_frame;
 
-	ft_printf("HALLO\n");
 	frame_actual = SDL_GetTicks();
+
 	if (beginsecond == 0)
 		beginsecond = frame_actual;
 	if (frame_actual - beginsecond > 1000)
 	{
-		ft_printf("fps = %d\n", nb_frame);
+		printf("FPS = %d\n", nb_frame);
 		nb_frame = 0;
 		beginsecond = 0;
 	}
 	else
 		nb_frame++;
+
 	if (framedelay > frame_actual - framestart)
 		SDL_Delay(framedelay - (frame_actual - framestart));
     framestart = SDL_GetTicks();
@@ -133,7 +134,6 @@ void check_frame(void)
 
 void	render_screen(int pause)
 {
-	ft_printf("%d\n", pause);
 	if (!pause)
 		check_frame();
 	SDL_RenderPresent(get_renderer());

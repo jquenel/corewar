@@ -121,16 +121,6 @@ typedef struct	s_vect
 	int		y;
 }				t_vect;
 
-typedef struct 		s_tileset
-{
-	SDL_Rect		*sprite_list;
-	SDL_Surface		*image;
-	SDL_Texture		*texture;
-	int				nb_tile_x;
-	int				nb_tile_y;
-	t_vect			*size;
-}					t_tileset;
-
 typedef struct	s_visu
 {
 	int			*corewar_opt;
@@ -141,9 +131,10 @@ typedef struct	s_visu
 	TTF_Font 	*menu_font;
 	int			p_color[5];
 	SDL_Texture *texture_list[256];
+	char		*str_list[OP_COUNT + 1];
 	int			font_size;
-	t_vect	*tab_size;
-	t_vect	*base_pos;
+	t_vect		*tab_size;
+	t_vect		*base_pos;
 	double		zoom;
 	int			unit;
 	int			space;

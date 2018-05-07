@@ -38,6 +38,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 	draw_core(visu);
 	draw_pc(core, visu);
 	draw_menu(core, visu, core->state.c_count);
+	draw_info(core, visu);
 	render_screen(visu->pause);
 	update_input(visu);
 	while (visu->pause == 1 && !visu->one_cycle)
@@ -45,6 +46,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 		draw_core(visu);
 		draw_pc(core, visu);
 		draw_menu(core, visu, core->state.c_count);
+		draw_info(core, visu);
 		render_screen(visu->pause);
 		update_input(visu);
 	}

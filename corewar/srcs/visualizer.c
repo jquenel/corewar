@@ -1,24 +1,24 @@
 #include "template.h"
 #include "corewar.h"
 
-void set_texture_list(t_visu *core)
+void set_texture_list(t_visu *visu)
 {
 	int			i;
 	char		*text;
 	SDL_Surface	*surface;
 
-	if (core->font != NULL)
-		TTF_CloseFont(core->font);
-	core->font_size = (core->unit / 1.8) * core->zoom;
-	core->font = TTF_OpenFont(FONT_PATH, core->font_size);
+	if (visu->font != NULL)
+		TTF_CloseFont(visu->font);
+	visu->font_size = (visu->unit / 1.8) * visu->zoom;
+	visu->font = TTF_OpenFont(FONT_PATH, visu->font_size);
 	i = 0;
 	while (i < 256)
 	{
 		text = ft_itoa_base(i, "0123456789abcdef");
 		if (ft_strlen(text) < 2)
 			ft_stradd_front("0", &text);
-		surface = TTF_RenderText_Blended(core->font, text, get_color(BLACK));
-		core->texture_list[i] = SDL_CreateTextureFromSurface(get_renderer(), surface);
+		surface = TTF_RenderText_Blended(visu->font, text, get_color(BLACK));
+		visu->texture_list[i] = SDL_CreateTextureFromSurface(get_renderer(), surface);
 		SDL_FreeSurface(surface);
 		free(text);
 		i++;
@@ -123,6 +123,36 @@ static void		draw_cycles(t_sen *core, t_visu *visu, t_vect *txt,	t_vect	*menu_si
 	draw_line(poor_itoa(get_fps(), buffer), &nbr1, visu, LIGHT_GREY);
 }
 
+void draw_info(t_sen *core, t_visu *visu)
+{
+	t_vect	mpos;
+	t_vect	size;
+	t_vect	coord;
+	int		pos;
+	char	c;
+
+	SDL_GetMouseState(&(mpos.x), &(mpos.y));
+	size.x = visu->unit * 15;
+	size.y = visu->unit * 2;
+	coord.x = (mpos.x - (visu->base_pos->x * visu->zoom)) /
+									((visu->unit + visu->space) * visu->zoom);
+	coord.y = (mpos.y - (visu->base_pos->y * visu->zoom)) /
+									((visu->unit + visu->space) * visu->zoom);
+	pos = (coord.x + (coord.y * visu->tab_size->x));
+	if (pos >= 0 && pos < MEM_SIZE)
+	{
+		c = core->arena.field[pos];
+		if (c < OP_COUNT && c > 0)
+		{
+			t_vect_actualize(&mpos, mpos.x + visu->unit, mpos.y + visu->unit);
+			draw_border_rectangle(&mpos, &size, GREY);
+			t_vect_actualize(&mpos, mpos.x + size.x / 2, mpos.y + size.y / 2);
+			draw_centred_text(visu->str_list[(int)c - 1], &mpos, BLACK, visu->menu_font, "normal");
+		}
+	}
+
+}
+
 void draw_menu(t_sen *core, t_visu *visu, int cycles)
 {
 	int			i;
@@ -176,33 +206,33 @@ void draw_pc(t_sen *core, t_visu *visu)
 	}
 }
 
-void draw_core(t_visu *core)
+void draw_core(t_visu *visu)
 {
 	int			i;
 	int 		j;
 	int			pos;
-	t_vect	coord;
-	t_vect	size;
+	t_vect		coord;
+	t_vect		size;
 
 	SDL_SetRenderDrawColor(get_renderer(), 40, 40, 40, 255);
 	SDL_RenderClear(get_renderer());
-	size.x = core->unit * core->zoom;
-	size.y = core->unit * core->zoom;
+	size.x = visu->unit * visu->zoom;
+	size.y = visu->unit * visu->zoom;
 	i = 0;
-	while (i < core->tab_size->x)
+	while (i < visu->tab_size->x)
 	{
 		j = 0;
-		while (j < core->tab_size->y)
+		while (j < visu->tab_size->y)
 		{
-			coord.x = (core->base_pos->x + (i * (core->unit + core->space)) + core->space / 2) * core->zoom;
-			coord.y = (core->base_pos->y + (j * (core->unit + core->space)) + core->space / 2) * core->zoom;
-			if (coord.x + (core->unit * 2) * core->zoom >= 0 && coord.x < get_win_size()->x && coord.y + core->unit * core->zoom >= 0 && coord.y < get_win_size()->y)
+			coord.x = (visu->base_pos->x + (i * (visu->unit + visu->space)) + visu->space / 2) * visu->zoom;
+			coord.y = (visu->base_pos->y + (j * (visu->unit + visu->space)) + visu->space / 2) * visu->zoom;
+			if (coord.x + (visu->unit * 2) * visu->zoom >= 0 && coord.x < get_win_size()->x && coord.y + visu->unit * visu->zoom >= 0 && coord.y < get_win_size()->y)
 			{
-				pos = i + (j * core->tab_size->x);
-				draw_border_rectangle(&coord, &size, core->p_color[(int)(core->index[pos])]);
+				pos = i + (j * visu->tab_size->x);
+				draw_border_rectangle(&coord, &size, visu->p_color[(int)(visu->index[pos])]);
 				coord.x = coord.x + (size.x / 2);
 				coord.y = coord.y + (size.y / 2);
-				draw_centred_SDLTexture(core->texture_list[(unsigned char)(core->field[pos])], &coord, 0);
+				draw_centred_SDLTexture(visu->texture_list[(unsigned char)(visu->field[pos])], &coord, 0);
 			}
 			j++;
 		}
