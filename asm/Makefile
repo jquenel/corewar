@@ -1,7 +1,7 @@
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS := -I../libft/includes -I../ft_printf
-LDFLAGS := -L../libft -lft -L../ft_printf -lftprintf
+LDFLAGS := -L../ft_printf -lftprintf -L../libft -lft
 
 NAME := asm
 
