@@ -13,6 +13,20 @@
 #include "template.h"
 #include "corewar.h"
 
+static int	check_coord(t_visu *visu, t_vect *coord)
+{
+	t_vect size;
+
+	(void)coord;
+	t_vect_actualize(&size,
+			visu->base_pos->x + (visu->space + visu->unit) * visu->tab_size->x,
+			visu->base_pos->y + (visu->space + visu->unit) * visu->tab_size->y);
+	if (coord->x >= 0 && coord->x < visu->tab_size->x &&
+		coord->y >= 0 && coord->y < visu->tab_size->y)
+		return (1);
+	return (0);
+}
+
 void		draw_info(t_sen *core, t_visu *visu)
 {
 	t_typo	typo;
@@ -27,8 +41,8 @@ void		draw_info(t_sen *core, t_visu *visu)
 									((visu->unit + visu->space) * visu->zoom);
 	coord.y = (mpos.y - (visu->base_pos->y * visu->zoom)) /
 									((visu->unit + visu->space) * visu->zoom);
-	if ((coord.x + (coord.y * visu->tab_size->x)) >= 0 &&
-		(coord.x + (coord.y * visu->tab_size->x)) < MEM_SIZE)
+	if (check_coord(visu, &coord) && mpos.x > visu->base_pos->x &&
+										mpos.y > visu->base_pos->y)
 	{
 		c = core->arena.field[(coord.x + (coord.y * visu->tab_size->x))];
 		if (c < OP_COUNT && c > 0)
