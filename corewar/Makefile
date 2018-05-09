@@ -67,7 +67,8 @@ SRC_NAME=	corewar.c\
 			color_handler.c\
 			screen_handler.c\
 			set_t_typo.c\
-			poor_itoa.c
+			poor_itoa.c\
+			set_texture_list.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

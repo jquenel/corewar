@@ -27,7 +27,7 @@ void			set_texture_list(t_visu *visu)
 	while (i < 256)
 	{
 		text = ft_itoa_base(i, "0123456789abcdef");
-		if (ft_strlen(text) < 2)
+		while (ft_strlen(text) < 2)
 			ft_stradd_front("0", &text);
 		surface = TTF_RenderText_Blended(visu->font, text, get_color(BLACK));
 		visu->texture_list[i] = SDL_CreateTextureFromSurface(get_renderer(),
