@@ -108,4 +108,6 @@ char			*poor_itoa(int nbr, char *buffer);
 t_typo			*set_t_typo(t_typo *v_font, char *typo, int color_type,
 																TTF_Font *font);
 
+void			destroy_t_visu(t_visu *visu);
+
 #endif

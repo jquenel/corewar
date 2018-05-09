@@ -31,7 +31,7 @@ void		declare_winner(t_sen *core, t_visu *visu)
 	}
 	if (core->opt & OPT_VISU)
 	{
-		(void)visu;
+		destroy_t_visu(visu);
 		close_renderer();
 	}
 }
