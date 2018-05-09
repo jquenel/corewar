@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 19:57:45 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 20:26:03 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/07 22:43:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	get_regs(t_arg *args, int *is_reg)
 				= (char)(dtoi(args[i].data, args[i].size) - 1)) > 15)
 				return (0);
 			is_reg[i] = 1;
+			args[i].size = REG_SIZE;
 		}
 		else
 			is_reg[i] = 0;
