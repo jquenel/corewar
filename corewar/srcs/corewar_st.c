@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/06 16:14:36 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 22:44:10 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ int		corewar_st(t_sen *core, t_bo *actual, t_arg *args)
 				actual->pc + (reg2 % IDX_MOD),
 				actual->parent->pindex);
 	}
+	if (core->opt & OPT_VERB)
+		ft_printf("[%d][%d] st : %d.\n", actual->parent->pnum,
+		actual->proc_num, core_getvalue(core, &args[0], actual));
 	return (1);
 }

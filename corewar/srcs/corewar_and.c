@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 19:54:09 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 22:52:43 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 22:38:42 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ int		corewar_and(t_sen *core, t_bo *actual, t_arg *args)
 	while (i--)
 		actual->reg[dest][REG_SIZE - i - 1] = ((char *)(&value))[i];
 	actual->carry = dtoi(actual->reg[dest], REG_SIZE) == 0 ? 1 : 0;
+	if (core->opt & OPT_VERB)
+		ft_printf("[%d][%d] and : %d.\n", actual->parent->pnum,
+		actual->proc_num, dtoi(actual->reg[dest], REG_SIZE));
 	return (1);
 }

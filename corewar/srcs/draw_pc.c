@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/04 19:13:33 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/09 20:26:06 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,19 @@ void			draw_pc(t_sen *core, t_visu *visu)
 	t_bo	*tmp;
 	int		i;
 	int		j;
+	int		ind;
 
-	tmp = core->proc;
-	while (tmp != NULL)
+	ind = 0;
+	while (ind < MAX_OP_CYCLE)
 	{
-		j = tmp->pc / visu->tab_size->y;
-		i = tmp->pc - (j * visu->tab_size->x);
-		draw_pc_cell(i, j, visu);
-		tmp = tmp->next;
+		tmp = core->schedule[ind];
+		while (tmp != NULL)
+		{
+			j = tmp->pc / visu->tab_size->y;
+			i = tmp->pc - (j * visu->tab_size->x);
+			draw_pc_cell(i, j, visu);
+			tmp = tmp->next;
+		}
+		ind++;
 	}
 }

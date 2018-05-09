@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/07 22:53:07 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 22:38:54 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ int		corewar_sub(t_sen *core, t_bo *actual, t_arg *args)
 	while (i--)
 		actual->reg[dest][REG_SIZE - i - 1] = ((char *)(&value))[i];
 	actual->carry = dtoi(actual->reg[dest], REG_SIZE) == 0 ? 1 : 0;
+	if (core->opt & OPT_VERB)
+		ft_printf("[%d][%d] sub : %d.\n", actual->parent->pnum,
+		actual->proc_num, dtoi(actual->reg[dest], REG_SIZE));
 	return (1);
 }

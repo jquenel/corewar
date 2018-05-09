@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 17:25:36 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 20:17:39 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,16 @@ typedef struct			s_arg
 typedef struct			s_bo
 {
 	t_bushi				*parent;
+	int					proc_num;
 	int					carry;
 	int					pc;
 	int					live;
 	struct s_optab		*op;
-	int					cycle;
 	int					size;
 	t_arg				args[MAX_ARGS_NUMBER];
 	char				reg[REG_NUMBER][REG_SIZE];
-	struct s_bo				*next;
+	struct s_bo			*next;
+	struct s_bo			*prev;
 }						t_bo;
 
 typedef struct			s_sumego
@@ -80,13 +81,17 @@ typedef struct			s_sumego
 	int					dump_limit;
 }						t_sumego;
 
+# define MAX_OP_CYCLE	1000
+
 typedef struct			s_sen
 {
 	int					opt;
 	int					pcount;
+	int					proc_count;
 	t_sumego			state;
 	t_ban				arena;
-	t_bo				*proc;
+	struct s_optab		*optab;
+	t_bo				*schedule[MAX_OP_CYCLE];
 	t_bushi				player[MAX_PLAYERS + 1];
 }						t_sen;
 

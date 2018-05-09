@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 23:59:40 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 18:29:05 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,42 +32,13 @@ static int		do_cycle(t_sen *core, t_optab *op)
 		return (cycle(core, op));
 }
 
-static void		draw_all(t_sen *core, t_visu *visu)
-{
-	draw_core(visu);
-	draw_pc(core, visu);
-	draw_menu(core, visu, core->state.c_count);
-	draw_info(core, visu);
-	render_screen(visu->pause);
-}
-
-static void		draw_corewar(t_sen *core, t_visu *visu)
-{
-	visu->one_cycle = 0;
-	if (visu->cycle_to_jump <= 0 && visu->pause == 0)
-		draw_all(core, visu);
-	else
-		visu->cycle_to_jump--;
-	update_input(visu);
-	while (visu->pause == 1 && !visu->one_cycle && visu->cycle_to_jump <= 0)
-	{
-		if (visu->cycle_to_jump <= 0)
-			draw_all(core, visu);
-		else
-			visu->cycle_to_jump--;
-		draw_menu(core, visu, core->state.c_count);
-		draw_info(core, visu);
-		render_screen(visu->pause);
-		update_input(visu);
-	}
-}
-
 static t_visu	*init_visu(t_sen *core)
 {
 	t_visu		*visu;
 
 	window_initialisation("char *window_name");
 	visu = create_t_visu(core);
+	draw_corewar(core, visu);
 	return (visu);
 }
 
@@ -79,6 +50,7 @@ void			start_battle(t_sen *core)
 	t_visu		*visu;
 
 	init_optab(op);
+	core->optab = op;
 	alive = 2;
 	if (core->opt & OPT_VISU)
 		visu = init_visu(core);

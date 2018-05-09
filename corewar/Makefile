@@ -28,6 +28,7 @@ SRC_NAME=	corewar.c\
 			draw_image.c\
 			draw_shape.c\
 			draw_text.c\
+			draw_corewar.c\
 			dtoi.c\
 			dump_core.c\
 			fast_cycle.c\

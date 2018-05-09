@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 16:56:17 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 18:28:22 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
 void	init_optab(t_optab op[OP_COUNT + 1]);
 int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
-int			fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+int		fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 void	do_op(t_sen *core, t_bo *actual);
 int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
+void	draw_corewar(t_sen *core, t_visu *visu);
 int		tsumego(t_sen *core);
+
 void	declare_winner(t_sen *core, t_visu *visu);
 
 void	dump_core(t_sen *core);
-int		destroy_processes(t_bo *proc);
+int		destroy_processes(t_sen *core);
 
 int		corewar_live(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args);

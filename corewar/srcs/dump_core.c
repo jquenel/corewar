@@ -6,14 +6,11 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 21:50:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/20 21:56:42 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 18:07:49 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-
-#include <stdio.h>
 
 void		dump_core(t_sen *core)
 {
@@ -37,6 +34,6 @@ void		dump_core(t_sen *core)
 			ft_printf("\n");
 	}
 	ft_printf("\n");
-	destroy_processes(core->proc);
+	destroy_processes(core);
 	exit(0);
 }

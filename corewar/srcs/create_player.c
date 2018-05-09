@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 18:59:55 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 21:53:47 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,41 @@ static void	copy_pnum(int *pnum, char *reg)
 		reg[i] = ((char *)pnum)[j++];
 }
 
-int			create_player(int *argc, char ***argv, t_sen *core, int i)
+static t_bo	*init_proc(t_sen *core, int i)
 {
 	t_bo		*proc;
 
 	if (!(proc = malloc(sizeof(t_bo))))
 		malloc_error(core);
-	core->player[i].pnum = get_player_num(argc, argv, core);
-	core->player[i].pindex = i + 1;
-	core->player[i].live = 0;
-	core->player[i].live_last = 0;
-	core->player[i].proc_count = 1;
 	proc->carry = 0;
 	proc->pc = (MEM_SIZE * i) / core->pcount;
 	ft_memset(proc->reg, 0, REG_NUMBER * REG_SIZE);
 	copy_pnum(&core->player[i].pnum, proc->reg[0]);
 	proc->parent = &core->player[i];
-	proc->next = core->proc;
-	proc->cycle = -1;
+	proc->next = core->schedule[0];
+	if (core->schedule[0])
+		core->schedule[0]->prev = proc;
+	core->schedule[0] = proc;
+	proc->prev = NULL;
 	proc->op = NULL;
-	core->proc = proc;
+	proc->proc_num = core->proc_count++;
+	proc->live = 0;
+	return (proc);
+}
+
+int			create_player(int *argc, char ***argv, t_sen *core, int i)
+{
+	t_bo	*proc;
+
+	core->player[i].pnum = get_player_num(argc, argv, core);
+	core->player[i].pindex = i + 1;
+	core->player[i].live = 0;
+	core->player[i].live_last = 0;
+	core->player[i].proc_count = 1;
+	if (!(proc = init_proc(core, i)))
+		return (destroy_processes(core));
 	if (load_program(**argv, &core->arena, &core->player[i], proc))
-		return (destroy_processes(core->proc));
+		return (destroy_processes(core));
 	(*argv)++;
 	(*argc)--;
 	return (1);

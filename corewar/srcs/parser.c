@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:19:52 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 23:50:06 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/09 22:40:21 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,18 @@ static void	init_state(t_sumego *state)
 
 static void	init_core(t_sen *core)
 {
+	int		i;
+
 	core->arena.size = MEM_SIZE;
 	core->pcount = 0;
-	core->proc = NULL;
+	core->proc_count = 0;
 	core->opt = 0;
 	ft_memset(core->arena.field, 0, MEM_SIZE);
 	core->arena.empty_char = TRACE_EMPTY;
 	ft_memset(core->arena.trace, TRACE_EMPTY, MEM_SIZE);
+	i = MAX_OP_CYCLE;
+	while (i--)
+		core->schedule[i] = NULL;
 	init_state(&core->state);
 	init_player(core->player);
 }
