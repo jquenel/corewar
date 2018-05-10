@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 21:48:31 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 17:24:39 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 22:21:44 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "template.h"
 
 #define NO_WINNER	"No winner today !\nNext time, try using REAL champions ?\n"
+
+static void	victory_shout(char *shout)
+{
+	ft_printf("can't shout, I'll write :\n\"%s\"", shout);
+}
 
 void		declare_winner(t_sen *core, t_visu *visu)
 {
@@ -28,6 +33,8 @@ void		declare_winner(t_sen *core, t_visu *visu)
 			i++;
 		ft_printf("Player %d(%s) won !\n", core->player[i].pnum,
 				core->player[i].name);
+		if (core->opt & OPT_INST)
+			victory_shout(core->player[i].vic_shout);
 	}
 	if (core->opt & OPT_VISU)
 	{

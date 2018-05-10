@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:19:52 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 16:48:36 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 22:13:37 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	init_player(t_bushi *player)
 		player[i].pnum = 0;
 		player[i].live = -2;
 		ft_memset(player[i].name, 0, PROG_NAME_LENGTH + 1);
+		ft_memset(player[i].vic_shout, 0, MAX_VIC_LEN + 1);
 	}
 }
 

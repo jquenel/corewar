@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 20:17:17 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 22:13:01 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		corewar_lld(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_lldi(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_lfork(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_vic(t_sen *core, t_bo *actual, t_arg *args);
 
 void	copy_data(t_sen *core, char *dest, int pc, int size);
 int		dtoi(char *data, int size);

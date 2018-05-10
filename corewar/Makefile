@@ -64,6 +64,7 @@ SRC_NAME=	corewar.c\
 			corewar_st.c\
 			corewar_sti.c\
 			corewar_sub.c\
+			corewar_vic.c\
 			corewar_xor.c\
 			corewar_zjmp.c\
 			reset_visu.c\

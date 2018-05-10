@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 19:34:30 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 22:14:30 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <SDL_ttf.h>
 
 # define OP_COUNT		16
-# define BONUS_OP_COUNT	19
+# define BONUS_OP_COUNT	20
+# define MAX_VIC_LEN	1024
 
 typedef struct			s_ban
 {
@@ -43,6 +44,8 @@ typedef struct			s_bushi
 	int					live;
 	int					live_last;
 	int					proc_count;
+	int					vic_ccount;
+	char				vic_shout[MAX_VIC_LEN + 1];
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
 	char				*txt_pnum;

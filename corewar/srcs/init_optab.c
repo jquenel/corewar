@@ -6,13 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:19:26 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 21:46:23 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 22:14:14 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	(*operation[20])(t_sen *, t_bo *, t_arg *) =
+static int	(*operation[BONUS_OP_COUNT + 1])(t_sen *, t_bo *, t_arg *) =
 {
 	corewar_live,
 	corewar_ld,
@@ -33,6 +33,7 @@ static int	(*operation[20])(t_sen *, t_bo *, t_arg *) =
 	corewar_mul,
 	corewar_div,
 	corewar_not,
+	corewar_vic,
 	NULL
 };
 
