@@ -6,34 +6,31 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:13:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/09 23:57:21 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 00:28:27 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static t_bo	*kill_proc(t_bo **proc, t_bo *dead, t_bo *prev)
+static t_bo	*kill_proc(t_bo **proc, t_bo *dead)
 {
 	t_bo		*tmp;
 
 	dead->parent->proc_count--;
 	if (dead->prev)
 		dead->prev->next = dead->next;
+	else if (dead == *proc)
+		*proc = dead->next;
 	if (dead->next)
 		dead->next->prev = dead->prev;
 	tmp = dead->next;
-	if (dead == *proc)
-		*proc = dead->next;
-	else
-		prev->next = dead->next;
 	free(dead);
 	return (tmp);
 }
 
 static int	check_alive_proc(t_sen *core)
 {
-	t_bo		*tmp1;
-	t_bo		*tmp2;
+	t_bo		*tmp;
 	int			count;
 	int			i;
 
@@ -41,17 +38,15 @@ static int	check_alive_proc(t_sen *core)
 	count = 0;
 	while (i < MAX_OP_CYCLE)
 	{
-		tmp1 = core->schedule[i];
-		tmp2 = NULL;
-		while (tmp1)
+		tmp = core->schedule[i];
+		while (tmp)
 		{
-			if (tmp1->live == 0)
-				tmp1 = kill_proc(&core->schedule[i], tmp1, tmp2);
+			if (tmp->live == 0)
+				tmp = kill_proc(&core->schedule[i], tmp);
 			else
 			{
-				tmp2 = tmp1;
-				tmp1->live = 0;
-				tmp1 = tmp1->next;
+				tmp->live = 0;
+				tmp = tmp->next;
 				count++;
 			}
 		}
