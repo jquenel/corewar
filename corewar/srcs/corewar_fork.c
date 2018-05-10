@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:02:14 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 23:54:05 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 17:33:54 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int		corewar_fork(t_sen *core, t_bo *actual, t_arg *args)
 
 	actual->parent->proc_count++;
 	if (!(fork = malloc(sizeof(t_bo))))
-		malloc_error(core);
+		malloc_error(core, core->visu);
 	ft_memcpy(fork, actual, sizeof(t_bo));
 	fork->pc = (fork->pc + dtoi(args[0].data, args[0].size) % IDX_MOD);
 	while (fork->pc < 0)
 		fork->pc = core->arena.size + fork->pc;
 	fork->pc %= core->arena.size;
-	fork->cycle = -1;
-	fork->next = actual->next;
-	actual->next = fork;
+	fork->next = core->proc;
+	core->proc = fork;
+	fork->cycle = plan_op(core, fork, core->op) - 1;
 	return (1);
 }

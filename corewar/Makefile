@@ -24,6 +24,7 @@ SRC_NAME=	corewar.c\
 			cycle.c\
 			declare_winner.c\
 			destroy_processes.c\
+			destroy_t_visu.c\
 			do_op.c\
 			draw_image.c\
 			draw_shape.c\
@@ -80,7 +81,7 @@ OBJ_NAME=	$(SRC_NAME:.c=.o)
 ##		COMPILER FLAGS
 ##
 
-CFLAGS=		-Wextra -Wall -Werror -g -fsanitize=address
+CFLAGS=		-Wextra -Wall -Werror #-g -fsanitize=address
 
 CC=			gcc
 

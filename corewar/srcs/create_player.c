@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 18:59:55 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 17:17:23 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	t_bo		*proc;
 
 	if (!(proc = malloc(sizeof(t_bo))))
-		malloc_error(core);
+		malloc_error(core, NULL);
 	core->player[i].pnum = get_player_num(argc, argv, core);
 	core->player[i].pindex = i + 1;
 	core->player[i].live = 0;
@@ -71,6 +71,7 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	proc->cycle = -1;
 	proc->op = NULL;
 	core->proc = proc;
+
 	if (load_program(**argv, &core->arena, &core->player[i], proc))
 		return (destroy_processes(core->proc));
 	(*argv)++;

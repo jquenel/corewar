@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 16:56:17 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 17:18:36 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		create_player(int *argc, char ***argv, t_sen *core, int i);
 int		load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
 int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
-void	init_optab(t_optab op[OP_COUNT + 1]);
+void	init_optab(t_sen *core, t_visu *visu, t_optab **op);
 int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 int			fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 void	do_op(t_sen *core, t_bo *actual);
@@ -82,6 +82,6 @@ int		get_regs(t_arg *args, int *is_reg);
 int		core_getvalue(t_sen *core, t_arg *arg, t_bo *actual);
 int		core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual);
 void	core_regtomem(t_ban *arena, char *src, int dest, int pnum);
-void	malloc_error(t_sen *core);
+void	malloc_error(t_sen *core, t_visu *visu);
 
 #endif

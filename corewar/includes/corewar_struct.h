@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 17:25:36 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 17:21:06 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <SDL.h>
 # include <SDL_image.h>
 # include <SDL_ttf.h>
+
+# define OP_COUNT		16
 
 typedef struct			s_ban
 {
@@ -86,7 +88,9 @@ typedef struct			s_sen
 	int					pcount;
 	t_sumego			state;
 	t_ban				arena;
+	struct s_optab		*op;
 	t_bo				*proc;
+	struct s_visu		*visu;
 	t_bushi				player[MAX_PLAYERS + 1];
 }						t_sen;
 
@@ -96,7 +100,6 @@ typedef struct			s_sen
 **			presence of an encoding byte (EX_CD)
 */
 
-# define OP_COUNT		16
 # define EX_CD			1
 # define EX_IS			2
 
