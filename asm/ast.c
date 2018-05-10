@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/28 00:59:48 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/28 22:39:01 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/05 00:33:18 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void		push_to_ast(t_ast *ast, t_token *token)
 	else if (token->terminal == CommentCommand)
 		command = CommandComment;
 	else if (token->terminal == StringLiteral)
+	{
 		*(command == CommandName ? &ast->name : &ast->comment) = token->str;
+		token->str = NULL;
+	}
 	else if (token->terminal == LabelString)
 		push_label_elem(ast, token);
 	else if (token->terminal == Operator)

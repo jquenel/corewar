@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:43 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/25 20:23:58 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/09 02:17:50 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,22 @@ static int	read_user_comment(t_lexer_ctx *ctx, t_token *token)
 	return (1);
 }
 
-static t_terminal	identify_literal(const char *str)
+static t_terminal	identify_literal(char *str)
 {
 	if (ft_strcmp(str, COMMENT_CMD_STRING) == 0)
 		return (CommentCommand);
 	if (ft_strcmp(str, NAME_CMD_STRING) == 0)
 		return (NameCommand);
 	if (*str == LABEL_CHAR)
+	{
+		ft_strcpy(str, str + 1);
 		return (LabelVal);
+	}
 	if (str[ft_strlen(str) - 1] == LABEL_CHAR)
+	{
+		str[ft_strlen(str) - 1] = '\0';
 		return (LabelString);
+	}
 	if (*str == 'r')
 		return (Register);
 	if (ft_isdigit(*str) || (*str == '-' && ft_isdigit(str[1])))
@@ -112,8 +118,9 @@ static int	get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 	return (1);
 }
 
-void		init_lexer_state(t_lexer_ctx *ctx)
+void		init_lexer_state(t_lexer_ctx *ctx, int fd)
 {
+	ctx->fd = fd;
 	ctx->line = NULL;
 	ctx->read = 0;
 }

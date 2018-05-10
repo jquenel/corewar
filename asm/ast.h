@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/28 00:59:42 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/28 22:35:18 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/09 17:45:44 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct	s_operand_list
 typedef struct s_instruction_element	t_instruction_element;
 struct	s_instruction_element
 {
+	size_t			offset;
 	char			*operator;
 	t_operand_list	*operands;
 };
@@ -68,7 +69,7 @@ struct	s_element_list
 };
 
 typedef struct s_ast	t_ast;
-struct 	s_ast
+struct	s_ast
 {
 	char			*name;
 	char			*comment;
@@ -83,6 +84,6 @@ enum	e_command
 	CommandComment
 };
 
-void		push_to_ast(t_ast *ast, t_token *token);
+void	push_to_ast(t_ast *ast, t_token *token);
 
 #endif
