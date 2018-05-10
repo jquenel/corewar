@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/07 22:53:07 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 19:11:33 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		corewar_sub(t_sen *core, t_bo *actual, t_arg *args)
 	int		i;
 	int		is_reg[3];
 
-	if (!get_regs(args, is_reg))
+	if (!get_regs(args, is_reg, 3))
 		return (1);
 	if (!is_reg[2])
 		return (1);

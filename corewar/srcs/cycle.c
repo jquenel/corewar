@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 14:46:56 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 23:55:39 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 21:23:42 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		cycle(t_sen *core, t_optab op[OP_COUNT + 1])
 		{
 			if (tmp->op)
 				do_op(core, tmp);
-			tmp->cycle = plan_op(core, tmp, op);
+//			tmp->cycle = plan_op(core, tmp, op);
 		}
 		if (tmp->cycle < 0)
 			tmp->cycle = plan_op(core, tmp, op);

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   corewar_div.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/10 19:11:22 by jquenel          ###   ########.fr       */
+/*   Created: 2018/05/10 19:04:42 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/10 19:15:54 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
+int		corewar_div(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		value;
 	int		dest;
@@ -24,8 +24,9 @@ int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
 	if (!is_reg[2])
 		return (1);
 	dest = (int)(args[2].data[0]);
-	value = core_getvalue(core, &args[0], actual) +
-			core_getvalue(core, &args[1], actual);
+	value = core_getvalue(core, &args[1], actual);
+	if (value != 0)
+		value = core_getvalue(core, &args[0], actual) / value;
 	i = REG_SIZE;
 	while (i--)
 		actual->reg[dest][REG_SIZE - i - 1] = ((char *)(&value))[i];

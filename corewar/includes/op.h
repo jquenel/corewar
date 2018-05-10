@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/03 21:36:38 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 19:26:14 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,17 @@ typedef struct		s_header
   char				comment[COMMENT_LENGTH];
   uint32_t			must_also_be_null;
 }					t_header;
+
+typedef struct				s_op
+{
+	char			*mnemo;
+	uint32_t		nbr_arg;
+	uint8_t			arg_types[4];
+	uint32_t		index;
+	uint32_t		cycles;
+	char			*comment;
+	uint32_t		code_size;
+	uint32_t		short_enc;
+}							t_op;
+
+extern t_op		op_tab[];

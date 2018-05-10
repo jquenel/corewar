@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 17:18:36 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 20:17:17 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 
 # define OPT_DUMP		(1 << ('d' - 'a'))
 # define OPT_FAST		(1 << ('f' - 'a'))
+# define OPT_INST		(1 << ('i' - 'a'))
 # define OPT_DETH		(1 << ('s' - 'a'))
 # define OPT_VISU		(1 << ('v' - 'a'))
 # define OPT_VERB		(1 << ('w' - 'a'))
@@ -64,6 +65,9 @@ int		corewar_ld(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_st(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_add(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_sub(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_div(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_mul(t_sen *core, t_bo *actual, t_arg *args);
+int		corewar_not(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_and(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_or(t_sen *core, t_bo *actual, t_arg *args);
 int		corewar_xor(t_sen *core, t_bo *actual, t_arg *args);
@@ -78,7 +82,7 @@ int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args);
 
 void	copy_data(t_sen *core, char *dest, int pc, int size);
 int		dtoi(char *data, int size);
-int		get_regs(t_arg *args, int *is_reg);
+int		get_regs(t_arg *args, int *is_reg, int i);
 int		core_getvalue(t_sen *core, t_arg *arg, t_bo *actual);
 int		core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual);
 void	core_regtomem(t_ban *arena, char *src, int dest, int pnum);

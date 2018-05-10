@@ -11,6 +11,7 @@ OBJ_PATH=	obj
 CPPFLAGS=	-Iincludes -I../libft/includes -I../libsdl/includes
 
 SRC_NAME=	corewar.c\
+			op.c\
 			basic_function.c\
 			check_alive.c\
 			control.c\
@@ -49,6 +50,7 @@ SRC_NAME=	corewar.c\
 			corewar_add.c\
 			corewar_aff.c\
 			corewar_and.c\
+			corewar_div.c\
 			corewar_fork.c\
 			corewar_ld.c\
 			corewar_ldi.c\
@@ -56,6 +58,8 @@ SRC_NAME=	corewar.c\
 			corewar_live.c\
 			corewar_lld.c\
 			corewar_lldi.c\
+			corewar_mul.c\
+			corewar_not.c\
 			corewar_or.c\
 			corewar_st.c\
 			corewar_sti.c\
@@ -81,7 +85,7 @@ OBJ_NAME=	$(SRC_NAME:.c=.o)
 ##		COMPILER FLAGS
 ##
 
-CFLAGS=		-Wextra -Wall -Werror #-g -fsanitize=address
+CFLAGS=		-Wextra -Wall -Werror -g -fsanitize=address
 
 CC=			gcc
 

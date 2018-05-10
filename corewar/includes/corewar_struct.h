@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 17:21:06 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 19:34:30 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <SDL_ttf.h>
 
 # define OP_COUNT		16
+# define BONUS_OP_COUNT	19
 
 typedef struct			s_ban
 {

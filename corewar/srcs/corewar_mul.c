@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   corewar_mul.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/10 19:11:22 by jquenel          ###   ########.fr       */
+/*   Created: 2018/05/10 19:03:49 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/10 19:16:12 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
+int		corewar_mul(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		value;
 	int		dest;
@@ -24,7 +24,7 @@ int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
 	if (!is_reg[2])
 		return (1);
 	dest = (int)(args[2].data[0]);
-	value = core_getvalue(core, &args[0], actual) +
+	value = core_getvalue(core, &args[0], actual) *
 			core_getvalue(core, &args[1], actual);
 	i = REG_SIZE;
 	while (i--)

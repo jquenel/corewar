@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/06 20:36:59 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 21:44:50 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			corewar_live(t_sen *core, t_bo *actual, t_arg *args)
 				ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
 					nb_player, core->player[i].name);
 			core->player[i].live++;
-			core->player[i].live_last = core->state.c_total;
+			core->player[i].live_last = core->state.c_total + 1;
 			core->state.l_last = nb_player;
 			return (1);
 		}

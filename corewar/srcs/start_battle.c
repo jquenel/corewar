@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 17:24:27 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 21:42:32 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,20 @@ static t_visu	*init_visu(t_sen *core)
 
 	window_initialisation("char *window_name");
 	visu = create_t_visu(core);
+	draw_corewar(core, visu);
 	return (visu);
+}
+
+static void		plan_all_op(t_sen *core, t_optab *op)
+{
+	t_bo		*tmp;
+
+	tmp = core->proc;
+	while (tmp)
+	{
+		tmp->cycle = plan_op(core, tmp, op);
+		tmp = tmp->next;
+	}
 }
 
 void			start_battle(t_sen *core)
@@ -78,9 +91,12 @@ void			start_battle(t_sen *core)
 
 	core->visu = core->opt & OPT_VISU ? init_visu(core) : NULL;
 	init_optab(core, core->visu, &(core->op));
+	plan_all_op(core, core->op);
 	alive = 2;
 	while (alive)
 	{
+		if (core->opt & OPT_VISU)
+			draw_corewar(core, core->visu);
 		if ((cycles = do_cycle(core, core->op)) < 0)
 			break ;
 		core->state.c_total += cycles;
@@ -90,8 +106,6 @@ void			start_battle(t_sen *core)
 		core->state.c_count += cycles;
 		if (core->state.c_count >= core->state.c_todie)
 			alive = tsumego(core);
-		if (core->opt & OPT_VISU)
-			draw_corewar(core, core->visu);
 	}
 	declare_winner(core, core->visu);
 }

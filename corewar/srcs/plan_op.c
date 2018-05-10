@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:38:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 16:52:53 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 21:39:03 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 int			plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1])
 {
-	if (OP_BYTE < 1 || OP_BYTE > OP_COUNT)
+	if (OP_BYTE < 1
+		|| OP_BYTE > ((core->opt & OPT_INST) ? BONUS_OP_COUNT : OP_COUNT))
 	{
 		actual->pc = (actual->pc + 1) % core->arena.size;
 		actual->op = NULL;
@@ -26,5 +27,5 @@ int			plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1])
 	}
 	ft_memset(actual->args, 0, sizeof(t_arg) * (MAX_ARGS_NUMBER));
 	actual->op = &op[(int)OP_BYTE - 1];
-	return (actual->op->cycle);
+	return (actual->op->cycle - 1);
 }

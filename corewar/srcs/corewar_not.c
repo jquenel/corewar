@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   corewar_not.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/10 19:11:22 by jquenel          ###   ########.fr       */
+/*   Created: 2018/05/10 19:06:51 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/10 19:10:42 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		corewar_add(t_sen *core, t_bo *actual, t_arg *args)
+int		corewar_not(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int		value;
 	int		dest;
 	int		i;
-	int		is_reg[3];
+	int		is_reg[2];
 
-	if (!get_regs(args, is_reg, 3))
+	if (!get_regs(args, is_reg, 2))
 		return (1);
-	if (!is_reg[2])
+	if (!is_reg[1])
 		return (1);
 	dest = (int)(args[2].data[0]);
-	value = core_getvalue(core, &args[0], actual) +
-			core_getvalue(core, &args[1], actual);
+	value = ~(core_getvalue(core, &args[0], actual));
 	i = REG_SIZE;
 	while (i--)
 		actual->reg[dest][REG_SIZE - i - 1] = ((char *)(&value))[i];
 	actual->carry = dtoi(actual->reg[dest], REG_SIZE) == 0 ? 1 : 0;
 	return (1);
 }
+

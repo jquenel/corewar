@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:12:21 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 16:58:06 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 19:12:42 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			corewar_lldi(t_sen *core, t_bo *actual, t_arg *args)
 	int		vpos;
 	int		is_reg[3];
 
-	if (!get_regs(args, is_reg))
+	if (!get_regs(args, is_reg, 3))
 		return (1);
 	vpos = core_getlvalue(core, &args[0], actual) +
 			core_getlvalue(core, &args[1], actual);

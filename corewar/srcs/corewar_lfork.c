@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:51:05 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 17:34:00 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/10 21:24:25 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		corewar_lfork(t_sen *core, t_bo *actual, t_arg *args)
 	fork->pc %= core->arena.size;
 	fork->next = core->proc;
 	core->proc = fork;
-	fork->cycle = plan_op(core, fork, core->op) - 1;
+	//fork->cycle = plan_op(core, fork, core->op) - 1;
+	fork->cycle = -1;
 	return (1);
 }
