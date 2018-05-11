@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:06:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 19:10:42 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:33:43 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ int		corewar_not(t_sen *core, t_bo *actual, t_arg *args)
 	actual->carry = dtoi(actual->reg[dest], REG_SIZE) == 0 ? 1 : 0;
 	return (1);
 }
-

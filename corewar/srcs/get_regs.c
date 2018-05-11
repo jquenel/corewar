@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 19:57:45 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 19:11:09 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:35:15 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_regs(t_arg *args, int *is_reg, int i)
 		if (args[i].type == T_REG)
 		{
 			if ((unsigned int)(args[i].data[0]
-				= (char)(dtoi(args[i].data, args[i].size) - 1)) > 15)
+				 = (char)(dtoi(args[i].data, args[i].size) - 1)) > 15)
 				return (0);
 			is_reg[i] = 1;
 			args[i].size = REG_SIZE;

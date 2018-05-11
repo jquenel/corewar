@@ -6,31 +6,12 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 21:42:32 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:49:02 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "template.h"
-
-static int		do_cycle(t_sen *core, t_optab *op)
-{
-	int		cycles;
-
-	if (core->opt & OPT_FAST)
-	{
-		if ((cycles = fast_cycle(core, op)) >= 0)
-			return (cycles);
-		if (core->opt & OPT_DUMP &&
-			core->state.c_total - cycles >= core->state.dump_limit)
-			dump_core(core);
-		if (tsumego(core) < 1)
-			return (-1);
-		return (fast_cycle(core, op));
-	}
-	else
-		return (cycle(core, op));
-}
 
 static void		draw_all(t_sen *core, t_visu *visu)
 {
@@ -87,7 +68,6 @@ static void		plan_all_op(t_sen *core, t_optab *op)
 void			start_battle(t_sen *core)
 {
 	int			alive;
-	int			cycles;
 
 	core->visu = core->opt & OPT_VISU ? init_visu(core) : NULL;
 	init_optab(core, core->visu, &(core->op));
@@ -97,13 +77,12 @@ void			start_battle(t_sen *core)
 	{
 		if (core->opt & OPT_VISU)
 			draw_corewar(core, core->visu);
-		if ((cycles = do_cycle(core, core->op)) < 0)
-			break ;
-		core->state.c_total += cycles;
+		cycle(core, core->op);
+		core->state.c_total++;
+		core->state.c_count++;
 		if (core->opt & OPT_DUMP &&
 				core->state.c_total >= core->state.dump_limit)
 			dump_core(core);
-		core->state.c_count += cycles;
 		if (core->state.c_count >= core->state.c_todie)
 			alive = tsumego(core);
 	}

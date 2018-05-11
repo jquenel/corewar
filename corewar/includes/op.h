@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/10 19:26:14 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:41:24 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,4 @@ typedef struct				s_op
 	uint32_t		short_enc;
 }							t_op;
 
-extern t_op		op_tab[];
+extern t_op		g_op_tab[];

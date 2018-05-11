@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 22:13:01 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:54:54 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "corewar_struct.h"
-
-#include <stdio.h>
-
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -36,7 +33,6 @@
 # define TRACE_EMPTY	0
 
 # define OPT_DUMP		(1 << ('d' - 'a'))
-# define OPT_FAST		(1 << ('f' - 'a'))
 # define OPT_INST		(1 << ('i' - 'a'))
 # define OPT_DETH		(1 << ('s' - 'a'))
 # define OPT_VISU		(1 << ('v' - 'a'))
@@ -51,7 +47,6 @@ int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
 void	init_optab(t_sen *core, t_visu *visu, t_optab **op);
 int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
-int			fast_cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
 void	do_op(t_sen *core, t_bo *actual);
 int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
 int		tsumego(t_sen *core);

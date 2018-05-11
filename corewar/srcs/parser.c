@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:19:52 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 22:13:37 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:41:48 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ static void	init_core(t_sen *core)
 	core->pcount = 0;
 	core->proc = NULL;
 	core->opt = 0;
+	if (!(core->arena.field = malloc(MEM_SIZE)))
+		malloc_error(core, NULL);
+	if (!(core->arena.trace = malloc(MEM_SIZE)))
+		malloc_error(core, NULL);
 	ft_memset(core->arena.field, 0, MEM_SIZE);
 	core->arena.empty_char = TRACE_EMPTY;
 	ft_memset(core->arena.trace, TRACE_EMPTY, MEM_SIZE);
@@ -79,7 +83,7 @@ static int	check_valid_define(void)
 	return (1);
 }
 
-int		parser(int argc, char **argv, t_sen *core)
+int			parser(int argc, char **argv, t_sen *core)
 {
 	int	i;
 

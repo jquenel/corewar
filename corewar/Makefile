@@ -32,7 +32,6 @@ SRC_NAME=	corewar.c\
 			draw_text.c\
 			dtoi.c\
 			dump_core.c\
-			fast_cycle.c\
 			get_options.c\
 			get_regs.c\
 			init_optab.c\

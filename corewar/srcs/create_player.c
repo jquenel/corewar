@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 17:17:23 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:33:59 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	proc->cycle = -1;
 	proc->op = NULL;
 	core->proc = proc;
-
 	if (load_program(**argv, &core->arena, &core->player[i], proc))
 		return (destroy_processes(core->proc));
 	(*argv)++;

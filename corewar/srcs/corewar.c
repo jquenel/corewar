@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:29:20 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 15:30:26 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:46:37 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ static void		usage(void)
 	exit(1);
 }
 
+static void		destroy_arena(t_ban *arena)
+{
+	if (arena->field)
+		free(arena->field);
+	if (arena->trace)
+		free(arena->trace);
+}
+
 int				main(int argc, char **argv)
 {
 	t_sen		core;
@@ -30,4 +38,5 @@ int				main(int argc, char **argv)
 		usage();
 	start_battle(&core);
 	destroy_processes(core.proc);
+	destroy_arena(&core.arena);
 }
