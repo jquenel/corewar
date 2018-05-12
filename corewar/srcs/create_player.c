@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 16:33:59 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/12 21:08:40 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	ft_memset(proc->reg, 0, REG_NUMBER * REG_SIZE);
 	copy_pnum(&core->player[i].pnum, proc->reg[0]);
 	proc->parent = &core->player[i];
+	core->proc->prev = proc;
 	proc->next = core->proc;
+	proc->prev = NULL;
 	proc->cycle = -1;
 	proc->op = NULL;
 	core->proc = proc;
