@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 21:08:40 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/12 23:18:39 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,23 @@ static void	copy_pnum(int *pnum, char *reg)
 		reg[i] = ((char *)pnum)[j++];
 }
 
+static void	init_proc(t_sen *core, t_bushi *player, t_bo *proc, int i)
+{
+	proc->carry = 0;
+	proc->pc = (MEM_SIZE * i) / core->pcount;
+	ft_memset(proc->reg, 0, REG_NUMBER * REG_SIZE);
+	copy_pnum(&player->pnum, proc->reg[0]);
+	proc->parent = player;
+	if (core->proc)
+		core->proc->prev = proc;
+	proc->next = core->proc;
+	proc->prev = NULL;
+	core->proc = proc;
+	proc->cycle = -1;
+	proc->op = NULL;
+	proc->live = 0;
+}
+
 int			create_player(int *argc, char ***argv, t_sen *core, int i)
 {
 	t_bo		*proc;
@@ -62,17 +79,7 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	core->player[i].live = 0;
 	core->player[i].live_last = 0;
 	core->player[i].proc_count = 1;
-	proc->carry = 0;
-	proc->pc = (MEM_SIZE * i) / core->pcount;
-	ft_memset(proc->reg, 0, REG_NUMBER * REG_SIZE);
-	copy_pnum(&core->player[i].pnum, proc->reg[0]);
-	proc->parent = &core->player[i];
-	core->proc->prev = proc;
-	proc->next = core->proc;
-	proc->prev = NULL;
-	proc->cycle = -1;
-	proc->op = NULL;
-	core->proc = proc;
+	init_proc(core, &core->player[i], proc, i);
 	if (load_program(**argv, &core->arena, &core->player[i], proc))
 		return (destroy_processes(core->proc));
 	(*argv)++;

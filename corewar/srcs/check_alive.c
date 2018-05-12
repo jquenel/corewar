@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:13:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 21:17:59 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/12 23:13:12 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static t_bo	*kill_proc(t_sen *core, t_bo **proc, t_bo *dead)
 	if (dead == *proc)
 	{
 		*proc = dead->next;
-		(*proc)->prev = NULL;
+		if (*proc)
+			(*proc)->prev = NULL;
 		if (core->opt & OPT_VISU && dead == core->visu->select_proc)
 			core->visu->select_proc = dead->next;
 		free(dead);
