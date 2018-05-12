@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:13:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 23:13:12 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/13 00:07:23 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	check_alive_proc(t_sen *core, t_bo **proc)
 		else
 		{
 			count++;
+			tmp->live = 0;
 			tmp = tmp->next;
 		}
 	}
