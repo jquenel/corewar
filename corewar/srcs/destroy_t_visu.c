@@ -24,4 +24,7 @@ void		destroy_t_visu(t_visu *visu)
 		SDL_DestroyTexture(visu->texture_list[i++]);
 	t_vect_free(visu->tab_size);
 	t_vect_free(visu->base_pos);
+	Mix_FreeMusic(visu->music);
+	Mix_CloseAudio();
+	Mix_Quit();
 }

@@ -16,6 +16,7 @@
 # include <SDL.h>
 # include <SDL_image.h>
 # include <SDL_ttf.h>
+# include <SDL_mixer.h>
 
 # define OP_COUNT		16
 # define BONUS_OP_COUNT	20
@@ -148,6 +149,9 @@ typedef struct	s_visu
 	char		pause;
 	char		one_cycle;
 	int			cycle_to_jump;
+	Mix_Music	*music;
+	Mix_Chunk	*birth_sound;
+	Mix_Chunk	*end_sound;
 }				t_visu;
 
 typedef struct	s_typo

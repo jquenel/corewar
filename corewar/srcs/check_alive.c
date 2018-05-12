@@ -105,6 +105,8 @@ int			tsumego(t_sen *core)
 		if ((core->state.c_todie -= core->state.c_delta) < 0)
 			core->state.c_todie = 0;
 	}
+	if (core->opt & OPT_VISU)
+		Mix_PlayChannel(1, core->visu->end_sound, 0);
 	core->state.l_count = 0;
 	return (alive);
 }

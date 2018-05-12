@@ -18,12 +18,15 @@
 # include <SDL.h>
 # include <SDL_image.h>
 # include <SDL_ttf.h>
+# include <SDL_mixer.h>
 
 # include "libft.h"
 # include "corewar.h"
 # include "ft_printf.h"
 
 # define FONT_PATH		"font/KeepCalm-Medium.ttf"
+# define MUSIC_PATH		"audio/bensound-instinct.wav"
+# define END_SOUND		"audio/end_turn.wav"
 
 # define NB_COLOR		20
 

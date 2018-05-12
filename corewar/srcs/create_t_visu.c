@@ -81,6 +81,8 @@ t_visu				*create_t_visu(t_sen *core)
 	visu->p_color[2] = P2_COLOR;
 	visu->p_color[3] = P3_COLOR;
 	visu->p_color[4] = P4_COLOR;
+	visu->music = Mix_LoadMUS(MUSIC_PATH);
+	visu->end_sound = Mix_LoadWAV(END_SOUND);
 	define_base(visu);
 	define_str(visu);
 	visu->menu_font = TTF_OpenFont(FONT_PATH, visu->unit);

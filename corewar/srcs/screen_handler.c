@@ -28,6 +28,9 @@ void				window_initialisation(char *window_name)
 	g_window_size = t_vect_new(0, 0);
 	SDL_GetWindowSize(g_window, &g_window_size->x, &g_window_size->y);
 	TTF_Init();
+	Mix_Init(MIX_INIT_MP3|MIX_INIT_OGG);
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+	Mix_AllocateChannels(3);
 	g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_SOFTWARE);
 	SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
