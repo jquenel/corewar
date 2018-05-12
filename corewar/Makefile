@@ -91,7 +91,7 @@ CC=			gcc
 
 LDFLAGS=	-L../libft -L../ft_printf -L../libsdl/lib
 
-LIBS=		-lftprintf -lft -lSDL2 -lSDL2_image -lfreetype -lSDL2_ttf
+LIBS=		-lftprintf -lft -lSDL2 -lSDL2_image -lfreetype -lSDL2_ttf -lSDL2_mixer
 
 LDLIBS=		$(LDFLAGS) $(LIBS)
 
@@ -109,6 +109,11 @@ clibs:
 				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2_MIXER/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2/include/SDL2/ ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/include/SDL2/ ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_TTF/include/SDL2/ ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_MIXER/include/SDL2/ ../libsdl/includes
 
 $(NAME):		$(OBJ)
 				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
@@ -124,6 +129,11 @@ sdl:
 				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2_MIXER/lib ../libsdl
+				@cp -rf ~/goinfre/sdl/SDL2/include ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/include ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_TTF/include ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_MIXER/include ../libsdl/includes
 
 ##
 ##		Use fclean to clean this program.
