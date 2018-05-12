@@ -6,50 +6,51 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:13:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/06 19:04:20 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/12 21:17:59 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static t_bo	*kill_proc(t_bo **proc, t_bo *dead, t_bo *prev)
+static t_bo	*kill_proc(t_sen *core, t_bo **proc, t_bo *dead)
 {
 	t_bo		*tmp;
 
-	tmp = dead->next;
 	if (dead == *proc)
+	{
 		*proc = dead->next;
-	else
-		prev->next = dead->next;
+		(*proc)->prev = NULL;
+		if (core->opt & OPT_VISU && dead == core->visu->select_proc)
+			core->visu->select_proc = dead->next;
+		free(dead);
+		return (*proc);
+	}
+	dead->prev->next = dead->next;
+	if (dead->next)
+		dead->next->prev = dead->prev;
+	if (core->opt & OPT_VISU && dead == core->visu->select_proc)
+		core->visu->select_proc = dead->next ? dead->next : dead->prev;
+	tmp = dead->next;
 	free(dead);
 	return (tmp);
 }
 
-static int	check_alive_proc(t_bo **proc)
+static int	check_alive_proc(t_sen *core, t_bo **proc)
 {
-	t_bo		*tmp1;
-	t_bo		*tmp2;
-	int			count;
+	int		count;
+	t_bo	*tmp;
 
-	tmp1 = *proc;
-	tmp2 = NULL;
-	while (tmp1)
+	tmp = *proc;
+	count = 0;
+	while (tmp)
 	{
-		if (tmp1->live == 0)
-			tmp1 = kill_proc(proc, tmp1, tmp2);
+		if (tmp->live < 1)
+			tmp = kill_proc(core, proc, tmp);
 		else
 		{
-			tmp2 = tmp1;
-			tmp1->live = 0;
-			tmp1 = tmp1->next;
+			count++;
+			tmp = tmp->next;
 		}
-	}
-	tmp1 = *proc;
-	count = 0;
-	while (tmp1)
-	{
-		count++;
-		tmp1 = tmp1->next;
 	}
 	return (count);
 }
@@ -63,7 +64,7 @@ static void	set_live_zero(t_bushi *player)
 		player[i].live = player[i].live == -2 ? -2 : 0;
 }
 
-static int	check_alive(t_bushi *player, t_bo **proc)
+static int	check_alive(t_sen *core, t_bushi *player, t_bo **proc)
 {
 	int		i;
 	int		count;
@@ -81,7 +82,7 @@ static int	check_alive(t_bushi *player, t_bo **proc)
 			player[i].live = -1;
 		i++;
 	}
-	if (!check_alive_proc(proc))
+	if (!check_alive_proc(core, proc))
 		return (0);
 	return (count);
 }
@@ -91,11 +92,11 @@ int			tsumego(t_sen *core)
 	int		alive;
 
 	if (core->opt & OPT_DETH)
-		alive = check_alive(core->player, &core->proc);
+		alive = check_alive(core, core->player, &core->proc);
 	else
 	{
 		set_live_zero(core->player);
-		alive = check_alive_proc(&(core->proc));
+		alive = check_alive_proc(core, &(core->proc));
 	}
 	core->state.c_count -= core->state.c_todie;
 	if (core->state.l_count >= core->state.l_limit
