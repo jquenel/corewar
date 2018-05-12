@@ -24,6 +24,7 @@ SRC_NAME=	corewar.c\
 			create_t_visu.c\
 			cycle.c\
 			declare_winner.c\
+			decode_types.c\
 			destroy_processes.c\
 			destroy_t_visu.c\
 			do_op.c\
