@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 16:54:54 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 20:08:18 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 #  define INT_MAX		2147483647
 # endif
 
-# define FIELD			core->arena.field
 # define TRACE_EMPTY	0
 
 # define OPT_DUMP		(1 << ('d' - 'a'))
@@ -47,6 +46,7 @@ int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
 void	init_optab(t_sen *core, t_visu *visu, t_optab **op);
 int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+void	decode_types(t_sen *core, t_bo *actual);
 void	do_op(t_sen *core, t_bo *actual);
 int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
 int		tsumego(t_sen *core);

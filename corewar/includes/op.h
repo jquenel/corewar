@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/11 16:41:24 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/11 16:59:53 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
+#ifndef OP_H
+# define OP_H
 
 #include <inttypes.h>
 
@@ -93,3 +95,5 @@ typedef struct				s_op
 }							t_op;
 
 extern t_op		g_op_tab[];
+
+#endif
