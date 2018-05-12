@@ -30,7 +30,7 @@ static void		draw_player(t_visu *visu, t_vect *base, t_vect *menu_size,
 	t_vect		nbr;
 	t_typo		typo;
 
-	t_vect_actualize(&size, menu_size->x - visu->unit * 6, (visu->unit * 10));
+	t_vect_actualize(&size, menu_size->x - visu->unit * 2, (visu->unit * 10));
 	t_vect_actualize(&txt, base->x + visu->unit, base->y + visu->unit / 2);
 	t_vect_actualize(&nbr, base->x + menu_size->x * 0.6,
 													base->y + visu->unit / 2);
@@ -47,6 +47,20 @@ static void		draw_player(t_visu *visu, t_vect *base, t_vect *menu_size,
 	draw_line(poor_itoa(player->live, buffer), &nbr, visu, LIGHT_GREY);
 	draw_line("nb_process :", &txt, visu, LIGHT_GREY);
 	draw_line(poor_itoa(player->proc_count, buffer), &nbr, visu, LIGHT_GREY);
+	t_vect_actualize(base, base->x, base->y + visu->unit * 8);
+}
+
+static void		draw_empty_player(t_visu *visu, t_vect *base, t_vect *menu_size)
+{
+	t_vect		size;
+	t_vect		txt;
+	t_typo		typo;
+
+	t_vect_actualize(&size, menu_size->x - visu->unit * 2, (visu->unit * 10));
+	t_vect_actualize(&txt, base->x + visu->unit, base->y + visu->unit / 2);
+	draw_rectangle(base, &size, GREY);
+	set_t_typo(&typo, "underline", LIGHT_GREY, visu->menu_font);
+	draw_text("Empty player slot", &txt, &typo);
 	t_vect_actualize(base, base->x, base->y + visu->unit * 8);
 }
 
@@ -73,24 +87,29 @@ static void		draw_cycles(t_sen *core, t_visu *visu, t_vect *txt,
 	draw_line(poor_itoa(get_fps(), buffer), &nbr1, visu, LIGHT_GREY);
 }
 
-void			draw_menu(t_sen *core, t_visu *visu, int cycles)
+void			draw_menu(t_sen *core, t_visu *visu)
 {
 	int			i;
 	t_vect		txt;
 	t_vect		menu_size;
+	t_vect		size;
 
-	t_vect_actualize(&txt, get_win_size()->x * 0.7, 0);
+	t_vect_actualize(&txt, get_win_size()->x * 0.8, 0);
 	t_vect_actualize(&menu_size, get_win_size()->x - txt.x,
 													get_win_size()->y - txt.y);
 	draw_rectangle(&txt, &menu_size, DARK_GREY);
 	t_vect_actualize(&txt, txt.x + visu->unit, txt.y + visu->unit);
+	t_vect_actualize(&size, menu_size.x - visu->unit * 2, (visu->unit * 10));
 	draw_cycles(core, visu, &txt, &menu_size);
 	i = 0;
-	while (core->player[i].live != -2)
+	while (i < 4)
 	{
-		draw_player(visu, &txt, &menu_size, &(core->player[i]));
+		if (core->player[i].live != -2)
+			draw_player(visu, &txt, &menu_size, &(core->player[i]));
+		else
+			draw_empty_player(visu, &txt, &menu_size);
 		t_vect_actualize(&txt, txt.x, txt.y + visu->unit * 3);
 		i++;
 	}
-	(void)cycles;
+	draw_selected(core, visu);
 }

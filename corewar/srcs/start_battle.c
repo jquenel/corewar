@@ -17,7 +17,7 @@ static void		draw_all(t_sen *core, t_visu *visu)
 {
 	draw_core(visu);
 	draw_pc(core, visu);
-	draw_menu(core, visu, core->state.c_count);
+	draw_menu(core, visu);
 	draw_info(core, visu);
 	render_screen(visu->pause);
 }
@@ -36,7 +36,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 			draw_all(core, visu);
 		else
 			visu->cycle_to_jump--;
-		draw_menu(core, visu, core->state.c_count);
+		draw_menu(core, visu);
 		draw_info(core, visu);
 		render_screen(visu->pause);
 		update_input(visu);

@@ -98,8 +98,9 @@ void			ft_stradd_back(char **s1, char *s2);
 t_visu			*create_t_visu(t_sen *core);
 void 			draw_core(t_visu *core);
 void			draw_pc(t_sen *core, t_visu *sdl_core);
-void			draw_menu(t_sen *core, t_visu *sdl_core, int cycles);
+void			draw_menu(t_sen *core, t_visu *sdl_core);
 void			draw_info(t_sen *core, t_visu *visu);
+void			draw_selected(t_sen *core, t_visu *visu);
 void 			set_texture_list(t_visu *core);
 
 void			reset_visu(t_visu *visu);
