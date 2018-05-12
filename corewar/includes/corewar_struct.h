@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 16:38:40 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/12 21:06:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ typedef struct			s_bo
 	int					size;
 	t_arg				args[MAX_ARGS_NUMBER];
 	char				reg[REG_NUMBER][REG_SIZE];
-	struct s_bo				*next;
+	struct s_bo			*next;
+	struct s_bo			*prev;
 }						t_bo;
 
 typedef struct			s_sumego
@@ -138,7 +139,7 @@ typedef struct	s_visu
 	TTF_Font 	*font;
 	TTF_Font 	*menu_font;
 	int			p_color[5];
-	SDL_Texture *texture_list[256];
+	SDL_Texture	*texture_list[256];
 	char		*str_list[OP_COUNT + 1];
 	int			font_size;
 	t_vect		*tab_size;
@@ -152,6 +153,7 @@ typedef struct	s_visu
 	Mix_Music	*music;
 	Mix_Chunk	*birth_sound;
 	Mix_Chunk	*end_sound;
+	t_bo		*select_proc;
 }				t_visu;
 
 typedef struct	s_typo

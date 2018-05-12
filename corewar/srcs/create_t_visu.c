@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:48:39 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/07 16:57:00 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/12 21:06:50 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_visu				*create_t_visu(t_sen *core)
 	visu->p_color[4] = P4_COLOR;
 	visu->music = Mix_LoadMUS(MUSIC_PATH);
 	visu->end_sound = Mix_LoadWAV(END_SOUND);
+	visu->select_proc = core->proc;
 	define_base(visu);
 	define_str(visu);
 	visu->menu_font = TTF_OpenFont(FONT_PATH, visu->unit);
