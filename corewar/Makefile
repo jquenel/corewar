@@ -76,7 +76,8 @@ SRC_NAME=	corewar.c\
 			poor_itoa.c\
 			set_texture_list.c\
 			draw_selected.c\
-			draw_register.c
+			draw_register.c\
+			draw_help.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
