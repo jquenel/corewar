@@ -44,7 +44,7 @@ void			draw_border_rectangle(t_vect *coord, t_vect *size,
 	SDL_SetRenderDrawColor(get_renderer(), color1.r, color1.g, color1.b,
 																	color1.a);
 	SDL_RenderFillRect(get_renderer(), &rect1);
-	border_size = rect1.w / 12 < rect1.h / 12 ? rect1.w / 12 : rect1.h / 12;
+	border_size = rect1.w / 8 < rect1.h / 8 ? rect1.w / 8 : rect1.h / 8;
 	rect2.x = coord->x + border_size;
 	rect2.y = coord->y + border_size;
 	rect2.w = size->x - border_size * 2;

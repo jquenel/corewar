@@ -25,6 +25,7 @@ int		corewar_lfork(t_sen *core, t_bo *actual, t_arg *args)
 		fork->pc = core->arena.size + fork->pc;
 	fork->pc %= core->arena.size;
 	fork->next = core->proc;
+	fork->prev = NULL;
 	core->proc->prev = fork;
 	core->proc = fork;
 	fork->cycle = -1;

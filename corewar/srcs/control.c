@@ -63,10 +63,7 @@ static void		control_selected(SDL_Event *event, t_visu *visu)
 		else
 		{
 			while (visu->select_proc->next != NULL)
-			{
-				printf("adress = %p\n", visu->select_proc);
 				visu->select_proc = visu->select_proc->next;
-			}
 		}
 	}
 	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_KP_3)
@@ -76,10 +73,7 @@ static void		control_selected(SDL_Event *event, t_visu *visu)
 		else
 		{
 			while (visu->select_proc->prev != NULL)
-			{
-				printf("adress = %p\n", visu->select_proc);
 				visu->select_proc = visu->select_proc->prev;
-			}
 		}
 	}
 }
