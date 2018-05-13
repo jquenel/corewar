@@ -49,7 +49,7 @@ static t_visu	*init_visu(t_sen *core)
 
 	window_initialisation("char *window_name");
 	visu = create_t_visu(core);
-	Mix_PlayMusic(visu->music, -1);
+	//Mix_PlayMusic(visu->music, -1);
 	draw_corewar(core, visu);
 	return (visu);
 }

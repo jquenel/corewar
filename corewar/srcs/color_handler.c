@@ -14,6 +14,17 @@
 
 SDL_Color			g_color_tab[NB_COLOR];
 
+SDL_Color		create_color(int r, int g, int b, int a)
+{
+	SDL_Color color;
+
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	color.a = a;
+	return (color);
+}
+
 void			set_color_tab(void)
 {
 	g_color_tab[BLACK] = create_color(39, 39, 39, 42);

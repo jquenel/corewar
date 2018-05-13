@@ -111,5 +111,5 @@ void			draw_menu(t_sen *core, t_visu *visu)
 		t_vect_actualize(&txt, txt.x, txt.y + visu->unit * 3);
 		i++;
 	}
-	draw_selected(core, visu);
+	draw_selected(visu);
 }

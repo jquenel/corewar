@@ -140,6 +140,7 @@ typedef struct	s_visu
 	TTF_Font 	*menu_font;
 	int			p_color[5];
 	SDL_Texture	*texture_list[256];
+	SDL_Texture	*texture_menu_list[256];
 	char		*str_list[OP_COUNT + 1];
 	int			font_size;
 	t_vect		*tab_size;

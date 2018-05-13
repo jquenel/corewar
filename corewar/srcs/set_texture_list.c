@@ -37,3 +37,25 @@ void			set_texture_list(t_visu *visu)
 		i++;
 	}
 }
+
+void			set_texture_menu_list(t_visu *visu)
+{
+	int			i;
+	char		*text;
+	SDL_Surface	*surface;
+
+	i = 0;
+	while (i < 256)
+	{
+		text = ft_itoa_base(i, "0123456789abcdef");
+		while (ft_strlen(text) < 2)
+			ft_stradd_front("0", &text);
+		surface = TTF_RenderText_Blended(visu->menu_font, text,
+															get_color(BLACK));
+		visu->texture_menu_list[i] = SDL_CreateTextureFromSurface(get_renderer(),
+																	surface);
+		SDL_FreeSurface(surface);
+		free(text);
+		i++;
+	}
+}
