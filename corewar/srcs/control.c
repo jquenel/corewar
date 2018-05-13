@@ -54,6 +54,36 @@ static void		control_input(SDL_Event *event, t_visu *visu)
 	}
 }
 
+static void		control_selected(SDL_Event *event, t_visu *visu)
+{
+	if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_KP_1)
+	{
+		if (visu->select_proc->prev != NULL)
+			visu->select_proc = visu->select_proc->prev;
+		else
+		{
+			while (visu->select_proc->next != NULL)
+			{
+				printf("adress = %p\n", visu->select_proc);
+				visu->select_proc = visu->select_proc->next;
+			}
+		}
+	}
+	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_KP_3)
+	{
+		if (visu->select_proc->next != NULL)
+			visu->select_proc = visu->select_proc->next;
+		else
+		{
+			while (visu->select_proc->prev != NULL)
+			{
+				printf("adress = %p\n", visu->select_proc);
+				visu->select_proc = visu->select_proc->prev;
+			}
+		}
+	}
+}
+
 void			update_input(t_visu *visu)
 {
 	SDL_Event event;
@@ -62,6 +92,7 @@ void			update_input(t_visu *visu)
 	{
 		control_fps(&event, visu);
 		control_input(&event, visu);
+		control_selected(&event, visu);
 	}
 	SDL_PumpEvents();
 	SDL_FlushEvent(SDL_KEYDOWN);
