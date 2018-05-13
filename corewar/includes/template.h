@@ -91,7 +91,6 @@ void 			update_input(t_visu *core);
 
 int				get_root(int size);
 char			*ft_itoa_base(int value, char *base);
-char			*poor_itoa_base(int nbr, char *base, char *dest);
 char			*ft_strnew(size_t size);
 void			ft_stradd_front(char *s1, char **s2);
 void			ft_stradd_back(char **s1, char *s2);
@@ -102,6 +101,7 @@ void			draw_pc(t_sen *core, t_visu *sdl_core);
 void			draw_menu(t_sen *core, t_visu *sdl_core);
 void			draw_info(t_sen *core, t_visu *visu);
 void			draw_selected(t_visu *visu);
+void			draw_registre(t_visu *visu, t_vect *base, t_vect *menu_size);
 void 			set_texture_list(t_visu *core);
 void 			set_texture_menu_list(t_visu *core);
 
@@ -110,6 +110,8 @@ void			reset_visu(t_visu *visu);
 void			set_color_tab(void);
 
 char			*poor_itoa(int nbr, char *buffer);
+char			*strange_poor_itoa(int nbr, char *buffer);
+char			*poor_itoa_base(int nbr, int base, char *dest);
 
 t_typo			*set_t_typo(t_typo *v_font, char *typo, int color_type,
 																TTF_Font *font);

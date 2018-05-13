@@ -58,25 +58,6 @@ char				*ft_itoa_base(int nbr, char *base)
 	return (dest);
 }
 
-char				*poor_itoa_base(int nbr, char *base, char *dest)
-{
-	int			len;
-	int			base_size;
-	int			i;
-
-	base_size = ft_strlen(base);
-	len = ft_intlen_base(nbr, base_size);
-	i = 0;
-	while (nbr > 0)
-	{
-		dest[len - i] = base[nbr % base_size];
-		nbr /= base_size;
-		i++;
-	}
-	dest[len + 1] = '\0';
-	return (dest);
-}
-
 void				error_exit(char *msg, int error)
 {
 	ft_printf("Error %d : %s\n", error, msg);

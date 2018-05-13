@@ -57,3 +57,69 @@ char			*poor_itoa(int nbr, char *buffer)
 	}
 	return (buffer);
 }
+
+char			*strange_poor_itoa(int nbr, char *buffer)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	len = ft_intlen(nbr);
+	buffer[len] = '\0';
+	len--;
+	while (len >= 0)
+	{
+		buffer[len] = ((nbr % 10) >= 0 ? (nbr % 10) : (nbr % 10) * -1) + '0';
+		len--;
+		nbr /= 10;
+	}
+	while (ft_strlen(buffer) < 2)
+	{
+		len = ft_strlen(buffer);
+		buffer[len + 1] = '\0';
+		buffer[len] = buffer[len - 1];
+		buffer[len - 1] = '0';
+	}
+	return (buffer);
+}
+
+static void		set_buffer(char *buffer, char *to_place)
+{
+	size_t			i;
+
+	i = 0;
+	while (i < ft_strlen(to_place))
+	{
+		buffer[i] = to_place[i];
+		i++;
+	}
+}
+
+char			*poor_itoa_base(int nbr, int base, char *buffer)
+{
+	unsigned char	c;
+	int				i;
+	int				len;
+	char			char_list[37];
+
+	set_buffer(char_list, "0123456789abcdefghijklmnopqrstuvwxyz");
+	c = nbr;
+	i = 0;
+	len = ft_intlen(nbr);
+	buffer[len] = '\0';
+	len--;
+	while (len >= 0)
+	{
+		buffer[len] = char_list[c % base];
+		len--;
+		c /= base;
+	}
+	while (ft_strlen(buffer) < 2)
+	{
+		len = ft_strlen(buffer);
+		buffer[len + 2] = '\0';
+		buffer[len + 1] = buffer[len];
+		buffer[len] = '0';
+	}
+	return (buffer);
+}

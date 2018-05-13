@@ -86,8 +86,7 @@ t_visu				*create_t_visu(t_sen *core)
 	visu->select_proc = core->proc;
 	define_base(visu);
 	define_str(visu);
-	visu->menu_font = TTF_OpenFont(FONT_PATH, visu->unit * 30);
-	set_texture_menu_list(visu);
 	visu->menu_font = TTF_OpenFont(FONT_PATH, visu->unit);
+	set_texture_menu_list(visu);
 	return (visu);
 }

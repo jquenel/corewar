@@ -37,11 +37,6 @@ static void		draw_pc_cell(int i, int j, t_visu *visu)
 												(visu->field[pos])], &coord, 0);
 	}
 }
-/*
-static void		draw_selected_pc()
-{
-	t_visu *visu
-}*/
 
 void			draw_pc(t_sen *core, t_visu *visu)
 {

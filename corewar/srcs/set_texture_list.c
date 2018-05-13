@@ -52,8 +52,8 @@ void			set_texture_menu_list(t_visu *visu)
 			ft_stradd_front("0", &text);
 		surface = TTF_RenderText_Blended(visu->menu_font, text,
 															get_color(BLACK));
-		visu->texture_menu_list[i] = SDL_CreateTextureFromSurface(get_renderer(),
-																	surface);
+		visu->texture_menu_list[i] =
+						SDL_CreateTextureFromSurface(get_renderer(), surface);
 		SDL_FreeSurface(surface);
 		free(text);
 		i++;
