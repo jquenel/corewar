@@ -21,7 +21,8 @@ static void		special_control(t_visu *visu, int *alive)
 	{
 		if (event.type == SDL_QUIT)
 			*alive = 0;
-		else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+		else if (event.type == SDL_KEYDOWN &&
+										event.key.keysym.sym == SDLK_ESCAPE)
 			*alive = 0;
 		else if (event.type == SDL_MOUSEWHEEL)
 		{
@@ -67,10 +68,22 @@ static void		draw_winner(t_visu *visu, t_sen *core, char *str)
 	draw_centred_text(str, &coord, set_t_typo(&typo,
 									NORMAL, LIGHT_GREY, visu->final_font));
 	t_vect_actualize(&coord, coord.x, coord.y + visu->unit * 8);
-	draw_centred_text("Press echap to close the program", &coord, set_t_typo(&typo,
-									NORMAL, LIGHT_GREY, visu->final_font));
+	draw_centred_text("Press echap to close the program", &coord,
+			set_t_typo(&typo, NORMAL, LIGHT_GREY, visu->final_font));
 }
 
+static char		*create_str(t_sen *core, int i)
+{
+	char		*str;
+	char		buffer[16];
+
+	str = ft_strdup("Player ");
+	ft_stradd_back(&str, poor_itoa(core->player[i].pnum, buffer));
+	ft_stradd_back(&str, "(");
+	ft_stradd_back(&str, core->player[i].name);
+	ft_stradd_back(&str, ") won !");
+	return (str);
+}
 
 void			draw_finish(t_visu *visu, t_sen *core, int i)
 {
@@ -78,17 +91,12 @@ void			draw_finish(t_visu *visu, t_sen *core, int i)
 	t_vect		size;
 	int			alive;
 	char		*str;
-	char		buffer[16];
 
 	alive = 1;
 	visu->final_font_size = (visu->unit * 3);
 	visu->final_font = TTF_OpenFont(FONT_PATH, visu->final_font_size);
 	TTF_SetFontStyle(visu->final_font, get_typo(NORMAL));
-	str = ft_strdup("Player ");
-	ft_stradd_back(&str, poor_itoa(core->player[i].pnum, buffer));
-	ft_stradd_back(&str, "(");
-	ft_stradd_back(&str, core->player[i].name);
-	ft_stradd_back(&str, ") won !");
+	str = create_str(core, i);
 	while (alive)
 	{
 		draw_core(visu);
@@ -99,4 +107,5 @@ void			draw_finish(t_visu *visu, t_sen *core, int i)
 		special_control(visu, &alive);
 		render_screen(visu->pause);
 	}
+	free(str);
 }
