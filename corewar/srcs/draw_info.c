@@ -51,7 +51,7 @@ void		draw_info(t_sen *core, t_visu *visu)
 			draw_border_rectangle(&mpos, &size, GREY);
 			t_vect_actualize(&mpos, mpos.x + size.x / 2, mpos.y + size.y / 2);
 			draw_centred_text(visu->str_list[(int)c - 1], &mpos,
-						set_t_typo(&typo, "normal", BLACK, visu->menu_font));
+						set_t_typo(&typo, NORMAL, BLACK, visu->menu_font));
 		}
 	}
 }

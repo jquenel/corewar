@@ -21,8 +21,9 @@ void			set_texture_list(t_visu *visu)
 
 	if (visu->font != NULL)
 		TTF_CloseFont(visu->font);
-	visu->font_size = (visu->unit / 1.8) * visu->zoom;
+	visu->font_size = (visu->unit / 1.55) * visu->zoom;
 	visu->font = TTF_OpenFont(FONT_PATH, visu->font_size);
+	TTF_SetFontStyle(visu->font, get_typo(BOLD));
 	i = 0;
 	while (i < 256)
 	{
@@ -36,6 +37,7 @@ void			set_texture_list(t_visu *visu)
 		free(text);
 		i++;
 	}
+	TTF_SetFontStyle(visu->font, get_typo(NORMAL));
 }
 
 void			set_texture_menu_list(t_visu *visu)
@@ -58,4 +60,6 @@ void			set_texture_menu_list(t_visu *visu)
 		free(text);
 		i++;
 	}
+	SDL_QueryTexture(visu->texture_menu_list[(visu->select_proc->reg[0][0])],
+					NULL, NULL, &(visu->print_size.x), &(visu->print_size.y));
 }

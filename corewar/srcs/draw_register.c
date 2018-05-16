@@ -21,11 +21,11 @@ static void		draw_reg_number(t_visu *visu, int nbr, t_vect *coord,
 	t_typo		typo;
 
 	draw_rectangle(coord, size, LIGHT_GREY);
-	t_vect_actualize(coord, coord->x + visu->unit, coord->y);
-	len = draw_text(strange_poor_itoa(nbr, buffer), coord,
-						set_t_typo(&typo, "bold", BLACK, visu->menu_font));
+	t_vect_actualize(coord, coord->x + visu->unit, coord->y - visu->unit / 6);
+	len = draw_text(strange_poor_itoa(nbr + 1, buffer), coord,
+						set_t_typo(&typo, BOLD, BLACK, visu->menu_font));
 	t_vect_actualize(coord, coord->x + visu->unit * 2, coord->y);
-	len = draw_text(" : ", coord, set_t_typo(&typo, "normal",
+	len = draw_text(" : ", coord, set_t_typo(&typo, NORMAL,
 												BLACK, visu->menu_font));
 	t_vect_actualize(coord, coord->x + len, coord->y);
 }
@@ -36,9 +36,10 @@ static void		draw_reg_line(t_visu *visu, int base, t_vect *txt, t_vect *size)
 	char		buffer[12];
 	t_vect		pos;
 	t_vect		coord;
-	int			len;
+	t_vect		size_image;
 
 	t_vect_actualize(&coord, txt->x - visu->unit / 3, txt->y);
+	t_vect_actualize(&size_image, visu->unit * 1.3, visu->unit * 1.4);
 	pos.x = 0;
 	while (pos.x < 2)
 	{
@@ -46,10 +47,9 @@ static void		draw_reg_line(t_visu *visu, int base, t_vect *txt, t_vect *size)
 		pos.y = 0;
 		while (pos.y < 4)
 		{
-			len = draw_text(poor_itoa_base((unsigned int)
-				(visu->select_proc->reg[base + pos.x][pos.y]), 16, buffer),
-				&coord, set_t_typo(&typo, "normal", BLACK, visu->menu_font));
-			t_vect_actualize(&coord, coord.x + len, coord.y);
+			draw_sdltexture(visu->texture_menu_list[(visu->select_proc->reg
+				[base + pos.x][pos.y])], &coord, &size_image, 0);
+			t_vect_actualize(&coord, coord.x + size_image.x, coord.y);
 			pos.y++;
 		}
 		pos.x++;
@@ -67,7 +67,7 @@ void			draw_registre(t_visu *visu, t_vect *base, t_vect *menu_size)
 	t_vect_actualize(base, base->x + ((menu_size->x - visu->unit * 2) / 2),
 													base->y + visu->unit * 1.5);
 	draw_centred_text("-----REGISTRES-----", base,
-				set_t_typo(&typo, "underline", LIGHT_GREY, visu->menu_font));
+				set_t_typo(&typo, UNDERLINE, LIGHT_GREY, visu->menu_font));
 	t_vect_actualize(base, base->x - ((menu_size->x - visu->unit * 2) / 2),
 													base->y + visu->unit * 1.5);
 	t_vect_actualize(&size, (menu_size->x - (visu->unit * 4)) / 2,

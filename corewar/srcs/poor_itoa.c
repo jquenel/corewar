@@ -95,14 +95,14 @@ static void		set_buffer(char *buffer, char *to_place)
 	}
 }
 
-char			*poor_itoa_base(int nbr, int base, char *buffer)
+char			*poor_itoa_base(int nbr, char *base, char *buffer)
 {
 	unsigned char	c;
 	int				i;
 	int				len;
-	char			char_list[37];
+	int				value;
 
-	set_buffer(char_list, "0123456789abcdefghijklmnopqrstuvwxyz");
+	value = ft_strlen(base);
 	c = nbr;
 	i = 0;
 	len = ft_intlen(nbr);
@@ -110,16 +110,16 @@ char			*poor_itoa_base(int nbr, int base, char *buffer)
 	len--;
 	while (len >= 0)
 	{
-		buffer[len] = char_list[c % base];
+		buffer[len] = base[c % value];
 		len--;
-		c /= base;
+		c /= value;
 	}
 	while (ft_strlen(buffer) < 2)
 	{
 		len = ft_strlen(buffer);
-		buffer[len + 2] = '\0';
-		buffer[len + 1] = buffer[len];
-		buffer[len] = '0';
+		buffer[len + 1] = '\0';
+		buffer[len] = buffer[len - 1];
+		buffer[len - 1] = '0';
 	}
 	return (buffer);
 }

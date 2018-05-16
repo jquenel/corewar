@@ -37,7 +37,7 @@ static void		control_input(SDL_Event *event, t_visu *visu)
 	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_s)
 		visu->one_cycle = 1;
 	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_j)
-		visu->cycle_to_jump += 1000;
+		visu->cycle_to_jump = 1000;
 	else if (event->type == SDL_MOUSEWHEEL)
 	{
 		if (event->wheel.y > 0)
@@ -78,6 +78,18 @@ static void		control_selected(SDL_Event *event, t_visu *visu)
 	}
 }
 
+static void		control_help(SDL_Event *event, t_visu *visu)
+{
+	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_F1)
+	{
+		visu->help = 1;
+	}
+	if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_F1)
+	{
+		visu->help = 0;
+	}
+}
+
 void			update_input(t_visu *visu)
 {
 	SDL_Event event;
@@ -88,8 +100,8 @@ void			update_input(t_visu *visu)
 		control_input(&event, visu);
 		control_selected(&event, visu);
 	}
+	control_help(&event, visu);
 	SDL_PumpEvents();
 	SDL_FlushEvent(SDL_KEYDOWN);
-	SDL_FlushEvent(SDL_KEYUP);
 	SDL_FlushEvent(SDL_MOUSEMOTION);
 }

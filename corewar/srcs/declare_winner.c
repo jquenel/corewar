@@ -38,6 +38,7 @@ void		declare_winner(t_sen *core, t_visu *visu)
 	}
 	if (core->opt & OPT_VISU)
 	{
+		draw_finish(visu, core, i);
 		destroy_t_visu(visu);
 		close_renderer();
 	}

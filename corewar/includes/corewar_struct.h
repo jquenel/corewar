@@ -137,31 +137,36 @@ typedef struct	s_visu
 	char		*index;
 	int			len;
 	TTF_Font 	*font;
+	TTF_Font 	*final_font;
 	TTF_Font 	*menu_font;
 	int			p_color[5];
 	SDL_Texture	*texture_list[256];
 	SDL_Texture	*texture_menu_list[256];
+	int			typo_tab[5];
 	char		*str_list[OP_COUNT + 1];
 	int			font_size;
+	int			final_font_size;
 	t_vect		*tab_size;
 	t_vect		*base_pos;
 	double		zoom;
 	int			unit;
 	int			space;
 	char		pause;
+	char		help;
 	char		one_cycle;
 	int			cycle_to_jump;
 	Mix_Music	*music;
 	Mix_Chunk	*birth_sound;
 	Mix_Chunk	*end_sound;
 	t_bo		*select_proc;
+	t_vect		print_size;
 }				t_visu;
 
 typedef struct	s_typo
 {
 	int			color_type;
 	TTF_Font	*font;
-	char		*typo;
+	int			typo;
 }				t_typo;
 
 #endif

@@ -38,6 +38,7 @@ void				window_initialisation(char *window_name)
 	SDL_SetWindowGrab(g_window, SDL_FALSE);
 	SDL_ShowCursor(1);
 	set_color_tab();
+	set_typo_tab();
 }
 
 SDL_Renderer		*get_renderer(void)

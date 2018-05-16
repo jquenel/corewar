@@ -24,7 +24,7 @@
 # include "corewar.h"
 # include "ft_printf.h"
 
-# define FONT_PATH		"font/KeepCalm-Medium.ttf"
+# define FONT_PATH		"font/MonospaceTypewriter.ttf"
 # define MUSIC_PATH		"audio/bensound-instinct.wav"
 # define END_SOUND		"audio/end_turn.wav"
 
@@ -53,6 +53,12 @@
 # define LIGHT_YELLOW	20
 # define YELLOW			21
 # define DARK_YELLOW	22
+
+# define NORMAL			0
+# define BOLD			1
+# define ITALIC			2
+# define UNDERLINE		3
+# define STRIKETHROUGH	4
 
 # define P1_COLOR		BLUE
 # define P2_COLOR		RED
@@ -106,6 +112,8 @@ void			draw_info(t_sen *core, t_visu *visu);
 void			draw_selected(t_visu *visu);
 void			draw_registre(t_visu *visu, t_vect *base, t_vect *menu_size);
 void			draw_help(t_visu *visu);
+void			draw_finish(t_visu *visu, t_sen *core, int i);
+void			final_draw_menu(t_sen *core, t_visu *visu);
 void 			set_texture_list(t_visu *core);
 void 			set_texture_menu_list(t_visu *core);
 
@@ -115,11 +123,14 @@ void			set_color_tab(void);
 
 char			*poor_itoa(int nbr, char *buffer);
 char			*strange_poor_itoa(int nbr, char *buffer);
-char			*poor_itoa_base(int nbr, int base, char *dest);
+char			*poor_itoa_base(int nbr, char *base, char *buffer);
 
-t_typo			*set_t_typo(t_typo *v_font, char *typo, int color_type,
+t_typo			*set_t_typo(t_typo *v_font, int typo, int color_type,
 																TTF_Font *font);
 
 void			destroy_t_visu(t_visu *visu);
+
+void			set_typo_tab(void);
+int				get_typo(int typo);
 
 #endif

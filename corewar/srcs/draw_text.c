@@ -12,19 +12,6 @@
 
 #include "template.h"
 
-static int		get_typo(char *typo)
-{
-	if (!ft_strcmp(typo, "bold"))
-		return (TTF_STYLE_BOLD);
-	else if (!ft_strcmp(typo, "italic"))
-		return (TTF_STYLE_ITALIC);
-	else if (!ft_strcmp(typo, "underline"))
-		return (TTF_STYLE_UNDERLINE);
-	else if (!ft_strcmp(typo, "stricke"))
-		return (TTF_STYLE_STRIKETHROUGH);
-	return (0);
-}
-
 int				draw_text(char *text, t_vect *coord, t_typo *v_font)
 {
 	SDL_Color		color;

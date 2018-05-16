@@ -87,7 +87,7 @@ static void		draw_cycles(t_sen *core, t_visu *visu, t_vect *txt,
 	draw_line(poor_itoa(get_fps(), buffer), &nbr1, visu, LIGHT_GREY);
 }
 
-void			draw_menu(t_sen *core, t_visu *visu)
+void			final_draw_menu(t_sen *core, t_visu *visu)
 {
 	int			i;
 	t_vect		txt;
@@ -111,5 +111,4 @@ void			draw_menu(t_sen *core, t_visu *visu)
 		t_vect_actualize(&txt, txt.x, txt.y + visu->unit * 3);
 		i++;
 	}
-	draw_selected(visu);
 }

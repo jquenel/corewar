@@ -18,7 +18,7 @@ static int		draw_line(char *text, t_vect *coord, t_visu *visu, int color)
 	t_typo	typo;
 	int		i;
 
-	i = draw_text(text, coord, set_t_typo(&typo, "normal", color,
+	i = draw_text(text, coord, set_t_typo(&typo, NORMAL, color,
 															visu->menu_font));
 	t_vect_actualize(coord, coord->x, coord->y + visu->unit * 2);
 	return (i);
@@ -42,10 +42,10 @@ static void		draw_pc_info(t_visu *visu, t_vect *txt, t_vect *menu_size)
 															visu, LIGHT_GREY);
 	draw_line("PC :", txt, visu, LIGHT_GREY);
 	draw_line(poor_itoa(visu->select_proc->pc, buffer), &nbr, visu, LIGHT_GREY);
-	draw_line("Live this turn :", txt, visu, LIGHT_GREY);
+	draw_line("Lives this turn :", txt, visu, LIGHT_GREY);
 	draw_line(poor_itoa(visu->select_proc->live, buffer), &nbr, visu,
 																	LIGHT_GREY);
-	draw_line("Cycle left for the instruction :", txt, visu, LIGHT_GREY);
+	draw_line("Cycles left :", txt, visu, LIGHT_GREY);
 	draw_line(poor_itoa(visu->select_proc->cycle, buffer), &nbr, visu,
 																	LIGHT_GREY);
 }

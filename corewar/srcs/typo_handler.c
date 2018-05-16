@@ -12,11 +12,18 @@
 
 #include "template.h"
 
-t_typo			*set_t_typo(t_typo *v_font, int typo, int color_type,
-																TTF_Font *font)
+int				g_typo_tab[NB_COLOR];
+
+void			set_typo_tab(void)
 {
-	v_font->typo = typo;
-	v_font->color_type = color_type;
-	v_font->font = font;
-	return (v_font);
+	g_typo_tab[0] = 0;
+	g_typo_tab[1] = TTF_STYLE_BOLD;
+	g_typo_tab[2] = TTF_STYLE_ITALIC;
+	g_typo_tab[3] = TTF_STYLE_UNDERLINE;
+	g_typo_tab[4] = TTF_STYLE_STRIKETHROUGH;
+}
+
+int				get_typo(int typo)
+{
+	return (g_typo_tab[typo]);
 }
