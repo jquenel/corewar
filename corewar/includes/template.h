@@ -112,7 +112,7 @@ void			draw_info(t_sen *core, t_visu *visu);
 void			draw_selected(t_visu *visu);
 void			draw_registre(t_visu *visu, t_vect *base, t_vect *menu_size);
 void			draw_help(t_visu *visu);
-void			draw_finish(t_visu *visu, t_sen *core, int i);
+void			draw_finish(t_visu *visu, t_sen *core, int i4);
 void			final_draw_menu(t_sen *core, t_visu *visu);
 void 			set_texture_list(t_visu *core);
 void 			set_texture_menu_list(t_visu *core);
@@ -129,6 +129,8 @@ t_typo			*set_t_typo(t_typo *v_font, int typo, int color_type,
 																TTF_Font *font);
 
 void			destroy_t_visu(t_visu *visu);
+
+void			sound_intro(t_sen *core, t_visu *visu);
 
 void			set_typo_tab(void);
 int				get_typo(int typo);
