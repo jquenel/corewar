@@ -80,7 +80,10 @@ static char		*create_str(t_sen *core, int i)
 	char		buffer[16];
 
 	if (core->state.l_last == core->arena.empty_char)
-		return (NO_WINNER);
+	{
+		str = ft_strdup(NO_WINNER);
+		return (str);
+	}
 	str = ft_strdup("Player ");
 	ft_stradd_back(&str, poor_itoa(core->player[i].pnum, buffer));
 	ft_stradd_back(&str, "(");
