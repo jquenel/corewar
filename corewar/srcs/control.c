@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/17 12:18:31 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:09:22 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ static void		control_selected(SDL_Event *event, t_visu *visu)
 
 static void		control_help(SDL_Event *event, t_visu *visu)
 {
-	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_F1)
+	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_1)
 	{
 		visu->help = 1;
 	}
-	if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_F1)
+	if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_1)
 	{
 		visu->help = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/04 19:13:33 by jboissy          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:11:56 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void		draw_pc_info(t_visu *visu, t_vect *txt, t_vect *menu_size)
 	draw_line(poor_itoa(visu->select_proc->live, buffer), &nbr, visu,
 																	LIGHT_GREY);
 	draw_line("Cycles left :", txt, visu, LIGHT_GREY);
-	draw_line(poor_itoa(visu->select_proc->cycle, buffer), &nbr, visu,
+	draw_line(poor_itoa(visu->select_proc->cycle + 1, buffer), &nbr, visu,
 																	LIGHT_GREY);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:48:39 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/17 12:20:20 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:02:03 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_visu				*create_t_visu(t_sen *core)
 	if (!(visu = (t_visu *)malloc(sizeof(t_visu))))
 		error_exit("Can't malloc a t_visu", 152);
 	visu->field = core->arena.field;
-	visu->pause = 0;
+	visu->pause = 1;
 	visu->help = 0;
 	visu->cycle_to_jump = 0.0f;
 	visu->index = core->arena.trace;

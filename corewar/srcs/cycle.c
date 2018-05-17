@@ -6,13 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 14:46:56 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 16:34:10 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:54:35 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		cycle(t_sen *core, t_optab op[OP_COUNT + 1])
+int		cycle(t_sen *core, t_optab *op)
 {
 	t_bo	*tmp;
 

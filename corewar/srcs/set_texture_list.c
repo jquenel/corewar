@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/17 12:27:19 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:32:59 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void			set_texture_list(t_visu *visu)
 	if (visu->font != NULL)
 		TTF_CloseFont(visu->font);
 	visu->font_size = (visu->unit / 1.55) * visu->zoom;
-	visu->font = TTF_OpenFont(FONT_PATH, visu->font_size);
+	if (!(visu->font = TTF_OpenFont(FONT_PATH, visu->font_size)))
+		error_exit("Can't load a font", 456123);
 	TTF_SetFontStyle(visu->font, get_typo(BOLD));
 	i = 0;
 	while (i < 256)

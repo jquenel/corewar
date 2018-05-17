@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/17 12:20:22 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 15:15:09 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,25 @@ static void		draw_all(t_sen *core, t_visu *visu)
 	draw_info(core, visu);
 	draw_help(visu);
 	render_screen(visu->pause);
-	visu->cycle_to_jump += get_fps() / 60.0f;
 }
 
 static void		draw_corewar(t_sen *core, t_visu *visu)
 {
 	visu->one_cycle = 0;
-	if (visu->cycle_to_jump <= 0 && visu->pause == 0)
+	if (visu->cycle_to_jump < 2 && visu->pause == 0)
+	{
 		draw_all(core, visu);
+		visu->cycle_to_jump += get_fps() / 60.0f;
+	}
 	else
 		visu->cycle_to_jump -= 1.0f;
 	update_input(visu);
 	while (visu->pause == 1 && !visu->one_cycle && visu->cycle_to_jump <= 0)
 	{
-		if (visu->cycle_to_jump <= 0)
+		if (visu->cycle_to_jump < 2)
 			draw_all(core, visu);
 		else
-			visu->cycle_to_jump--;
+			visu->cycle_to_jump -= 1.0f;
 		render_screen(visu->pause);
 		update_input(visu);
 	}
@@ -48,7 +50,7 @@ static t_visu	*init_visu(t_sen *core)
 {
 	t_visu		*visu;
 
-	window_initialisation("char *window_name");
+	window_initialisation("corewar - esport ready");
 	visu = create_t_visu(core);
 	Mix_PlayMusic(visu->music, -1);
 	draw_corewar(core, visu);

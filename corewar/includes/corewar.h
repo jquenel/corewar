@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 20:08:18 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:52:52 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int		load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc);
 int		is_all_nums(char *s);
 void	start_battle(t_sen *core);
 void	init_optab(t_sen *core, t_visu *visu, t_optab **op);
-int		cycle(t_sen *core, t_optab op[OP_COUNT + 1]);
+int		cycle(t_sen *core, t_optab *op);
 void	decode_types(t_sen *core, t_bo *actual);
 void	do_op(t_sen *core, t_bo *actual);
-int		plan_op(t_sen *core, t_bo *actual, t_optab op[OP_COUNT + 1]);
+int		plan_op(t_sen *core, t_bo *actual, t_optab *op);
 int		tsumego(t_sen *core);
 void	declare_winner(t_sen *core, t_visu *visu);
 

@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:38:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 19:58:14 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 13:54:12 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static inline char	op_byte(t_sen *core, t_bo *actual)
 	return (core->arena.field[actual->pc]);
 }
 
-int					plan_op(t_sen *core, t_bo *actual,
-							t_optab op[OP_COUNT + 1])
+int					plan_op(t_sen *core, t_bo *actual, t_optab *op)
 {
 	if (op_byte(core, actual) < 1 || op_byte(core, actual) >
 			((core->opt & OPT_INST) ? BONUS_OP_COUNT : OP_COUNT))

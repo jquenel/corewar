@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:19:52 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 16:41:48 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/15 14:48:13 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			parser(int argc, char **argv, t_sen *core)
 	init_core(core);
 	if (get_options(&argc, &argv, core) < 0)
 		return (-1);
-	if ((core->pcount = count_players(argc, argv)) < 2)
+	if ((core->pcount = count_players(argc, argv)) < 1)
 		return (1);
 	i = 0;
 	while (i < core->pcount)
