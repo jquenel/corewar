@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/11 20:15:34 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 12:18:31 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		control_input(SDL_Event *event, t_visu *visu)
 	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_s)
 		visu->one_cycle = 1;
 	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_j)
-		visu->cycle_to_jump = 1000;
+		visu->cycle_to_jump += 1000.0f;
 	else if (event->type == SDL_MOUSEWHEEL)
 	{
 		if (event->wheel.y > 0)

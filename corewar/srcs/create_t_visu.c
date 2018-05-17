@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:48:39 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 21:06:50 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 12:20:20 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_visu				*create_t_visu(t_sen *core)
 	visu->field = core->arena.field;
 	visu->pause = 0;
 	visu->help = 0;
-	visu->cycle_to_jump = 0;
+	visu->cycle_to_jump = 0.0f;
 	visu->index = core->arena.trace;
 	visu->len = core->arena.size;
 	visu->tab_size = get_size(visu->len);
