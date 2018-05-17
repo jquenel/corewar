@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/07 17:32:56 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 12:20:24 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void		set_fps(int i)
 {
 	if (g_fps + i < 24)
 		g_fps = 24;
-	else if (g_fps + i > 120)
-		g_fps = 120;
+	else if (g_fps + i > 800)
+		g_fps = 800;
 	else
 		g_fps += i;
 }

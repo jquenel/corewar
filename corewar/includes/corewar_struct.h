@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 21:06:38 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 12:20:18 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ typedef struct	s_visu
 	char		pause;
 	char		help;
 	char		one_cycle;
-	int			cycle_to_jump;
+	float		cycle_to_jump;
 	Mix_Music	*music;
 	Mix_Chunk	*birth_sound;
 	Mix_Chunk	*end_sound;
