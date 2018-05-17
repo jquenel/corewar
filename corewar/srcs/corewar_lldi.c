@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:12:21 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 19:12:42 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 19:36:19 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ int			corewar_lldi(t_sen *core, t_bo *actual, t_arg *args)
 	ft_memset(actual->reg[(int)(args[2].data[0])], 0, REG_SIZE);
 	copy_data(core, actual->reg[(int)(args[2].data[0])], actual->pc + vpos,
 																	REG_SIZE);
+	if (core->opt & OPT_VERB)
+		ft_printf("[PID :: %p]\t[ lldi ]\t:\t(pc(%d) + %d)(%.8x)--->(r%d)\n",
+		actual, actual->pc, vpos,
+		core_getvalue(core, &args[2], actual), (int)(args->data[2]) + 1);
 	return (1);
 }

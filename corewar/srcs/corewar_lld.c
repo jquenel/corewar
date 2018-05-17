@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:09:45 by jquenel           #+#    #+#             */
-/*   Updated: 2018/04/24 23:31:36 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 19:36:36 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ int		corewar_lld(t_sen *core, t_bo *actual, t_arg *args)
 				DIR_SIZE < REG_SIZE ? DIR_SIZE : REG_SIZE);
 	}
 	actual->carry = dtoi(actual->reg[reg], REG_SIZE) == 0 ? 1 : 0;
+	if (core->opt & OPT_VERB)
+		ft_printf("[PID :: %p]\t[ lld ]\t\t:\t(%.8x)--->(r%d)\n",
+			actual, dtoi(actual->reg[reg], REG_SIZE), reg + 1);
 	return (1);
 }

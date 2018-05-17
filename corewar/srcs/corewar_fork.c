@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:02:14 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/13 00:07:49 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 19:58:02 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ int		corewar_fork(t_sen *core, t_bo *actual, t_arg *args)
 	core->proc->prev = fork;
 	core->proc = fork;
 	fork->cycle = -1;
+	if (core->opt & OPT_VERB)
+		ft_printf("[PID :: %p]\t[ fork ]\t:\t(pc(%d) (%+d))\n",
+		actual, fork->pc,
+		dtoi(args[0].data, args[0].size) % IDX_MOD);
 	return (1);
 }

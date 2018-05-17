@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 19:56:43 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 19:12:21 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/17 19:39:01 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,9 @@ int			corewar_sti(t_sen *core, t_bo *actual, t_arg *args)
 			core_getvalue(core, &args[2], actual)) % IDX_MOD;
 	core_regtomem(&core->arena, actual->reg[(int)(args[0].data[0])],
 				actual->pc + vpos, actual->parent->pindex);
+	if (core->opt & OPT_VERB)
+		ft_printf("[PID :: %p]\t[ sti ]\t\t:\t(r%d)(%.8x)--->(pc(%d) + %d)\n",
+		actual, (int)(args->data[0]) + 1, core_getvalue(core, &args[0], actual),
+		actual->pc, vpos);
 	return (1);
 }
