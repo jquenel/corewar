@@ -1,2 +1,2 @@
 # corewar
-WELCOME TO THE FIGHT DOOOOOOME
+An e-sport ready real time assembly battle to the death
