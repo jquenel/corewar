@@ -19,20 +19,21 @@ static void		draw_pc_cell(int i, int j, t_visu *visu)
 	int		pos;
 	t_vect	size;
 
-	t_vect_actualize(&size, (visu->unit) * visu->zoom, visu->unit * visu->zoom);
-	coord.x = (visu->base_pos->x + (i * (visu->unit + visu->space)) +
+	t_vect_actualize(&size, (visu->unit_pc) * visu->zoom, visu->unit_pc *
+																visu->zoom);
+	coord.x = (visu->base_pos->x + (i * (visu->unit_pc + visu->space)) +
 												visu->space / 2) * visu->zoom;
-	coord.y = (visu->base_pos->y + (j * (visu->unit + visu->space)) +
+	coord.y = (visu->base_pos->y + (j * (visu->unit_pc + visu->space)) +
 												visu->space / 2) * visu->zoom;
-	if (coord.x + (visu->unit) * visu->zoom >= 0 && coord.x <
-		get_win_size()->x && coord.y + visu->unit * visu->zoom >= 0 &&
+	if (coord.x + (visu->unit_pc) * visu->zoom >= 0 && coord.x <
+		get_win_size()->x && coord.y + visu->unit_pc * visu->zoom >= 0 &&
 		coord.y < get_win_size()->y)
 	{
 		pos = i + (j * visu->tab_size->x);
 		draw_border_rectangle(&coord, &size,
-									visu->p_color[(int)(visu->index[pos])] + 1);
-		coord.x = coord.x + ((visu->unit / 2) * visu->zoom);
-		coord.y = coord.y + ((visu->unit / 2) * visu->zoom);
+							visu->p_color[(int)(visu->index[pos])] + 1, BORDER);
+		coord.x = coord.x + ((visu->unit_pc / 2) * visu->zoom);
+		coord.y = coord.y + ((visu->unit_pc / 2) * visu->zoom);
 		draw_centred_sdltexture(visu->texture_list[(unsigned char)
 												(visu->field[pos])], &coord, 0);
 	}
@@ -47,21 +48,21 @@ static void		draw_selected_pc(t_visu *visu)
 
 	j = visu->select_proc->pc / visu->tab_size->y;
 	i = visu->select_proc->pc - (j * visu->tab_size->x);
-	t_vect_actualize(&size, (visu->unit) * visu->zoom + visu->space,
-									visu->unit * visu->zoom + visu->space);
-	t_vect_actualize(&coord, (visu->base_pos->x + (i * (visu->unit +
+	t_vect_actualize(&size, (visu->unit_pc) * visu->zoom + visu->space,
+									visu->unit_pc * visu->zoom + visu->space);
+	t_vect_actualize(&coord, (visu->base_pos->x + (i * (visu->unit_pc +
 		visu->space)) + visu->space / 2) * visu->zoom, (visu->base_pos->y +
-		(j * (visu->unit + visu->space)) + visu->space / 2) * visu->zoom);
-	if (coord.x + (visu->unit) * visu->zoom >= 0 && coord.x <
-		get_win_size()->x && coord.y + visu->unit * visu->zoom >= 0 &&
+		(j * (visu->unit_pc + visu->space)) + visu->space / 2) * visu->zoom);
+	if (coord.x + (visu->unit_pc) * visu->zoom >= 0 && coord.x <
+		get_win_size()->x && coord.y + visu->unit_pc * visu->zoom >= 0 &&
 		coord.y < get_win_size()->y)
 	{
 		t_vect_actualize(&coord, coord.x - visu->space / 2, coord.y -
 															visu->space / 2);
-		draw_border_rectangle(&coord, &size, YELLOW);
-		t_vect_actualize(&coord, coord.x + visu->space / 2 + ((visu->unit / 2)
-				* visu->zoom), coord.y + visu->space / 2 + ((visu->unit / 2)
-				* visu->zoom));
+		draw_border_rectangle(&coord, &size, YELLOW, BORDER);
+		t_vect_actualize(&coord, coord.x + visu->space / 2 +
+				((visu->unit_pc / 2) * visu->zoom), coord.y + visu->space / 2 +
+				((visu->unit_pc / 2) * visu->zoom));
 		draw_centred_sdltexture(visu->texture_list[(unsigned char)
 						(visu->field[i + (j * visu->tab_size->x)])], &coord, 0);
 	}

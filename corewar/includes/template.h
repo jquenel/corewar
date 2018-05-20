@@ -60,6 +60,8 @@
 # define UNDERLINE		3
 # define STRIKETHROUGH	4
 
+# define BORDER			8
+
 # define P1_COLOR		BLUE
 # define P2_COLOR		RED
 # define P3_COLOR		GREEN
@@ -73,10 +75,15 @@ void 			draw_centred_sdltexture(SDL_Texture *texture, t_vect *coord, double angl
 SDL_Color 		create_color(int r, int g, int b, int a);
 SDL_Color		get_color(int i);
 void 			draw_rectangle(t_vect *coord, t_vect *size, int color_type);
-void 			draw_border_rectangle(t_vect *coord, t_vect *size, int color_type);
+void			draw_border_rectangle(t_vect *coord, t_vect *size,
+													int color_type, int i);
 
 int				draw_text(char *text, t_vect *coord, t_typo *v_typo);
+int				draw_text_alpha(char *text, t_vect *coord, t_typo *v_font,
+																	int alpha);
 int				draw_centred_text(char *text, t_vect *coord, t_typo *v_typo);
+int				draw_centred_alpha_text(char *text, t_vect *coord,
+													t_typo *v_font, int alpha);
 
 void			window_initialisation(char *window_name);
 void			set_fps(int i);

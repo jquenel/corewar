@@ -149,6 +149,7 @@ typedef struct	s_visu
 	t_vect		*tab_size;
 	t_vect		*base_pos;
 	double		zoom;
+	int			unit_pc;
 	int			unit;
 	int			space;
 	char		pause;

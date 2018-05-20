@@ -20,7 +20,7 @@ static void		draw_reg_number(t_visu *visu, int nbr, t_vect *coord,
 	int			len;
 	t_typo		typo;
 
-	draw_rectangle(coord, size, LIGHT_GREY);
+	draw_rectangle(coord, size, GREY);
 	t_vect_actualize(coord, coord->x + visu->unit, coord->y - visu->unit / 6);
 	len = draw_text(strange_poor_itoa(nbr + 1, buffer), coord,
 						set_t_typo(&typo, BOLD, BLACK, visu->menu_font));

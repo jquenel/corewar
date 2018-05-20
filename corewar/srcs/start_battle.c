@@ -35,7 +35,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 	else
 		visu->cycle_to_jump -= 1.0f;
 	update_input(visu);
-	while (visu->pause == 1 && !visu->one_cycle && visu->cycle_to_jump <= 0)
+	while (visu->pause == 1 && !visu->one_cycle && visu->cycle_to_jump < 2)
 	{
 		if (visu->cycle_to_jump < 2)
 			draw_all(core, visu);
@@ -53,8 +53,9 @@ static t_visu	*init_visu(t_sen *core)
 	window_initialisation("corewar - esport ready");
 	visu = create_t_visu(core);
 	Mix_PlayMusic(visu->music, -1);
-	draw_corewar(core, visu);
 	sound_intro(core, visu);
+	draw_corewar(core, visu);
+	visu->pause = 1;
 	return (visu);
 }
 

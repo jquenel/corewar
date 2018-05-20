@@ -19,19 +19,19 @@ static void		draw_cell(int i, int j, t_visu *visu)
 	t_vect		size;
 	int			pos;
 
-	size.x = visu->unit * visu->zoom;
-	size.y = visu->unit * visu->zoom;
-	coord.x = (visu->base_pos->x + (i * (visu->unit + visu->space))
+	size.x = visu->unit_pc * visu->zoom;
+	size.y = visu->unit_pc * visu->zoom;
+	coord.x = (visu->base_pos->x + (i * (visu->unit_pc + visu->space))
 										+ visu->space / 2) * visu->zoom;
-	coord.y = (visu->base_pos->y + (j * (visu->unit + visu->space))
+	coord.y = (visu->base_pos->y + (j * (visu->unit_pc + visu->space))
 										+ visu->space / 2) * visu->zoom;
-	if (coord.x + (visu->unit * 2) * visu->zoom >= 0 && coord.x <
-		get_win_size()->x && coord.y + visu->unit * visu->zoom >= 0 &&
-		coord.y < get_win_size()->y)
+	if (coord.x + (visu->unit_pc * 2) * visu->zoom >= 0 && coord.x <
+		get_win_size()->x && coord.y + visu->unit_pc * visu->zoom >= 0 &&
+		coord.y < get_win_size()->y && i + (j * visu->tab_size->x) < MEM_SIZE)
 	{
 		pos = i + (j * visu->tab_size->x);
 		draw_border_rectangle(&coord, &size, visu->p_color[(int)
-														(visu->index[pos])]);
+												(visu->index[pos])], BORDER);
 		coord.x = coord.x + (size.x / 2);
 		coord.y = coord.y + (size.y / 2);
 		draw_centred_sdltexture(visu->texture_list[

@@ -48,7 +48,7 @@ void		draw_info(t_sen *core, t_visu *visu)
 		if (c < OP_COUNT && c > 0)
 		{
 			t_vect_actualize(&mpos, mpos.x + visu->unit, mpos.y + visu->unit);
-			draw_border_rectangle(&mpos, &size, GREY);
+			draw_border_rectangle(&mpos, &size, GREY, BORDER);
 			t_vect_actualize(&mpos, mpos.x + size.x / 2, mpos.y + size.y / 2);
 			draw_centred_text(visu->str_list[(int)c - 1], &mpos,
 						set_t_typo(&typo, NORMAL, BLACK, visu->menu_font));

@@ -19,6 +19,7 @@ static t_vect		*get_size(int len)
 	int		j;
 
 	i = get_root(len);
+	printf("len = %d\n", len);
 	j = i;
 	while (i * j < len)
 		i++;
@@ -33,10 +34,12 @@ static void			define_base(t_visu *visu)
 	i = get_win_size()->x / visu->tab_size->x;
 	if (get_win_size()->y / visu->tab_size->y < i)
 		i = get_win_size()->y / visu->tab_size->y;
+	printf("%d \n", visu->tab_size->y);
 	visu->space = i / 6;
-	visu->unit = i - visu->space;
-	i = (visu->unit + visu->space) * visu->tab_size->x + visu->space;
-	j = (visu->unit + visu->space) * visu->tab_size->y + visu->space;
+	visu->unit_pc = i - visu->space;
+	visu->unit = get_win_size()->y / 80;
+	i = (visu->unit_pc + visu->space) * visu->tab_size->x + visu->space;
+	j = (visu->unit_pc + visu->space) * visu->tab_size->y + visu->space;
 	visu->base_pos = t_vect_new((get_win_size()->x * 0.7) / 2 - i / 2,
 									get_win_size()->y / 2 - j / 2);
 	visu->zoom = 1;
@@ -71,7 +74,7 @@ t_visu				*create_t_visu(t_sen *core)
 	if (!(visu = (t_visu *)malloc(sizeof(t_visu))))
 		error_exit("Can't malloc a t_visu", 152);
 	visu->field = core->arena.field;
-	visu->pause = 1;
+	visu->pause = 0;
 	visu->help = 0;
 	visu->cycle_to_jump = 0.0f;
 	visu->index = core->arena.trace;
