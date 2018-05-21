@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 22:02:59 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/10 00:56:44 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/17 23:13:35 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,27 @@ static int	code_byte(const t_operand_list *oper)
 	return (c);
 }
 
+static void	emit_operand(int fd, uint32_t l, int short_enc,
+						const t_operand_list *oper)
+{
+	uint16_t	s;
+
+	if (!oper->direct_flag || short_enc)
+	{
+		s = ft_htons(l);
+		write(fd, &s, IND_SIZE);
+	}
+	else
+	{
+		l = ft_htonl(l);
+		write(fd, &l, DIR_SIZE);
+	}
+}
+
 static void	emit_operands(const t_instruction_element *instr,
 							t_hashtable *labels, int fd, int short_enc)
 {
 	uint32_t				l;
-	uint16_t				s;
 	uint8_t					c;
 	int						tmp;
 	const t_operand_list	*oper;
@@ -61,20 +77,11 @@ static void	emit_operands(const t_instruction_element *instr,
 		}
 		else
 		{
-			if (oper->type == LabelOper)
-				l = ((t_label_value *)ft_hashtable_find(labels, &oper->str))->offset - instr->offset;
-			else
-				l = ft_atoi(oper->str);
-			if (!oper->direct_flag || short_enc)
-			{
-				s = ft_htons(l);
-				write(fd, &s, IND_SIZE);
-			}
-			else
-			{
-				l = ft_htonl(l);
-				write(fd, &l, DIR_SIZE);
-			}
+			l = (oper->type == LabelOper)
+				? ((t_label_value *)ft_hashtable_find(
+					labels, &oper->str))->offset - instr->offset
+				: ft_atoi(oper->str);
+			emit_operand(fd, l, short_enc, oper);
 		}
 		oper = oper->next;
 	}

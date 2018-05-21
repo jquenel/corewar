@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/09 18:44:02 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/21 16:46:40 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,26 +111,22 @@ static void			push_production_rule(t_parser_ctx *ctx, int rule_id)
 	}
 }
 
-static int			parse_fd(int fd, t_ast *ast)
+static int			parse_fd(t_lexer_ctx *lexer_ctx, t_parser_ctx *parser_ctx, t_ast *ast)
 {
-	t_lexer_ctx		lexer_ctx;
-	t_parser_ctx	parser_ctx;
-	t_token			token;
-	int				current_symbol;
+	t_token	token;
+	int		current_symbol;
 
-	init_lexer_state(&lexer_ctx, fd);
-	init_parser_state(&parser_ctx);
 	token.str = NULL;
-	while (get_next_token(&lexer_ctx, &token))
+	while (get_next_token(lexer_ctx, &token))
 	{
-		current_symbol = pop_parser_stack(&parser_ctx);
+		current_symbol = pop_parser_stack(parser_ctx);
 		while (!(current_symbol & TERMINAL_FLAG))
 		{
 			if (g_parse_table[current_symbol][token.terminal] < 0)
 				return (0); // TODO
 			push_production_rule(
-				&parser_ctx, g_parse_table[current_symbol][token.terminal]);
-			current_symbol = pop_parser_stack(&parser_ctx);
+				parser_ctx, g_parse_table[current_symbol][token.terminal]);
+			current_symbol = pop_parser_stack(parser_ctx);
 		}
 		if (current_symbol != (token.terminal | TERMINAL_FLAG))
 			break ;  // TODO: error mitigation.
@@ -149,12 +145,15 @@ static int			parse_fd(int fd, t_ast *ast)
 
 int					parse(const char *filename, t_ast *ast)
 {
-	int	fd;
-	int	ret;
+	int				ret;
+	t_lexer_ctx		lexer_ctx;
+	t_parser_ctx	parser_ctx;
 
-	if ((fd = open(filename, O_RDONLY)) < 0)
+	if ((lexer_ctx.fd = open(filename, O_RDONLY)) < 0)
 		return (0);
-	ret = parse_fd(fd, ast);
-	close(fd);
+	init_lexer_state(&lexer_ctx);
+	init_parser_state(&parser_ctx);
+	ret = parse_fd(&lexer_ctx, &parser_ctx, ast);
+	close(lexer_ctx.fd);
 	return (ret);
 }

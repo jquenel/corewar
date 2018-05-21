@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:43 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/09 02:17:50 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/17 23:52:32 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,21 @@
 #include "op.h"
 #include "xmalloc.h"
 
-static int	is_stop_char(int c)
+static int			read_user_comment(t_lexer_ctx *ctx, t_token *token)
 {
-	return (c == COMMENT_CHAR || c == DIRECT_CHAR || c == SEPARATOR_CHAR
-			|| c == '"' || c == '\0' || ft_isspace(c));
+	int	ret;
+
+	free(ctx->line);
+	ctx->read = 0;
+	if ((ret = get_next_line(ctx->fd, &ctx->line)) == -1)
+		return (0);
+	if (ret == 0)
+		ctx->line = NULL;
+	token->terminal = LineSeparator;
+	return (1);
 }
 
-static void	skip_space(t_lexer_ctx *ctx)
-{
-	while (ft_isspace(ctx->line[ctx->read]))
-		++ctx->read;
-}
-
-static int	read_string_literal(t_lexer_ctx *ctx, t_token *token)
+static int			read_string_literal(t_lexer_ctx *ctx, t_token *token)
 {
 	size_t	read_start;
 
@@ -52,20 +54,6 @@ static int	read_string_literal(t_lexer_ctx *ctx, t_token *token)
 	}
 	else
 		token->terminal = Unknown;
-	return (1);
-}
-
-static int	read_user_comment(t_lexer_ctx *ctx, t_token *token)
-{
-	int	ret;
-
-	free(ctx->line);
-	ctx->read = 0;
-	if ((ret = get_next_line(ctx->fd, &ctx->line)) == -1)
-		return (0);
-	if (ret == 0)
-		ctx->line = NULL;
-	token->terminal = LineSeparator;
 	return (1);
 }
 
@@ -92,7 +80,7 @@ static t_terminal	identify_literal(char *str)
 	return (Operator);
 }
 
-static int	get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
+static int			get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 {
 	size_t	read_start;
 
@@ -118,14 +106,7 @@ static int	get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 	return (1);
 }
 
-void		init_lexer_state(t_lexer_ctx *ctx, int fd)
-{
-	ctx->fd = fd;
-	ctx->line = NULL;
-	ctx->read = 0;
-}
-
-int			get_next_token(t_lexer_ctx *ctx, t_token *token)
+int					get_next_token(t_lexer_ctx *ctx, t_token *token)
 {
 	int		ret;
 

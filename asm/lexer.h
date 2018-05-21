@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:13 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/09 02:17:46 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/21 16:40:46 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ struct	s_lexer_ctx
 	size_t	read;
 };
 
-void	init_lexer_state(t_lexer_ctx *ctx, int fd);
+int		is_stop_char(int c);
+void	skip_space(t_lexer_ctx *ctx);
+void	init_lexer_state(t_lexer_ctx *ctx);
 int		get_next_token(t_lexer_ctx *ctx, t_token *token);
 
 #endif
