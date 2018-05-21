@@ -107,7 +107,10 @@ static int	check_instructions_semantics(t_ast *ast,
 			mnemo = iter->u.instruction.operator;
 			op = g_op_tab + mnemo_id(mnemo);
 			if (op == g_op_tab - 1)
+			{
 				ft_dprintf(STDERR_FILENO, "Unknown operator \"%s\".\n", mnemo);
+				ret = 0;
+			}
 			else
 				ret = check_instruction_semantics(
 					iter->u.instruction.operands, labels_hashtable, op) && ret;
