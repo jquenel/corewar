@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:43 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/17 23:52:32 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/21 22:17:10 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 #include "op.h"
 #include "xmalloc.h"
 
-static int			read_user_comment(t_lexer_ctx *ctx, t_token *token)
+static int			lexer_get_next_line(t_lexer_ctx *ctx, t_token *token)
 {
 	int	ret;
 
+	token->line_nbr = ctx->line_nbr++;
 	free(ctx->line);
 	ctx->read = 0;
 	if ((ret = get_next_line(ctx->fd, &ctx->line)) == -1)
@@ -84,12 +85,13 @@ static int			get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 {
 	size_t	read_start;
 
+	token->line_nbr = ctx->line_nbr;
 	if (is_stop_char(ctx->line[ctx->read]))
 	{
 		if (ctx->line[ctx->read] == '"')
 			return (read_string_literal(ctx, token));
 		if (ctx->line[ctx->read] == COMMENT_CHAR)
-			return (read_user_comment(ctx, token));
+			return (lexer_get_next_line(ctx, token));
 		if (ctx->line[ctx->read++] == DIRECT_CHAR)
 			token->terminal = DirectChar;
 		else
@@ -108,13 +110,11 @@ static int			get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 
 int					get_next_token(t_lexer_ctx *ctx, t_token *token)
 {
-	int		ret;
-
 	if (ctx->line == NULL)
 	{
-		if ((ret = get_next_line(ctx->fd, &ctx->line)) == -1)
+		if (!lexer_get_next_line(ctx, token))
 			return (0);
-		if (ret == 0)
+		if (ctx->line == NULL)
 		{
 			token->terminal = EndOfFile;
 			return (1);
@@ -122,15 +122,6 @@ int					get_next_token(t_lexer_ctx *ctx, t_token *token)
 	}
 	skip_space(ctx);
 	if (ctx->line[ctx->read] == '\0')
-	{
-		free(ctx->line);
-		ctx->read = 0;
-		if ((ret = get_next_line(ctx->fd, &ctx->line)) == -1)
-			return (0);
-		if (ret == 0)
-			ctx->line = NULL;
-		token->terminal = LineSeparator;
-		return (1);
-	}
+		return (lexer_get_next_line(ctx, token));
 	return (get_next_token_on_line(ctx, token));
 }

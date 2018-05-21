@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:13 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/21 16:40:46 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/21 18:51:20 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,18 @@ enum	e_terminal
 typedef struct s_token	t_token;
 struct	s_token
 {
-	t_terminal	terminal;
-	char		*str;
+	t_terminal		terminal;
+	unsigned int	line_nbr;
+	char			*str;
 };
 
 typedef struct s_lexer_ctx	t_lexer_ctx;
 struct	s_lexer_ctx
 {
-	int		fd;
-	char	*line;
-	size_t	read;
+	int				fd;
+	unsigned int	line_nbr;
+	char			*line;
+	size_t			read;
 };
 
 int		is_stop_char(int c);

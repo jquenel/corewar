@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/28 00:59:42 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/09 17:45:44 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/21 19:43:12 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ struct	s_element_list
 {
 	t_element_list	*next;
 	t_element_type	type;
+	unsigned int	line_nbr;
 	union u_element	u;
 };
 

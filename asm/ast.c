@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/28 00:59:48 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/05 00:33:18 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/21 22:22:47 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	push_label_elem(t_ast *ast, t_token *token)
 	elem = (t_element_list *)xmalloc(sizeof(*elem));
 	elem->next = ast->elements;
 	elem->type = LabelElem;
+	elem->line_nbr = token->line_nbr;
 	elem->u.label.name = token->str;
 	token->str = NULL;
 	ast->elements = elem;
@@ -34,6 +35,7 @@ static void	push_instruction_elem(t_ast *ast, t_token *token)
 	elem = (t_element_list *)xmalloc(sizeof(*elem));
 	elem->next = ast->elements;
 	elem->type = InstructionElem;
+	elem->line_nbr = token->line_nbr;
 	elem->u.instruction.operator = token->str;
 	token->str = NULL;
 	elem->u.instruction.operands = NULL;
