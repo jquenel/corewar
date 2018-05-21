@@ -19,7 +19,6 @@ static t_vect		*get_size(int len)
 	int		j;
 
 	i = get_root(len);
-	printf("len = %d\n", len);
 	j = i;
 	while (i * j < len)
 		i++;
@@ -34,7 +33,6 @@ static void			define_base(t_visu *visu)
 	i = get_win_size()->x / visu->tab_size->x;
 	if (get_win_size()->y / visu->tab_size->y < i)
 		i = get_win_size()->y / visu->tab_size->y;
-	printf("%d \n", visu->tab_size->y);
 	visu->space = i / 6;
 	visu->unit_pc = i - visu->space;
 	visu->unit = get_win_size()->y / 80;

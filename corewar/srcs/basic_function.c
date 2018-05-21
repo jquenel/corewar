@@ -19,7 +19,6 @@ int					get_root(int size)
 	i = 1;
 	while ((i + 1) * (i + 1) <= size)
 		i++;
-	printf("root --- i = %d\n", i);
 	return (i);
 }
 

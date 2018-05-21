@@ -22,14 +22,11 @@ static char		*create_str(t_sen *core, int i)
 
 	if (core->player[i].live == -2)
 	{
-		str = ft_strdup("Player ");
-		ft_stradd_back(&str, poor_itoa(i, buffer));
-		ft_stradd_back(&str, " : ");
-		ft_stradd_back(&str, "Empty player slot");
+		str = ft_strdup("Empty player slot");
 		return (str);
 	}
 	str = ft_strdup("Player ");
-	ft_stradd_back(&str, poor_itoa(i, buffer));
+	ft_stradd_back(&str, poor_itoa(core->player[i].pnum, buffer));
 	ft_stradd_back(&str, " : ");
 	ft_stradd_back(&str, core->player[i].name);
 	return (str);
@@ -74,7 +71,6 @@ static void		create_area(t_visu *visu)
 							visu->unit * 2 + (state.x * (size.x + visu->unit)),
 							visu->unit * 2 + (state.y * (size.y + visu->unit)));
 		draw_border_rectangle(&coord, &size, GREY, 20);
-		printf("state = %d / %d\n", state.x, state.y);
 		t_vect_actualize(&state, (state.x == 0 ? 1 : 0),
 								(state.x == 1 && state.y == 0 ? 1 : state.y));
 		i++;
@@ -111,7 +107,7 @@ void			sound_intro(t_sen *core, t_visu *visu)
 	create_area(visu);
 	while (i < 4)
 	{
-		set_t_typo(&typo, UNDERLINE,
+		set_t_typo(&typo, NORMAL,
 			core->player[i].live != -2 ? visu->p_color[core->player[i].pindex]
 			: 0, font);
 		draw_player(visu, create_str(core, i), &typo, &state);
