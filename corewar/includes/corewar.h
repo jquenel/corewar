@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/17 13:52:52 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/21 21:29:31 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int		core_getvalue(t_sen *core, t_arg *arg, t_bo *actual);
 int		core_getlvalue(t_sen *core, t_arg *arg, t_bo *actual);
 void	core_regtomem(t_ban *arena, char *src, int dest, int pnum);
 void	malloc_error(t_sen *core, t_visu *visu);
+void	num_error(t_sen *core);
 
 #endif

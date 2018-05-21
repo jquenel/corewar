@@ -6,11 +6,32 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 23:18:39 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/21 21:28:31 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "limits.h"
+
+static int	parse_num(t_sen *core, char *arg)
+{
+	long	num;
+	int		i;
+
+	if (ft_strlen(arg) > 12)
+		num_error(core);
+	num = ft_atoi_base(arg, 10);
+	if (num > INT_MAX || num < INT_MIN)
+		num_error(core);
+	i = 0;
+	while (*(core->player[i].name))
+	{
+		if (core->player[i].pnum == (int)num)
+			num_error(core);
+		i++;
+	}
+	return ((int)num);
+}
 
 static int	get_player_num(int *argc, char ***argv, t_sen *core)
 {
@@ -19,7 +40,7 @@ static int	get_player_num(int *argc, char ***argv, t_sen *core)
 
 	if (!ft_strcmp((*argv)[0], "-n"))
 	{
-		num = ft_atoi((*argv)[1]);
+		num = parse_num(core, (*argv)[1]);
 		*argv += 2;
 		*argc -= 2;
 	}

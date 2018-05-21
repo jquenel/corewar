@@ -39,6 +39,7 @@ SRC_NAME=	corewar.c\
 			is_all_nums.c\
 			load_program.c\
 			malloc_error.c\
+			num_error.c\
 			parser.c\
 			plan_op.c\
 			start_battle.c\
@@ -75,6 +76,7 @@ SRC_NAME=	corewar.c\
 			set_t_typo.c\
 			poor_itoa.c\
 			set_texture_list.c\
+			sound_intro.c\
 			draw_selected.c\
 			draw_register.c\
 			draw_help.c\
