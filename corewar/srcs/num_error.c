@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 21:20:30 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/21 21:30:15 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/21 21:38:43 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ void		num_error(t_sen *core)
 	ft_putendl_fd("ERROR : Bad player number", 2);
 	exit(1);
 }
-

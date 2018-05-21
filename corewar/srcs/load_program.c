@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:40:55 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/04 16:22:32 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/21 21:46:18 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int			load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc)
 	if (read(fd, arena->field + proc->pc, h.prog_size + 1) != h.prog_size)
 		return (1);
 	ft_memset(arena->trace + proc->pc, player->pindex, h.prog_size);
+	player->weight = h.prog_size;
 	return (0);
 }

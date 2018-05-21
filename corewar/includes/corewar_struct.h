@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/17 12:20:18 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/21 21:51:49 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_bushi
 {
 	int					pnum;
 	int					pindex;
+	int					weight;
 	int					live;
 	int					live_last;
 	int					proc_count;
