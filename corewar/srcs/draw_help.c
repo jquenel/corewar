@@ -70,7 +70,7 @@ void			draw_help(t_visu *visu)
 	t_typo		typo;
 
 	t_vect_actualize(&coord, visu->unit, visu->unit);
-	draw_line("Press F1 for help", &coord, visu, WHITE);
+	draw_line("Press 1 for help", &coord, visu, WHITE);
 	if (visu->help == 1)
 	{
 		t_vect_actualize(&coord, 0, 0);
