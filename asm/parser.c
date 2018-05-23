@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/21 16:46:40 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/23 02:19:07 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static const int	g_parse_table[NON_TERMINAL_COUNT][TERMINAL_COUNT] = {
 	{-1, -1, -1, -1, -1, -1, -1, 16, 18, 17, 17, -1},
 	{-1, -1, -1, -1, -1, -1, -1, -1, -1, 19, 20, -1}
 };
-/*
+
 static const char	*g_non_terminals[NON_TERMINAL_COUNT] = {
 	"Start",
 	"ExpectComment",
@@ -84,7 +84,7 @@ static const char	*g_terminals[TERMINAL_COUNT] = {
 	"Number",
 	"EndOfFile"
 };
-*/
+
 static void			init_parser_state(t_parser_ctx *ctx)
 {
 	ft_memset(ctx->symbol_stack, 0, sizeof(ctx->symbol_stack));
@@ -111,35 +111,42 @@ static void			push_production_rule(t_parser_ctx *ctx, int rule_id)
 	}
 }
 
-static int			parse_fd(t_lexer_ctx *lexer_ctx, t_parser_ctx *parser_ctx, t_ast *ast)
+static int			parse_fd(t_lexer_ctx *lexer_ctx, t_parser_ctx *parser_ctx, t_token *token, t_ast *ast)
 {
-	t_token	token;
 	int		current_symbol;
 
-	token.str = NULL;
-	while (get_next_token(lexer_ctx, &token))
+	while (get_next_token(lexer_ctx, token))
 	{
 		current_symbol = pop_parser_stack(parser_ctx);
-		while (!(current_symbol & TERMINAL_FLAG))
+		while (!(current_symbol & TERMINAL_FLAG)
+				&& g_parse_table[current_symbol][token->terminal] >= 0)
 		{
-			if (g_parse_table[current_symbol][token.terminal] < 0)
-				return (0); // TODO
 			push_production_rule(
-				parser_ctx, g_parse_table[current_symbol][token.terminal]);
+				parser_ctx, g_parse_table[current_symbol][token->terminal]);
 			current_symbol = pop_parser_stack(parser_ctx);
 		}
-		if (current_symbol != (token.terminal | TERMINAL_FLAG))
-			break ;  // TODO: error mitigation.
-		if (token.terminal == EndOfFile)
+		if (!(current_symbol & TERMINAL_FLAG)
+			|| current_symbol != (token->terminal | TERMINAL_FLAG))
+		{
+			ft_dprintf(
+				STDERR_FILENO,
+				"Syntax error at line %u: got %s as %s, expected %s.\n",
+				token->line_nbr, token->str, g_terminals[token->terminal],
+				current_symbol & TERMINAL_FLAG
+				? g_terminals[current_symbol & ~TERMINAL_FLAG]
+				: g_non_terminals[current_symbol]);
+			return (0);
+		}
+		if (token->terminal == EndOfFile)
 		{
 			ft_list_reverse((t_list **)&ast->elements);
 			return (1);
 		}
-		push_to_ast(ast, &token);
-		free(token.str);
-		token.str = NULL;
+		push_to_ast(ast, token);
+		free(token->str);
+		token->str = NULL;
 	}
-	// TODO: ressource release.
+	ft_dprintf(STDERR_FILENO, "I/O error.\n");
 	return (0);
 }
 
@@ -148,12 +155,18 @@ int					parse(const char *filename, t_ast *ast)
 	int				ret;
 	t_lexer_ctx		lexer_ctx;
 	t_parser_ctx	parser_ctx;
+	t_token			token;
 
 	if ((lexer_ctx.fd = open(filename, O_RDONLY)) < 0)
+	{
+		ft_dprintf(STDERR_FILENO, "Could not open source file.\n");
 		return (0);
+	}
 	init_lexer_state(&lexer_ctx);
 	init_parser_state(&parser_ctx);
-	ret = parse_fd(&lexer_ctx, &parser_ctx, ast);
+	token.str = NULL;
+	ret = parse_fd(&lexer_ctx, &parser_ctx, &token, ast);
+	free(token.str);
 	close(lexer_ctx.fd);
 	return (ret);
 }

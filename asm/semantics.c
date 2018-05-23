@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 23:58:27 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/21 23:33:40 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/22 00:04:03 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ static int	record_label(const t_element_list *elem, size_t offset,
 	t_label_value			*label;
 
 	label_elem = &elem->u.label;
-	if ((label = ft_hashtable_find(labels_hashtable, &label_elem->name)) != NULL)
+	if ((label = ft_hashtable_find(labels_hashtable, &label_elem->name))
+		!= NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "Duplicate label \"%s\" at line %u (first occurence at line %u).\n", label_elem->name, elem->line_nbr, label->line_nbr);
+		ft_dprintf(
+			STDERR_FILENO, "Duplicate label \"%s\" at line %u, first occurence "
+			"at line %u.\n", label_elem->name, elem->line_nbr, label->line_nbr);
 		return (0);
 	}
 	label = (t_label_value *)xmalloc(sizeof(*label));
@@ -42,28 +45,30 @@ static int	record_label(const t_element_list *elem, size_t offset,
 }
 
 static int	check_operand(const t_element_list *elem, unsigned int id,
-						  const t_op *op, t_hashtable *labels_hashtable)
+							const t_op *op, t_hashtable *labels_hashtable)
 {
 	int						ret;
 	const t_operand_list	*oper;
 
 	ret = 1;
-	oper = *(const t_operand_list **)ft_list_at((t_list **)&elem->u.instruction.operands, id);
+	oper = (const t_operand_list *)
+		*ft_list_at((t_list **)&elem->u.instruction.operands, id);
 	if ((oper->type == RegisterOper && !(op->arg_types[id] & T_REG))
 		|| (oper->type != RegisterOper
 			&& ((oper->direct_flag && !(op->arg_types[id] & T_DIR))
 				|| (!oper->direct_flag && !(op->arg_types[id] & T_IND)))))
 	{
 		ft_dprintf(
-			STDERR_FILENO,
-			"Operand #%u \"%s\" at line %u has illegal type for operator \"%s\".\n",
-			id + 1, oper->str, elem->line_nbr, op->mnemo);
+			STDERR_FILENO, "Operand #%u \"%s\" at line %u has illegal type for "
+			"operator \"%s\".\n", id + 1, oper->str, elem->line_nbr, op->mnemo);
 		ret = 0;
 	}
 	if (oper->type == LabelOper
 		&& ft_hashtable_find(labels_hashtable, &oper->str) == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "Unknown label \"%s\" at line %u in operand #%u.\n", oper->str, elem->line_nbr, id);
+		ft_dprintf(
+			STDERR_FILENO, "Unknown label \"%s\" at line %u in operand #%u.\n",
+			oper->str, elem->line_nbr, id);
 		ret = 0;
 	}
 	return (ret);
@@ -88,8 +93,9 @@ static int	check_instruction_semantics(const t_element_list *elem,
 	}
 	if (i < op->nbr_arg || iter != NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "Operator \"%s\" at line %u expects %u arguments.\n",
-				   op->mnemo, elem->line_nbr, op->nbr_arg);
+		ft_dprintf(
+			STDERR_FILENO, "Operator \"%s\" at line %u expects %u arguments.\n",
+			op->mnemo, elem->line_nbr, op->nbr_arg);
 		return (0);
 	}
 	return (ret);
@@ -113,7 +119,8 @@ static int	check_instructions_semantics(t_ast *ast,
 			op = g_op_tab + mnemo_id(mnemo);
 			if (op == g_op_tab - 1)
 			{
-				ft_dprintf(STDERR_FILENO, "Unknown operator \"%s\" at line %u.\n", mnemo, iter->line_nbr);
+				ft_dprintf(STDERR_FILENO, "Unknown operator \"%s\" at line %u.\n",
+							mnemo, iter->line_nbr);
 				ret = 0;
 			}
 			else
