@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 23:58:34 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/21 19:10:27 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:01:02 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ struct	s_label_value
 	unsigned int	line_nbr;
 };
 
-int		check_semantics(t_ast *ast, t_hashtable **labels_hashtable,
+int		check_semantics(t_ast *ast, t_hashtable *labels_hashtable,
 						size_t *prog_size);
 
 #endif

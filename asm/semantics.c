@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 23:58:27 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/22 00:04:03 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:02:01 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static int	check_instructions_semantics(t_ast *ast,
 	return (ret);
 }
 
-int			check_semantics(t_ast *ast, t_hashtable **labels_hashtable,
+int			check_semantics(t_ast *ast, t_hashtable *labels_hashtable,
 							size_t *prog_size)
 {
 	int				ret;
@@ -141,15 +141,11 @@ int			check_semantics(t_ast *ast, t_hashtable **labels_hashtable,
 
 	ret = 1;
 	iter = ast->elements;
-	*labels_hashtable =
-		ft_hashtable_make(ft_hashfun_string, ft_compfun_string, 8);
-	if (labels_hashtable == NULL)
-		die_oom();
 	offset = 0;
 	while (iter != NULL)
 	{
 		if (iter->type == LabelElem)
-			ret = record_label(iter, offset, *labels_hashtable)
+			ret = record_label(iter, offset, labels_hashtable)
 				&& ret;
 		else
 		{
@@ -159,5 +155,5 @@ int			check_semantics(t_ast *ast, t_hashtable **labels_hashtable,
 		iter = iter->next;
 	}
 	*prog_size = offset;
-	return (ret && check_instructions_semantics(ast, *labels_hashtable));
+	return (ret && check_instructions_semantics(ast, labels_hashtable));
 }

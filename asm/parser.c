@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/23 02:19:07 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:21:13 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,7 @@ static int			parse_fd(t_lexer_ctx *lexer_ctx, t_parser_ctx *parser_ctx, t_token 
 			return (0);
 		}
 		if (token->terminal == EndOfFile)
-		{
-			ft_list_reverse((t_list **)&ast->elements);
 			return (1);
-		}
 		push_to_ast(ast, token);
 		free(token->str);
 		token->str = NULL;
@@ -167,6 +164,7 @@ int					parse(const char *filename, t_ast *ast)
 	token.str = NULL;
 	ret = parse_fd(&lexer_ctx, &parser_ctx, &token, ast);
 	free(token.str);
+	free(lexer_ctx.line);
 	close(lexer_ctx.fd);
 	return (ret);
 }
