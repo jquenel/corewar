@@ -24,7 +24,8 @@ void				window_initialisation(char *window_name)
 	SDL_GetDesktopDisplayMode(0, &current);
 	g_window = SDL_CreateWindow(window_name,
 						SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-						current.w / 1.2, current.h / 1.2, SDL_WINDOW_OPENGL);
+						current.w / 1.2, current.h / 1.2, SDL_WINDOW_OPENGL |
+				   		SDL_WINDOW_ALWAYS_ON_TOP);
 	g_window_size = t_vect_new(0, 0);
 	SDL_GetWindowSize(g_window, &g_window_size->x, &g_window_size->y);
 	TTF_Init();
