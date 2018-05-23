@@ -6,18 +6,18 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/23 20:21:13 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 00:13:13 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
+#include <ft_printf.h>
 #include <libft_str.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "ast.h"
 #include "lexer.h"
 #include "parser.h"
-#include <ft_printf.h>
 
 static const int	g_production_rules[][6] = {
 	{Start, LineSeparator | TERMINAL_FLAG, -1},
@@ -93,11 +93,6 @@ static void			init_parser_state(t_parser_ctx *ctx)
 	ctx->stack_offset = 1;
 }
 
-static int			pop_parser_stack(t_parser_ctx *ctx)
-{
-	return (ctx->symbol_stack[ctx->stack_offset--]);
-}
-
 static void			push_production_rule(t_parser_ctx *ctx, int rule_id)
 {
 	int	i;
@@ -111,32 +106,41 @@ static void			push_production_rule(t_parser_ctx *ctx, int rule_id)
 	}
 }
 
-static int			parse_fd(t_lexer_ctx *lexer_ctx, t_parser_ctx *parser_ctx, t_token *token, t_ast *ast)
+static int			check_symbol_match(int symbol, t_token *token)
+{
+	if (!(symbol & TERMINAL_FLAG)
+		|| symbol != (token->terminal | TERMINAL_FLAG))
+	{
+		ft_dprintf(
+			STDERR_FILENO,
+			"Syntax error at line %u: got %s as %s, expected %s.\n",
+			token->line_nbr, token->str, g_terminals[token->terminal],
+			symbol & TERMINAL_FLAG
+			? g_terminals[symbol & ~TERMINAL_FLAG]
+			: g_non_terminals[symbol]);
+		return (0);
+	}
+	return (1);
+}
+
+static int			parse_fd(t_lexer_ctx *lexer_ctx, t_parser_ctx *parser_ctx,
+							t_token *token, t_ast *ast)
 {
 	int		current_symbol;
 
 	while (get_next_token(lexer_ctx, token))
 	{
-		current_symbol = pop_parser_stack(parser_ctx);
+		current_symbol = parser_ctx->symbol_stack[parser_ctx->stack_offset--];
 		while (!(current_symbol & TERMINAL_FLAG)
 				&& g_parse_table[current_symbol][token->terminal] >= 0)
 		{
 			push_production_rule(
 				parser_ctx, g_parse_table[current_symbol][token->terminal]);
-			current_symbol = pop_parser_stack(parser_ctx);
+			current_symbol =
+				parser_ctx->symbol_stack[parser_ctx->stack_offset--];
 		}
-		if (!(current_symbol & TERMINAL_FLAG)
-			|| current_symbol != (token->terminal | TERMINAL_FLAG))
-		{
-			ft_dprintf(
-				STDERR_FILENO,
-				"Syntax error at line %u: got %s as %s, expected %s.\n",
-				token->line_nbr, token->str, g_terminals[token->terminal],
-				current_symbol & TERMINAL_FLAG
-				? g_terminals[current_symbol & ~TERMINAL_FLAG]
-				: g_non_terminals[current_symbol]);
+		if (!check_symbol_match(current_symbol, token))
 			return (0);
-		}
 		if (token->terminal == EndOfFile)
 			return (1);
 		push_to_ast(ast, token);

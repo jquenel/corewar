@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 23:58:27 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/23 20:02:01 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/23 23:52:20 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,15 @@ static int	check_operand(const t_element_list *elem, unsigned int id,
 	return (ret);
 }
 
-static int	check_instruction_semantics(const t_element_list *elem,
-										t_hashtable *labels_hashtable,
-										const t_op *op)
+static int	check_instruction(const t_element_list *elem,
+								t_hashtable *labels_hashtable, const t_op *op,
+								int ret)
 {
 	const t_operand_list	*iter;
 	unsigned int			i;
-	int						ret;
 
 	iter = elem->u.instruction.operands;
 	i = 0;
-	ret = 1;
 	while (i < op->nbr_arg && iter != NULL)
 	{
 		ret = check_operand(elem, i, op, labels_hashtable) && ret;
@@ -96,36 +94,32 @@ static int	check_instruction_semantics(const t_element_list *elem,
 		ft_dprintf(
 			STDERR_FILENO, "Operator \"%s\" at line %u expects %u arguments.\n",
 			op->mnemo, elem->line_nbr, op->nbr_arg);
-		return (0);
+		ret = 0;
 	}
 	return (ret);
 }
 
 static int	check_instructions_semantics(t_ast *ast,
-										t_hashtable *labels_hashtable)
+										t_hashtable *labels_hashtable, int ret)
 {
-	int				ret;
 	t_element_list	*iter;
-	const char		*mnemo;
 	const t_op		*op;
 
-	ret = 1;
 	iter = ast->elements;
 	while (iter != NULL)
 	{
 		if (iter->type == InstructionElem)
 		{
-			mnemo = iter->u.instruction.operator;
-			op = g_op_tab + mnemo_id(mnemo);
+			op = g_op_tab + mnemo_id(iter->u.instruction.operator);
 			if (op == g_op_tab - 1)
 			{
-				ft_dprintf(STDERR_FILENO, "Unknown operator \"%s\" at line %u.\n",
-							mnemo, iter->line_nbr);
+				ft_dprintf(
+					STDERR_FILENO, "Unknown operator \"%s\" at line %u.\n",
+					iter->u.instruction.operator, iter->line_nbr);
 				ret = 0;
 			}
 			else
-				ret = check_instruction_semantics(iter, labels_hashtable, op)
-					&& ret;
+				ret = check_instruction(iter, labels_hashtable, op, ret);
 		}
 		iter = iter->next;
 	}
@@ -145,8 +139,7 @@ int			check_semantics(t_ast *ast, t_hashtable *labels_hashtable,
 	while (iter != NULL)
 	{
 		if (iter->type == LabelElem)
-			ret = record_label(iter, offset, labels_hashtable)
-				&& ret;
+			ret = record_label(iter, offset, labels_hashtable) && ret;
 		else
 		{
 			iter->u.instruction.offset = offset;
@@ -155,5 +148,5 @@ int			check_semantics(t_ast *ast, t_hashtable *labels_hashtable,
 		iter = iter->next;
 	}
 	*prog_size = offset;
-	return (ret && check_instructions_semantics(ast, labels_hashtable));
+	return (check_instructions_semantics(ast, labels_hashtable, ret));
 }
