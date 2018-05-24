@@ -6,13 +6,20 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 20:35:47 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/23 20:41:25 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:33:04 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft_list.h>
 #include <stdlib.h>
 #include "ast.h"
+
+void		init_ast(t_ast *ast)
+{
+	ast->elements = NULL;
+	ast->name = NULL;
+	ast->comment = NULL;
+}
 
 static void	free_operand(t_operand_list *oper)
 {

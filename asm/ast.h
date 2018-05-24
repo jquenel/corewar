@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/28 00:59:42 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/23 20:06:16 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:33:34 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ enum	e_command
 	CommandComment
 };
 
+void	init_ast(t_ast *ast);
 void	destroy_ast(t_ast *ast);
 void	push_to_ast(t_ast *ast, t_token *token);
 

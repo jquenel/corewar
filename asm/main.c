@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 18:47:59 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/23 20:22:48 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:31:52 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[])
 		ft_dprintf(STDERR_FILENO, "No assembly file specified as argument.\n");
 		return (1);
 	}
-	ast.elements = NULL;
+	init_ast(&ast);
 	if ((ret = parse(argv[1], &ast)))
 	{
 		ft_list_reverse((t_list **)&ast.elements);
