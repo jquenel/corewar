@@ -6,12 +6,13 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:43 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/21 22:17:10 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 15:57:05 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft_array.h>
 #include <libft_io.h>
+#include <libft_std.h>
 #include <libft_str.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -34,17 +35,13 @@ static int			lexer_get_next_line(t_lexer_ctx *ctx, t_token *token)
 	return (1);
 }
 
-static int			read_string_literal(t_lexer_ctx *ctx, t_token *token)
+static void			read_string_literal(t_lexer_ctx *ctx, t_token *token)
 {
 	size_t	read_start;
 
 	read_start = ++ctx->read;
 	while (ctx->line[ctx->read] != '\0' && ctx->line[ctx->read] != '"')
-	{
-		if (ctx->line[ctx->read] == '\\' && ctx->line[ctx->read + 1] != '\0')
-			++ctx->read;
 		++ctx->read;
-	}
 	token->str = (char *)xmalloc(ctx->read - read_start + 1);
 	ft_strncpy(token->str, ctx->line + read_start, ctx->read - read_start);
 	token->str[ctx->read - read_start] = '\0';
@@ -55,7 +52,6 @@ static int			read_string_literal(t_lexer_ctx *ctx, t_token *token)
 	}
 	else
 		token->terminal = Unknown;
-	return (1);
 }
 
 static t_terminal	identify_literal(char *str)
@@ -66,18 +62,22 @@ static t_terminal	identify_literal(char *str)
 		return (NameCommand);
 	if (*str == LABEL_CHAR)
 	{
+		if (!ft_strisstr(str + 1, LABEL_CHARS))
+			return (Unknown);
 		ft_strcpy(str, str + 1);
 		return (LabelVal);
 	}
 	if (str[ft_strlen(str) - 1] == LABEL_CHAR)
 	{
 		str[ft_strlen(str) - 1] = '\0';
+		if (!ft_strisstr(str, LABEL_CHARS))
+			return (Unknown);
 		return (LabelString);
 	}
-	if (*str == 'r')
-		return (Register);
-	if (ft_isdigit(*str) || (*str == '-' && ft_isdigit(str[1])))
+	if (ft_int_of_string(str, NULL))
 		return (Number);
+	if (*str == 'r' && ft_int_of_string(str + 1, NULL))
+		return (Register);
 	return (Operator);
 }
 
@@ -88,11 +88,11 @@ static int			get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 	token->line_nbr = ctx->line_nbr;
 	if (is_stop_char(ctx->line[ctx->read]))
 	{
-		if (ctx->line[ctx->read] == '"')
-			return (read_string_literal(ctx, token));
 		if (ctx->line[ctx->read] == COMMENT_CHAR)
 			return (lexer_get_next_line(ctx, token));
-		if (ctx->line[ctx->read++] == DIRECT_CHAR)
+		if (ctx->line[ctx->read] == '"')
+			read_string_literal(ctx, token);
+		else if (ctx->line[ctx->read++] == DIRECT_CHAR)
 			token->terminal = DirectChar;
 		else
 			token->terminal = SeparatorChar;
