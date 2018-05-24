@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 23:42:52 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/21 18:52:17 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 18:54:41 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 int		is_stop_char(int c)
 {
-	return (c == COMMENT_CHAR || c == DIRECT_CHAR || c == SEPARATOR_CHAR
+	return (c == COMMENT_CHAR || c == COMMENT_CHAR_AUX
+			|| c == DIRECT_CHAR || c == SEPARATOR_CHAR
 			|| c == '"' || c == '\0' || ft_isspace(c));
 }
 

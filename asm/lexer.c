@@ -88,7 +88,8 @@ static int			get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 	token->line_nbr = ctx->line_nbr;
 	if (is_stop_char(ctx->line[ctx->read]))
 	{
-		if (ctx->line[ctx->read] == COMMENT_CHAR)
+		if (ctx->line[ctx->read] == COMMENT_CHAR
+			|| ctx->line[ctx->read] == COMMENT_CHAR_AUX)
 			return (lexer_get_next_line(ctx, token));
 		if (ctx->line[ctx->read] == '"')
 			read_string_literal(ctx, token);
