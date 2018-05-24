@@ -105,6 +105,7 @@ void			sound_intro(t_sen *core, t_visu *visu)
 	t_vect_actualize(&state, 0, 0);
 	i = 0;
 	create_area(visu);
+	update_input(visu);
 	while (i < 4)
 	{
 		set_t_typo(&typo, NORMAL,

@@ -36,7 +36,6 @@ SRC_NAME=	corewar.c\
 			get_options.c\
 			get_regs.c\
 			init_optab.c\
-			introduce_champions.c\
 			is_all_nums.c\
 			load_program.c\
 			malloc_error.c\

@@ -36,7 +36,6 @@ int				main(int argc, char **argv)
 		usage();
 	if (parser(argc - 1, &(argv[1]), &core))
 		usage();
-	introduce_champions(&core);
 	start_battle(&core);
 	destroy_processes(core.proc);
 	destroy_arena(&core.arena);
