@@ -8,7 +8,7 @@ SRC_PATH=	srcs
 
 OBJ_PATH=	obj
 
-CPPFLAGS=	-Iincludes -I../libft/includes -I../libsdl/includes
+CPPFLAGS=	-Iincludes -I../libft/includes -I../libsdl/includes/SDL2
 
 SRC_NAME=	corewar.c\
 			op.c\
@@ -107,24 +107,122 @@ LIBS=		-lftprintf -lft -lSDL2 -lSDL2_image -lfreetype -lSDL2_ttf -lSDL2_mixer
 LDLIBS=		$(LDFLAGS) $(LIBS)
 
 ##
+##		SDL FILES
+##
+
+SDL_HEADER_NAME = 		SDL.h\
+					SDL_assert.h\
+					SDL_atomic.h\
+					SDL_audio.h\
+					SDL_bits.h\
+					SDL_blendmode.h\
+					SDL_clipboard.h\
+					SDL_cpuinfo.h\
+					SDL_egl.h\
+					SDL_endian.h\
+					SDL_error.h\
+					SDL_events.h\
+					SDL_filesystem.h\
+					SDL_gamecontroller.h\
+					SDL_gesture.h\
+					SDL_haptic.h\
+					SDL_hints.h\
+					SDL_joystick.h\
+					SDL_keyboard.h\
+					SDL_keycode.h\
+					SDL_loadso.h\
+					SDL_log.h\
+					SDL_main.h\
+					SDL_messagebox.h\
+					SDL_mouse.h\
+					SDL_mutex.h\
+					SDL_name.h\
+					SDL_opengl.h\
+					SDL_opengl_glext.h\
+					SDL_opengles.h\
+					SDL_opengles2_gl2ext.h\
+					SDL_opengles2_gl2.h\
+					SDL_opengles2_gl2platform.h\
+					SDL_opengles2.h\
+					SDL_opengles2_khrplatform.h\
+					SDL_pixels.h\
+					SDL_platform.h\
+					SDL_power.h\
+					SDL_quit.h\
+					SDL_rect.h\
+					SDL_render.h\
+					SDL_rwops.h\
+					SDL_scancode.h\
+					SDL_shape.h\
+					SDL_stdinc.h\
+					SDL_surface.h\
+					SDL_system.h\
+					SDL_syswm.h\
+					SDL_thread.h\
+					SDL_timer.h\
+					SDL_touch.h\
+					SDL_types.h\
+					SDL_version.h\
+					SDL_video.h\
+					SDL_vulkan.h\
+					begin_code.h\
+					close_code.h\
+					SDL_mixer.h\
+					SDL_ttf.h\
+					SDL_image.h
+
+SDL_LIBS_NAME =			\
+					libSDL2_ttf.la\
+					libSDL2_mixer-2.0.0.dylib\
+					libSDL2-2.0.0.dylib\
+					libSDL2_mixer.a\
+					libSDL2main.a\
+					libSDL2.a\
+					libSDL2_mixer.dylib\
+					libSDL2main.la\
+					libSDL2.dylib\
+					libSDL2_mixer.la\
+					libfreetype.6.dylib\
+					libSDL2.la\
+					libSDL2_test.a\
+					libfreetype.a\
+					libSDL2_image-2.0.0.dylib\
+					libSDL2_test.la\
+					libfreetype.dylib\
+					libSDL2_image.a\
+					libSDL2_ttf-2.0.0.dylib\
+				 	libfreetype.la\
+					libSDL2_image.dylib\
+					libSDL2_ttf.a\
+					libSDL2_image.la\
+					libSDL2_ttf.dylib\
+
+SDL_LIBS_PATH = 		../libsdl/lib/
+
+SDL_HEADER_PATH =		../libsdl/includes/SDL2/
+
+SDL_LIBS =		$(addprefix $(SDL_LIBS_PATH), $(SDL_LIBS_NAME))
+
+SDL_HEADER =	$(addprefix $(SDL_HEADER_PATH), $(SDL_HEADER_NAME))
+
+
+##
 ##		Compile using the program's name to recompile that program.
 ##		Compile with test for special testing purposes.
 ##
 
 all:			clibs $(NAME)
 
+check_sdl:
+
+
 clibs:
-				@$(MAKE) -C ../libft
-				@$(MAKE) -C ../ft_printf
-				@cp -rf ~/goinfre/sdl/FREETYPE/lib ../libsdl
-				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
-				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib ../libsdl
-				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib ../libsdl
-				@cp -rf ~/goinfre/sdl/SDL2_MIXER/lib ../libsdl
-				@cp -rf ~/goinfre/sdl/SDL2/include/SDL2/ ../libsdl/includes
-				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/include/SDL2/ ../libsdl/includes
-				@cp -rf ~/goinfre/sdl/SDL2_TTF/include/SDL2/ ../libsdl/includes
-				@cp -rf ~/goinfre/sdl/SDL2_MIXER/include/SDL2/ ../libsdl/includes
+				$(MAKE) -C ../libft
+				$(MAKE) -C ../ft_printf
+				@$(foreach file, $(SDL_LIBS),  test ! -f $(file) && make sdl ; echo "\rchecking a sdl file\c" ;)
+				@$(foreach file, $(SDL_HEADER),  test ! -f $(file) && make sdl ; echo "\rchecking sdl files...\c" ;)
+				@echo "SDL IS READY"
+
 
 $(NAME):		$(OBJ)
 				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
