@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 14:05:06 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:24:37 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static const int	g_production_rules[][6] = {
 	{Start, LineSeparator | TERMINAL_FLAG, -1},
 	{ExpectComment, LineSeparator | TERMINAL_FLAG, Name, -1},
 	{ExpectName, LineSeparator | TERMINAL_FLAG, Comment, -1},
-	{LineSeparator | TERMINAL_FLAG, ExpectComment, -1},
+	{ExpectComment, LineSeparator | TERMINAL_FLAG, -1},
 	{Label, LineSeparator | TERMINAL_FLAG, Comment, -1},
-	{LineSeparator | TERMINAL_FLAG, ExpectName, -1},
+	{ExpectName, LineSeparator | TERMINAL_FLAG, -1},
 	{Label, LineSeparator | TERMINAL_FLAG, Name, -1},
 	{StringLiteral | TERMINAL_FLAG, CommentCommand | TERMINAL_FLAG, -1},
 	{StringLiteral | TERMINAL_FLAG, NameCommand | TERMINAL_FLAG, -1},
