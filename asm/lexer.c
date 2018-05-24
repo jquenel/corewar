@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:43 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 15:57:05 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 19:40:16 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ static t_terminal	identify_literal(char *str)
 			return (Unknown);
 		return (LabelString);
 	}
-	if (ft_int_of_string(str, NULL))
+	if (ft_strforall(str, ft_isdigit)
+		|| (str[0] == '-' && ft_strforall(str + 1, ft_isdigit)))
 		return (Number);
 	if (*str == 'r' && ft_int_of_string(str + 1, NULL))
 		return (Register);
