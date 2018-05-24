@@ -35,14 +35,15 @@ static void			define_base(t_visu *visu)
 		i = get_win_size()->y / visu->tab_size->y;
 	visu->space = i / 6;
 	visu->unit_pc = i - visu->space;
-	visu->unit = get_win_size()->y / 80;
+	visu->unit = get_win_size()->y / 80 < get_win_size()->x / 80 ?
+					get_win_size()->y / 80 : get_win_size()->x / 80;
 	i = (visu->unit_pc + visu->space) * visu->tab_size->x + visu->space;
 	j = (visu->unit_pc + visu->space) * visu->tab_size->y + visu->space;
 	visu->base_pos = t_vect_new((get_win_size()->x * 0.7) / 2 - i / 2,
 									get_win_size()->y / 2 - j / 2);
 	visu->zoom = 1;
 	visu->font = NULL;
-	set_texture_list(visu);
+	visu->menu_font = NULL;
 }
 
 static void			define_str(t_visu *visu)
@@ -89,6 +90,7 @@ t_visu				*create_t_visu(t_sen *core)
 	define_base(visu);
 	define_str(visu);
 	visu->menu_font = TTF_OpenFont(FONT_PATH, visu->unit);
+	set_texture_list(visu);
 	set_texture_menu_list(visu);
 	return (visu);
 }

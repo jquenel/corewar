@@ -60,7 +60,7 @@ static void		draw_rect_finish(t_visu *visu)
 	draw_rectangle(&coord, &size, GREY);
 }
 
-static void		draw_winner(t_visu *visu, t_sen *core, char *str)
+static void		draw_winner(t_visu *visu, t_sen *core, char *str, int i)
 {
 	t_vect		coord;
 	t_typo		typo;
@@ -70,6 +70,8 @@ static void		draw_winner(t_visu *visu, t_sen *core, char *str)
 	draw_centred_text(str, &coord, set_t_typo(&typo,
 									NORMAL, LIGHT_GREY, visu->final_font));
 	t_vect_actualize(&coord, coord.x, coord.y + visu->unit * 8);
+	render_screen(1);
+	play_sound(1, core->player[i].comment);
 	draw_centred_text("Press echap to close the program", &coord,
 			set_t_typo(&typo, NORMAL, LIGHT_GREY, visu->final_font));
 }
@@ -104,15 +106,13 @@ void			draw_finish(t_visu *visu, t_sen *core, int i)
 	visu->final_font = TTF_OpenFont(FONT_PATH, visu->final_font_size);
 	TTF_SetFontStyle(visu->final_font, get_typo(NORMAL));
 	str = create_str(core, i);
+	draw_core(visu);
+	final_draw_menu(core, visu);
+	draw_info(core, visu);
+	draw_rect_finish(visu);
+	draw_winner(visu, core, str, i);
+	render_screen(visu->pause);
 	while (alive)
-	{
-		draw_core(visu);
-		final_draw_menu(core, visu);
-		draw_info(core, visu);
-		draw_rect_finish(visu);
-		draw_winner(visu, core, str);
 		special_control(visu, &alive);
-		render_screen(visu->pause);
-	}
 	free(str);
 }

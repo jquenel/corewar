@@ -32,7 +32,7 @@ static char		*create_str(t_sen *core, int i)
 	return (str);
 }
 
-static int		play_sound(int channel, char *path)
+int				play_sound(int channel, char *path)
 {
 	Mix_Chunk	*intro;
 

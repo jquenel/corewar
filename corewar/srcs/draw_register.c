@@ -47,8 +47,9 @@ static void		draw_reg_line(t_visu *visu, int base, t_vect *txt, t_vect *size)
 		pos.y = 0;
 		while (pos.y < 4)
 		{
-			draw_sdltexture(visu->texture_menu_list[(visu->select_proc->reg
-				[base + pos.x][pos.y])], &coord, &size_image, 0);
+			draw_sdltexture(visu->texture_menu_list[(unsigned char)
+				(visu->select_proc->reg[base + pos.x][pos.y])],
+				&coord, &size_image, 0);
 			t_vect_actualize(&coord, coord.x + size_image.x, coord.y);
 			pos.y++;
 		}

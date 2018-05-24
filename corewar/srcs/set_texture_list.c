@@ -47,6 +47,11 @@ void			set_texture_menu_list(t_visu *visu)
 	char		*text;
 	SDL_Surface	*surface;
 
+	if (visu->menu_font != NULL)
+		TTF_CloseFont(visu->menu_font);
+	visu->menu_font_size = visu->unit;
+	if (!(visu->menu_font = TTF_OpenFont(FONT_PATH, visu->menu_font_size)))
+		error_exit("Can't load a menu_font", 456123);
 	i = 0;
 	while (i < 256)
 	{
@@ -61,6 +66,4 @@ void			set_texture_menu_list(t_visu *visu)
 		free(text);
 		i++;
 	}
-	SDL_QueryTexture(visu->texture_menu_list[(visu->select_proc->reg[0][0])],
-					NULL, NULL, &(visu->print_size.x), &(visu->print_size.y));
 }
