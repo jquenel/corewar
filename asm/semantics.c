@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 23:58:27 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/23 23:52:20 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 19:47:51 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,16 @@ static int	record_label(const t_element_list *elem, size_t offset,
 static int	check_operand(const t_element_list *elem, unsigned int id,
 							const t_op *op, t_hashtable *labels_hashtable)
 {
-	int						ret;
 	const t_operand_list	*oper;
+	int						ret;
 
-	ret = 1;
 	oper = (const t_operand_list *)
 		*ft_list_at((t_list **)&elem->u.instruction.operands, id);
-	if ((oper->type == RegisterOper && !(op->arg_types[id] & T_REG))
-		|| (oper->type != RegisterOper
-			&& ((oper->direct_flag && !(op->arg_types[id] & T_DIR))
-				|| (!oper->direct_flag && !(op->arg_types[id] & T_IND)))))
-	{
-		ft_dprintf(
-			STDERR_FILENO, "Operand #%u \"%s\" at line %u has illegal type for "
-			"operator \"%s\".\n", id + 1, oper->str, elem->line_nbr, op->mnemo);
-		ret = 0;
-	}
-	if (oper->type == LabelOper
-		&& ft_hashtable_find(labels_hashtable, &oper->str) == NULL)
-	{
-		ft_dprintf(
-			STDERR_FILENO, "Unknown label \"%s\" at line %u in operand #%u.\n",
-			oper->str, elem->line_nbr, id);
-		ret = 0;
-	}
+	ret = check_operand_type(elem, id, op);
+	if (oper->type == LabelOper)
+		ret = check_label_exists(elem, id, labels_hashtable, ret);
+	if (oper->type == RegisterOper)
+		ret = check_register_number(elem, id, ret);
 	return (ret);
 }
 

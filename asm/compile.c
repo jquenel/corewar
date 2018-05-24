@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 22:02:59 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 14:14:25 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 19:29:42 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,13 @@ static void	emit_operands(const t_instruction_element *instr,
 							t_hashtable *labels, t_core *core, int short_enc)
 {
 	uint32_t				l;
-	uint8_t					c;
-	int						tmp;
 	const t_operand_list	*oper;
 
 	oper = instr->operands;
 	while (oper != NULL)
 	{
 		if (oper->type == RegisterOper)
-		{
-			ft_int_of_string(oper->str + 1, &tmp);
-			c = tmp;
-			core->core[core->offset++] = c;
-		}
+			core->core[core->offset++] = ft_atoi(oper->str + 1);
 		else
 		{
 			l = (oper->type == LabelOper)
