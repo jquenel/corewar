@@ -12,8 +12,8 @@
 
 #include "template.h"
 
-# define MUSIC_TIME		3500
-# define MUSIC_DELAY	1500
+#define MUSIC_TIME		3500
+#define MUSIC_DELAY	1500
 
 static char		*create_str(t_sen *core, int i)
 {
@@ -105,7 +105,7 @@ void			sound_intro(t_sen *core, t_visu *visu)
 	t_vect_actualize(&state, 0, 0);
 	i = 0;
 	create_area(visu);
-	update_input(visu);
+	update_input(core);
 	while (i < 4)
 	{
 		set_t_typo(&typo, NORMAL,

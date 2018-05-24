@@ -146,6 +146,7 @@ typedef struct	s_visu
 	int			typo_tab[5];
 	char		*str_list[OP_COUNT + 1];
 	int			font_size;
+	int			menu_font_size;
 	int			final_font_size;
 	t_vect		*tab_size;
 	t_vect		*base_pos;
@@ -161,7 +162,6 @@ typedef struct	s_visu
 	Mix_Chunk	*birth_sound;
 	Mix_Chunk	*end_sound;
 	t_bo		*select_proc;
-	t_vect		print_size;
 }				t_visu;
 
 typedef struct	s_typo

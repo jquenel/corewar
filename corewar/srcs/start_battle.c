@@ -34,7 +34,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 	}
 	else
 		visu->cycle_to_jump -= 1.0f;
-	update_input(visu);
+	update_input(core);
 	while (visu->pause == 1 && !visu->one_cycle && visu->cycle_to_jump < 2)
 	{
 		if (visu->cycle_to_jump < 2)
@@ -42,7 +42,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 		else
 			visu->cycle_to_jump -= 1.0f;
 		render_screen(visu->pause);
-		update_input(visu);
+		update_input(core);
 	}
 }
 

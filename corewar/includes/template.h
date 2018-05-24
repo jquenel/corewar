@@ -67,6 +67,8 @@
 # define P3_COLOR		GREEN
 # define P4_COLOR		CYAN
 
+# define SCREEN_RATIO_X	0.8
+
 void			draw_image(char *path, t_vect *coord, t_vect *size, double angle);
 void			draw_sdlsurface(SDL_Surface *bmp, t_vect *coord, t_vect *size, double angle);
 void 			draw_sdltexture(SDL_Texture *texture, t_vect *coord, t_vect *size, double angle);
@@ -103,7 +105,7 @@ t_vect			*t_vect_new(int x, int y);
 void			t_vect_free(t_vect *coord);
 void			t_vect_actualize(t_vect *coord, int new_x, int new_y);
 
-void 			update_input(t_visu *core);
+void 			update_input(t_sen *core);
 
 int				get_root(int size);
 char			*ft_itoa_base(int value, char *base);
@@ -141,5 +143,11 @@ void			sound_intro(t_sen *core, t_visu *visu);
 
 void			set_typo_tab(void);
 int				get_typo(int typo);
+
+int				play_sound(int channel, char *path);
+
+void			final_control(t_sen *core, int *alive);
+
+void			exit_corewar(t_sen *core);
 
 #endif

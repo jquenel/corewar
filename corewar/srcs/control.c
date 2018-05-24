@@ -12,7 +12,7 @@
 
 #include "template.h"
 
-static void		control_fps(SDL_Event *event, t_visu *visu)
+static void		control_fps(SDL_Event *event, t_sen *core)
 {
 	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_LEFT)
 		set_fps(-1);
@@ -23,84 +23,86 @@ static void		control_fps(SDL_Event *event, t_visu *visu)
 	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)
 		set_fps(-10);
 	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)
-		reset_visu(visu);
+		reset_visu(core->visu);
 }
 
-static void		control_input(SDL_Event *event, t_visu *visu)
+static void		control_input(SDL_Event *event, t_sen *core)
 {
 	if (event->type == SDL_QUIT)
-		exit(0);
+		exit_corewar(core);
 	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE)
-		exit(0);
+		exit_corewar(core);
 	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_p)
-		visu->pause = (visu->pause == 0 ? 1 : 0);
+		core->visu->pause = (core->visu->pause == 0 ? 1 : 0);
 	else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_s)
-		visu->one_cycle = 1;
+		core->visu->one_cycle = 1;
 	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_j)
-		visu->cycle_to_jump += 1000.0f;
+		core->visu->cycle_to_jump += 1000.0f;
 	else if (event->type == SDL_MOUSEWHEEL)
 	{
 		if (event->wheel.y > 0)
-			visu->zoom *= 1.1;
+			core->visu->zoom *= 1.1;
 		else if (event->wheel.y < 0)
-			visu->zoom *= 0.9;
-		set_texture_list(visu);
+			core->visu->zoom *= 0.9;
+		set_texture_list(core->visu);
 	}
 	if (event->type == SDL_MOUSEMOTION &&
 		event->button.button == SDL_BUTTON_LEFT)
 	{
-		visu->base_pos->x += event->motion.xrel;
-		visu->base_pos->y += event->motion.yrel;
+		core->visu->base_pos->x += event->motion.xrel;
+		core->visu->base_pos->y += event->motion.yrel;
 	}
 }
 
-static void		control_selected(SDL_Event *event, t_visu *visu)
+static void		control_selected(SDL_Event *event, t_sen *core)
 {
+	if (!core->visu->select_proc)
+		return ;
 	if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_KP_1)
 	{
-		if (visu->select_proc->prev != NULL)
-			visu->select_proc = visu->select_proc->prev;
+		if (core->visu->select_proc->prev != NULL)
+			core->visu->select_proc = core->visu->select_proc->prev;
 		else
 		{
-			while (visu->select_proc->next != NULL)
-				visu->select_proc = visu->select_proc->next;
+			while (core->visu->select_proc->next != NULL)
+				core->visu->select_proc = core->visu->select_proc->next;
 		}
 	}
 	else if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_KP_3)
 	{
-		if (visu->select_proc->next != NULL)
-			visu->select_proc = visu->select_proc->next;
+		if (core->visu->select_proc->next != NULL)
+			core->visu->select_proc = core->visu->select_proc->next;
 		else
 		{
-			while (visu->select_proc->prev != NULL)
-				visu->select_proc = visu->select_proc->prev;
+			while (core->visu->select_proc->prev != NULL)
+				core->visu->select_proc = core->visu->select_proc->prev;
 		}
 	}
 }
 
-static void		control_help(SDL_Event *event, t_visu *visu)
+static void		control_help(SDL_Event *event, t_sen *core)
 {
 	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_1)
 	{
-		visu->help = 1;
+		core->visu->help = 1;
 	}
 	if (event->type == SDL_KEYUP && event->key.keysym.sym == SDLK_1)
 	{
-		visu->help = 0;
+		core->visu->help = 0;
 	}
 }
 
-void			update_input(t_visu *visu)
+void			update_input(t_sen *core)
 {
 	SDL_Event event;
 
 	if (SDL_PollEvent(&event) == 1)
 	{
-		control_fps(&event, visu);
-		control_input(&event, visu);
-		control_selected(&event, visu);
+		control_fps(&event, core);
+		control_input(&event, core);
+		control_selected(&event, core);
 	}
-	control_help(&event, visu);
+	control_help(&event, core);
 	SDL_PumpEvents();
 	SDL_FlushEvent(SDL_KEYDOWN);
 	SDL_FlushEvent(SDL_MOUSEMOTION);

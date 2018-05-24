@@ -15,43 +15,15 @@
 
 #define NO_WINNER	"No winner today ! Next time, try using REAL champions ?"
 
-static void		special_control(t_visu *visu, int *alive)
-{
-	SDL_Event	event;
-
-	if (SDL_PollEvent(&event) == 1)
-	{
-		if (event.type == SDL_QUIT)
-			*alive = 0;
-		else if (event.type == SDL_KEYDOWN &&
-										event.key.keysym.sym == SDLK_ESCAPE)
-			*alive = 0;
-		else if (event.type == SDL_MOUSEWHEEL)
-		{
-			if (event.wheel.y > 0)
-				visu->zoom *= 1.1;
-			else if (event.wheel.y < 0)
-				visu->zoom *= 0.9;
-			set_texture_list(visu);
-		}
-		if (event.type == SDL_MOUSEMOTION &&
-			event.button.button == SDL_BUTTON_LEFT)
-		{
-			visu->base_pos->x += event.motion.xrel;
-			visu->base_pos->y += event.motion.yrel;
-		}
-	}
-}
-
 static void		draw_rect_finish(t_visu *visu)
 {
 	t_vect		coord;
 	t_vect		size;
 
-	t_vect_actualize(&size, get_win_size()->x - (visu->unit * 8),
+	t_vect_actualize(&size, get_win_size()->x * SCREEN_RATIO_X - visu->unit * 4,
 													get_win_size()->y / 3);
-	t_vect_actualize(&coord, get_win_size()->x / 2 - size.x / 2,
-								get_win_size()->y / 2 - size.y / 2);
+	t_vect_actualize(&coord, (get_win_size()->x * SCREEN_RATIO_X) / 2 -
+								size.x / 2, get_win_size()->y / 2 - size.y / 2);
 	draw_rectangle(&coord, &size, YELLOW);
 	t_vect_actualize(&coord, coord.x + visu->unit / 2, coord.y +
 															visu->unit / 2);
@@ -60,18 +32,16 @@ static void		draw_rect_finish(t_visu *visu)
 	draw_rectangle(&coord, &size, GREY);
 }
 
-static void		draw_winner(t_visu *visu, t_sen *core, char *str, int i)
+static void		draw_winner(t_visu *visu, t_sen *core, char *str)
 {
 	t_vect		coord;
 	t_typo		typo;
 
-	t_vect_actualize(&coord, get_win_size()->x / 2,
+	t_vect_actualize(&coord, (get_win_size()->x * SCREEN_RATIO_X) / 2,
 								get_win_size()->y / 2 - visu->unit * 4);
 	draw_centred_text(str, &coord, set_t_typo(&typo,
 									NORMAL, LIGHT_GREY, visu->final_font));
 	t_vect_actualize(&coord, coord.x, coord.y + visu->unit * 8);
-	render_screen(1);
-	play_sound(1, core->player[i].comment);
 	draw_centred_text("Press echap to close the program", &coord,
 			set_t_typo(&typo, NORMAL, LIGHT_GREY, visu->final_font));
 }
@@ -100,19 +70,25 @@ void			draw_finish(t_visu *visu, t_sen *core, int i)
 	t_vect		size;
 	int			alive;
 	char		*str;
+	Mix_Chunk	*intro;
 
 	alive = 1;
 	visu->final_font_size = (visu->unit * 3);
 	visu->final_font = TTF_OpenFont(FONT_PATH, visu->final_font_size);
 	TTF_SetFontStyle(visu->final_font, get_typo(NORMAL));
 	str = create_str(core, i);
-	draw_core(visu);
-	final_draw_menu(core, visu);
-	draw_info(core, visu);
-	draw_rect_finish(visu);
-	draw_winner(visu, core, str, i);
-	render_screen(visu->pause);
+	intro = Mix_LoadWAV(core->player[i].comment);
+	Mix_PlayChannel(1, intro, -1);
 	while (alive)
-		special_control(visu, &alive);
+	{
+		draw_core(visu);
+		final_draw_menu(core, visu);
+		draw_info(core, visu);
+		draw_rect_finish(visu);
+		draw_winner(visu, core, str);
+		render_screen(visu->pause);
+		final_control(core, &alive);
+	}
 	free(str);
+	exit_corewar(core);
 }

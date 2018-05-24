@@ -94,7 +94,7 @@ void			draw_menu(t_sen *core, t_visu *visu)
 	t_vect		menu_size;
 	t_vect		size;
 
-	t_vect_actualize(&txt, get_win_size()->x * 0.8, 0);
+	t_vect_actualize(&txt, get_win_size()->x * SCREEN_RATIO_X, 0);
 	t_vect_actualize(&menu_size, get_win_size()->x - txt.x,
 													get_win_size()->y - txt.y);
 	draw_rectangle(&txt, &menu_size, DARK_GREY);

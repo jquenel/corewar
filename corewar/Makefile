@@ -82,7 +82,9 @@ SRC_NAME=	corewar.c\
 			draw_help.c\
 			typo_handler.c\
 			draw_finish.c\
-			final_draw_menu.c
+			final_draw_menu.c\
+			exit_corewar.c\
+			final_control.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
@@ -94,7 +96,7 @@ OBJ_NAME=	$(SRC_NAME:.c=.o)
 ##		COMPILER FLAGS
 ##
 
-CFLAGS=		-fsanitize=address
+CFLAGS=		-g -fsanitize=address
 
 CC=			gcc
 

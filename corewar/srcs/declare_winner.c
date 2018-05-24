@@ -37,9 +37,5 @@ void		declare_winner(t_sen *core, t_visu *visu)
 			victory_shout(core->player[i].vic_shout);
 	}
 	if (core->opt & OPT_VISU)
-	{
 		draw_finish(visu, core, i);
-		destroy_t_visu(visu);
-		close_renderer();
-	}
 }
