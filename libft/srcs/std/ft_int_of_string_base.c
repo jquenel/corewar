@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 17:49:58 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/27 22:51:50 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 15:34:16 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int			ft_int_of_string_base(const char *str, int base, int *result)
 	int	acc;
 	int	tmp;
 
-	if (base < 0 || base == 1 || base > 36)
+	if (base < 0 || base == 1 || base > 36
+		|| *str == '\0' || (str[0] == '-' && str[1] == '\0'))
 		return (0);
 	interpret_sign(&str, &positive);
 	if (base == 0)
