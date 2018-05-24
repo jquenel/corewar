@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:05:33 by sboilard          #+#    #+#             */
-/*   Updated: 2018/04/12 22:21:42 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 15:28:47 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_strchr(const char *s, char c);
 char	*ft_strrchr(const char *s, char c);
 char	*ft_strstr(const char *s1, const char *s2);
 char	*ft_strnstr(const char *s1, const char *s2, size_t len);
+int		ft_strisstr(const char *str, const char *ref);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t len);
 int		ft_isalpha(int c);

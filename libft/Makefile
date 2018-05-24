@@ -17,7 +17,7 @@ SRCS_STR := \
 	ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnstr.c \
 	ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
 	ft_tolower.c ft_toupper.c kmp.c ft_strnlen.c ft_wcsmbnlen.c \
-	ft_split_string.c ft_strforall.c
+	ft_split_string.c ft_strforall.c ft_strisstr.c
 SRCS_STD := \
 	ft_atoi.c ft_atoi_base.c ft_itoa.c ft_wctomb.c ft_min.c ft_max.c \
 	ft_int_of_string.c ft_int_of_string_base.c ft_string_of_int.c ft_abs.c \
