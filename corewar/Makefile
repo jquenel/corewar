@@ -135,18 +135,16 @@ $(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
 				$(CC) $(CFLAGS) -o $@ -c $< $(CPPFLAGS)
 
 sdl:
-				@rm -rf -- ~/goinfre/sdl
-				@git clone http://github.com/hyarius/sdl ~/goinfre/sdl
 				@make -C ~/goinfre/sdl
 				@cp -rf ~/goinfre/sdl/FREETYPE/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_TTF/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_MIXER/lib ../libsdl
-				@cp -rf ~/goinfre/sdl/SDL2/include ../libsdl/includes
-				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/include ../libsdl/includes
-				@cp -rf ~/goinfre/sdl/SDL2_TTF/include ../libsdl/includes
-				@cp -rf ~/goinfre/sdl/SDL2_MIXER/include ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2/include/SDL2 ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/include/SDL2 ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_TTF/include/SDL2 ../libsdl/includes
+				@cp -rf ~/goinfre/sdl/SDL2_MIXER/include/SDL2 ../libsdl/includes
 
 ##
 ##		Use fclean to clean this program.
