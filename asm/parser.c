@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 00:13:13 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 14:05:06 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ static int			parse_fd(t_lexer_ctx *lexer_ctx, t_parser_ctx *parser_ctx,
 		free(token->str);
 		token->str = NULL;
 	}
-	ft_dprintf(STDERR_FILENO, "I/O error.\n");
+	ft_dprintf(STDERR_FILENO, "I/O error reading source file.\n");
 	return (0);
 }
 

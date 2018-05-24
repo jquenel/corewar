@@ -6,8 +6,8 @@ LDFLAGS := -L../ft_printf -lftprintf -L../libft -lft
 NAME := asm
 
 SRCS := \
-	ast.c ast_aux.c compile.c lexer.c lexer_aux.c main.c op.c parser.c \
-	semantics.c utils.c xmalloc.c
+	ast.c ast_aux.c compile.c compile_aux.c lexer.c lexer_aux.c main.c op.c \
+	parser.c semantics.c utils.c xmalloc.c
 OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 
