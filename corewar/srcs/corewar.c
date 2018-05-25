@@ -32,7 +32,7 @@ int				main(int argc, char **argv)
 {
 	t_sen		core;
 
-	if (argc < 3)
+	if (argc < 2)
 		usage();
 	if (parser(argc - 1, &(argv[1]), &core))
 		usage();

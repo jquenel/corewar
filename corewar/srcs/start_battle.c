@@ -75,6 +75,7 @@ void			start_battle(t_sen *core)
 {
 	int			alive;
 
+
 	core->visu = core->opt & OPT_VISU ? init_visu(core) : NULL;
 	init_optab(core, core->visu, &(core->op));
 	plan_all_op(core, core->op);

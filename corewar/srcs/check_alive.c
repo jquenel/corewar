@@ -110,8 +110,8 @@ int			tsumego(t_sen *core)
 	}
 	if (core->opt & OPT_VISU)
 	{
-		Mix_VolumeChunk(core->visu->end_sound, MIX_MAX_VOLUME / 2);
-		Mix_PlayChannel(2, core->visu->end_sound, 0);
+		Mix_PlayChannel(1, core->visu->end_sound, 0);
+		Mix_Volume(1, 20);
 	}
 	core->state.l_count = 0;
 	return (alive);
