@@ -83,18 +83,6 @@ char			*strange_poor_itoa(int nbr, char *buffer)
 	return (buffer);
 }
 
-static void		set_buffer(char *buffer, char *to_place)
-{
-	size_t			i;
-
-	i = 0;
-	while (i < ft_strlen(to_place))
-	{
-		buffer[i] = to_place[i];
-		i++;
-	}
-}
-
 char			*poor_itoa_base(int nbr, char *base, char *buffer)
 {
 	unsigned char	c;

@@ -32,8 +32,6 @@ static void		draw_reg_number(t_visu *visu, int nbr, t_vect *coord,
 
 static void		draw_reg_line(t_visu *visu, int base, t_vect *txt, t_vect *size)
 {
-	t_typo		typo;
-	char		buffer[12];
 	t_vect		pos;
 	t_vect		coord;
 	t_vect		size_image;

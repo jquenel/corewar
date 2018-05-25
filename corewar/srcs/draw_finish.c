@@ -32,7 +32,7 @@ static void		draw_rect_finish(t_visu *visu)
 	draw_rectangle(&coord, &size, GREY);
 }
 
-static void		draw_winner(t_visu *visu, t_sen *core, char *str)
+static void		draw_winner(t_visu *visu, char *str)
 {
 	t_vect		coord;
 	t_typo		typo;
@@ -66,8 +66,6 @@ static char		*create_str(t_sen *core, int i)
 
 void			draw_finish(t_visu *visu, t_sen *core, int i)
 {
-	t_vect		coord;
-	t_vect		size;
 	int			alive;
 	char		*str;
 	Mix_Chunk	*intro;
@@ -85,7 +83,7 @@ void			draw_finish(t_visu *visu, t_sen *core, int i)
 		final_draw_menu(core, visu);
 		draw_info(core, visu);
 		draw_rect_finish(visu);
-		draw_winner(visu, core, str);
+		draw_winner(visu, str);
 		render_screen(visu->pause);
 		final_control(core, &alive);
 	}

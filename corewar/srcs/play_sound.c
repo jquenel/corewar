@@ -13,7 +13,7 @@
 #include "template.h"
 
 #define MUSIC_TIME		3500
-#define MUSIC_DELAY		1500
+#define MUSIC_DELAY		500
 
 static int		check_skip(void)
 {
@@ -57,10 +57,18 @@ static int		play_channel(int channel, Mix_Chunk *intro)
 int				play_sound(int channel, char *path)
 {
 	Mix_Chunk	*intro;
+	int			i;
 
 	intro = Mix_LoadWAV(path);
 	if (intro != NULL)
 		return (play_channel(channel, intro));
-	SDL_Delay(MUSIC_DELAY);
+	i = 0;
+	while (i < MUSIC_DELAY)
+	{
+		if (check_skip() == 1)
+			return (4);
+		i++;
+		SDL_Delay(1);
+	}
 	return (1);
 }

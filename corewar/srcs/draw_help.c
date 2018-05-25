@@ -67,7 +67,6 @@ void			draw_help(t_visu *visu)
 {
 	t_vect		coord;
 	t_vect		size;
-	t_typo		typo;
 
 	t_vect_actualize(&coord, visu->unit, visu->unit);
 	draw_line("Press 1 for help", &coord, visu, WHITE);
