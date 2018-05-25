@@ -241,7 +241,7 @@ sdl:
 				if [ ! -d "../libsdl" ] ; then mkdir ../libsdl ; fi
 				if [ ! -d "../libsdl/lib" ] ; then mkdir ../libsdl/lib ; fi
 				if [ ! -d "../libsdl/includes" ] ; then mkdir ../libsdl/includes ; fi
-				@make -j 8 -C ~/goinfre/sdl
+				@make $(MFLAGS) -C ~/goinfre/sdl
 				@cp -rf ~/goinfre/sdl/FREETYPE/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2_IMAGE/lib ../libsdl
