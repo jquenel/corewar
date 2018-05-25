@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_regs.c                                         :+:      :+:    :+:   */
+/*   introduce_champions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/06 19:57:45 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/24 19:04:47 by jquenel          ###   ########.fr       */
+/*   Created: 2018/05/21 21:46:53 by jquenel           #+#    #+#             */
+/*   Updated: 2018/05/21 21:53:56 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int	get_regs(t_arg *args, int *is_reg, int i)
+void			introduce_champions(t_sen *core)
 {
-	while (i--)
+	int		i;
+
+	ft_printf("Introducing contestants...\n");
+	i = 0;
+	while (*(core->player[i].name))
 	{
-		if (args[i].type == T_REG)
-		{
-			if ((unsigned int)(args[i].data[0] =
-						(char)(dtoi(args[i].data, args[i].size) - 1)) > 15)
-				return (0);
-			is_reg[i] = 1;
-			args[i].size = REG_SIZE;
-		}
-		else
-			is_reg[i] = 0;
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+			i + 1,
+			core->player[i].weight,
+			core->player[i].name,
+			core->player[i].comment);
+		i++;
 	}
-	return (1);
 }

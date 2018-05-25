@@ -6,13 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 19:58:43 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 20:07:59 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/24 19:03:10 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	set_arg_attr(t_arg *arg, int type, int size)
+static void			set_arg_attr(t_arg *arg, int type, int size)
 {
 	arg->type = type;
 	arg->size = size;
@@ -23,7 +23,7 @@ static inline char	field_index(t_sen *core, int index)
 	return (core->arena.field[index % core->arena.size]);
 }
 
-void		decode_types(t_sen *core, t_bo *actual)
+void				decode_types(t_sen *core, t_bo *actual)
 {
 	int		i;
 	int		t;

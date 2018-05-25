@@ -6,13 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 23:19:26 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/11 16:41:04 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/24 19:04:22 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	(*operation[BONUS_OP_COUNT + 1])(t_sen *, t_bo *, t_arg *) =
+static int	(*g_operation[BONUS_OP_COUNT + 1])(t_sen *, t_bo *, t_arg *) =
 {
 	corewar_live,
 	corewar_ld,
@@ -52,7 +52,7 @@ void		init_optab(t_sen *core, t_visu *visu, t_optab **op)
 		j = MAX_ARGS_NUMBER;
 		while (j--)
 			(*op)[i].arg_types[j] = g_op_tab[i].arg_types[j];
-		(*op)[i].op = operation[i];
+		(*op)[i].op = g_operation[i];
 		(*op)[i].extra = 0;
 		(*op)[i].extra |= g_op_tab[i].code_size ? EX_CD : 0;
 		(*op)[i].extra |= g_op_tab[i].short_enc ? EX_IS : 0;

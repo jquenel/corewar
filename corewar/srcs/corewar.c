@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:29:20 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/21 21:46:45 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 14:50:28 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int				main(int argc, char **argv)
 		usage();
 	if (parser(argc - 1, &(argv[1]), &core))
 		usage();
+	introduce_champions(&core);
 	start_battle(&core);
 	destroy_processes(core.proc);
 	destroy_arena(&core.arena);
