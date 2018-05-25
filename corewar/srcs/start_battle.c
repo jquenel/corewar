@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/25 22:37:11 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 23:50:47 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ static void		draw_corewar(t_sen *core, t_visu *visu)
 	update_input(core);
 	while (visu->pause == 1 && !visu->one_cycle && visu->cycle_to_jump < 2)
 	{
-		if (visu->cycle_to_jump < 2)
-			draw_all(core, visu);
-		else
-			visu->cycle_to_jump -= 1.0f;
+		draw_all(core, visu);
 		render_screen(visu->pause);
 		update_input(core);
 	}
