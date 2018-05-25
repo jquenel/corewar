@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/17 15:15:09 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:41:07 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void		plan_all_op(t_sen *core, t_optab *op)
 void			start_battle(t_sen *core)
 {
 	int			alive;
-
 
 	core->visu = core->opt & OPT_VISU ? init_visu(core) : NULL;
 	init_optab(core, core->visu, &(core->op));

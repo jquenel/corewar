@@ -6,12 +6,12 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/21 21:51:49 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:44:41 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_STRUCT
-# define COREWAR_STRUCT
+#ifndef COREWAR_STRUCT_H
+# define COREWAR_STRUCT_H
 
 # include <SDL.h>
 # include <SDL_image.h>
@@ -114,61 +114,59 @@ typedef struct			s_optab
 {
 	int					(*op)(t_sen *core, t_bo *actual, t_arg *args);
 	int					arg_count;
-	arg_type_t			arg_types[MAX_ARGS_NUMBER];
+	t_arg_type			arg_types[MAX_ARGS_NUMBER];
 	int					cycle;
 	char				extra;
 }						t_optab;
 
 /*
-**
 **		Visu also has its own structs
-**
 */
 
-typedef struct	s_vect
+typedef struct			s_vect
 {
-	int		x;
-	int		y;
-}				t_vect;
+	int					x;
+	int					y;
+}						t_vect;
 
-typedef struct	s_visu
+typedef struct			s_visu
 {
-	int			*corewar_opt;
-	char		*field;
-	char		*index;
-	int			len;
-	TTF_Font 	*font;
-	TTF_Font 	*final_font;
-	TTF_Font 	*menu_font;
-	int			p_color[5];
-	SDL_Texture	*texture_list[256];
-	SDL_Texture	*texture_menu_list[256];
-	int			typo_tab[5];
-	char		*str_list[OP_COUNT + 1];
-	int			font_size;
-	int			menu_font_size;
-	int			final_font_size;
-	t_vect		*tab_size;
-	t_vect		*base_pos;
-	double		zoom;
-	int			unit_pc;
-	int			unit;
-	int			space;
-	char		pause;
-	char		help;
-	char		one_cycle;
-	float		cycle_to_jump;
-	Mix_Music	*music;
-	Mix_Chunk	*birth_sound;
-	Mix_Chunk	*end_sound;
-	t_bo		*select_proc;
-}				t_visu;
+	int					*corewar_opt;
+	char				*field;
+	char				*index;
+	int					len;
+	TTF_Font			*font;
+	TTF_Font			*final_font;
+	TTF_Font			*menu_font;
+	int					p_color[5];
+	SDL_Texture			*texture_list[256];
+	SDL_Texture			*texture_menu_list[256];
+	int					typo_tab[5];
+	char				*str_list[OP_COUNT + 1];
+	int					font_size;
+	int					menu_font_size;
+	int					final_font_size;
+	t_vect				*tab_size;
+	t_vect				*base_pos;
+	double				zoom;
+	int					unit_pc;
+	int					unit;
+	int					space;
+	char				pause;
+	char				help;
+	char				one_cycle;
+	float				cycle_to_jump;
+	Mix_Music			*music;
+	Mix_Chunk			*birth_sound;
+	Mix_Chunk			*end_sound;
+	t_bo				*select_proc;
+}						t_visu;
 
-typedef struct	s_typo
+typedef struct			s_typo
 {
-	int			color_type;
-	TTF_Font	*font;
-	int			typo;
-}				t_typo;
+	int					color_type;
+	TTF_Font			*font;
+	int					typo;
+}						t_typo;
 
 #endif

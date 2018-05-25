@@ -6,7 +6,7 @@
 /*   By: jboissy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 00:01:15 by jboissy           #+#    #+#             */
-/*   Updated: 2018/05/07 15:47:30 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:50:41 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,18 @@
 
 # define SCREEN_RATIO_X	0.8
 
-void			draw_image(char *path, t_vect *coord, t_vect *size, double angle);
-void			draw_sdlsurface(SDL_Surface *bmp, t_vect *coord, t_vect *size, double angle);
-void 			draw_sdltexture(SDL_Texture *texture, t_vect *coord, t_vect *size, double angle);
-void 			draw_centred_sdltexture(SDL_Texture *texture, t_vect *coord, double angle);
+void			draw_image(char *path, t_vect *coord, t_vect *size,
+		double angle);
+void			draw_sdlsurface(SDL_Surface *bmp, t_vect *coord, t_vect *size,
+		double angle);
+void			draw_sdltexture(SDL_Texture *texture, t_vect *coord,
+		t_vect *size, double angle);
+void			draw_centred_sdltexture(SDL_Texture *texture, t_vect *coord,
+		double angle);
 
-SDL_Color 		create_color(int r, int g, int b, int a);
+SDL_Color		create_color(int r, int g, int b, int a);
 SDL_Color		get_color(int i);
-void 			draw_rectangle(t_vect *coord, t_vect *size, int color_type);
+void			draw_rectangle(t_vect *coord, t_vect *size, int color_type);
 void			draw_border_rectangle(t_vect *coord, t_vect *size,
 													int color_type, int i);
 
@@ -98,14 +102,14 @@ void			error_exit(char *msg, int error);
 void			check_frame();
 void			render_screen();
 
-char 			*get_line(int *myfile);
+char			*get_line(int *myfile);
 char			**get_strsplit(int *myfile, const char c, int size);
 
 t_vect			*t_vect_new(int x, int y);
 void			t_vect_free(t_vect *coord);
 void			t_vect_actualize(t_vect *coord, int new_x, int new_y);
 
-void 			update_input(t_sen *core);
+void			update_input(t_sen *core);
 
 int				get_root(int size);
 char			*ft_itoa_base(int value, char *base);
@@ -114,7 +118,7 @@ void			ft_stradd_front(char *s1, char **s2);
 void			ft_stradd_back(char **s1, char *s2);
 
 t_visu			*create_t_visu(t_sen *core);
-void 			draw_core(t_visu *core);
+void			draw_core(t_visu *core);
 void			draw_pc(t_sen *core, t_visu *sdl_core);
 void			draw_menu(t_sen *core, t_visu *sdl_core);
 void			draw_info(t_sen *core, t_visu *visu);
@@ -123,8 +127,8 @@ void			draw_registre(t_visu *visu, t_vect *base, t_vect *menu_size);
 void			draw_help(t_visu *visu);
 void			draw_finish(t_visu *visu, t_sen *core, int i4);
 void			final_draw_menu(t_sen *core, t_visu *visu);
-void 			set_texture_list(t_visu *core);
-void 			set_texture_menu_list(t_visu *core);
+void			set_texture_list(t_visu *core);
+void			set_texture_menu_list(t_visu *core);
 
 void			reset_visu(t_visu *visu);
 
