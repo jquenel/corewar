@@ -234,8 +234,13 @@ $(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
 				@mkdir $(OBJ_PATH) 2> /dev/null || true
 				$(CC) $(CFLAGS) -o $@ -c $< $(CPPFLAGS)
 
+LOCATION =		PWD
+
 sdl:
-				@if [ ! -d "/Users/jquenel/goinfre/sdl" ] ; then git clone http://github.com/hyarius/sdl ~/goinfre/sdl ; fi
+				if [ ! -d $(HOME)"/goinfre/sdl" ] ; then git clone http://github.com/hyarius/sdl ~/goinfre/sdl ; fi
+				if [ ! -d "../libsdl" ] ; then mkdir ../libsdl ; fi
+				if [ ! -d "../libsdl/lib" ] ; then mkdir ../libsdl/lib ; fi
+				if [ ! -d "../libsdl/includes" ] ; then mkdir ../libsdl/includes ; fi
 				@make -C ~/goinfre/sdl
 				@cp -rf ~/goinfre/sdl/FREETYPE/lib ../libsdl
 				@cp -rf ~/goinfre/sdl/SDL2/lib ../libsdl
