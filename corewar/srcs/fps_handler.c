@@ -48,7 +48,6 @@ void		check_frame(void)
 		beginsecond = frame_actual;
 	if (frame_actual - beginsecond > 1000)
 	{
-		printf("FPS = %d\n", nb_frame);
 		nb_frame = 0;
 		beginsecond = 0;
 	}

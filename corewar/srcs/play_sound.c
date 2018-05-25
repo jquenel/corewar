@@ -23,7 +23,6 @@ static int		check_skip(void)
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
 		{
-			printf("Key space pressed\n");
 			Mix_HaltChannel(1);
 			return (1);
 		}

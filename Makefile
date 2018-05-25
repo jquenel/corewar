@@ -3,121 +3,42 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jquenel <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: jboissy <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/03/15 01:45:17 by jquenel           #+#    #+#              #
-#    Updated: 2018/04/21 23:23:05 by sboilard         ###   ########.fr        #
+#    Created: 2018/05/25 15:14:56 by jboissy           #+#    #+#              #
+#    Updated: 2018/05/25 15:33:57 by jboissy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=		PS
+VM_PATH =				corewar
 
-##
-##		CHECKER MAIN SOURCE
-##
+ASM_PATH =				asm
 
-P1=			checker
+LIBFT_PATH =			libft
 
-MAIN1=		srcs/checker.c
+PRINTF_PATH =			ft_printf
 
-##
-##		PUSH_SWAP MAIN SOURCE
-##
+all:
+	$(MAKE) $(MFLAGS) -C $(LIBFT_PATH)
+	$(MAKE) $(MFLAGS) -C $(PRINTF_PATH)
+	$(MAKE) $(MFLAGS) -C $(ASM_PATH)
+	$(MAKE) $(MFLAGS) -C $(VM_PATH)
 
-P2=			push_swap
-
-MAIN2=		srcs/push_swap.c
-
-##
-##		SHARED RESSOURCES
-##
-
-SRC_PATH=	srcs
-
-OBJ_PATH=	obj
-
-CPPFLAGS=	-Iincludes
-
-SRC_NAME=	ps_tools.c\
-			ps_tools2.c\
-			ps_tools3.c\
-			ps_flags.c\
-			ps_simplifier.c\
-			ps_stkmini.c\
-			ps_stkquick.c\
-			ps_stksmall.c\
-			ps_bogo.c\
-			ps_stdsort.c\
-			ps_optimizer.c\
-			ps_remove_idiots.c\
-			ps_checker_helpers.c\
-			ft_btree_int.c\
-			ft_rlst.c\
-			ft_rlstdel.c\
-
-SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
-
-OBJ=		$(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
-
-OBJ_NAME=	$(SRC_NAME:.c=.o)
-
-##
-##		COMPILER FLAGS
-##
-
-CFLAGS=		-Werror -Wextra -Wall -O3 #-fsanitize=address
-
-CC=			clang
-
-LDFLAGS=	-Llibft_pf
-
-LIBS=		-lft
-
-LDLIBS=		$(LDFLAGS) $(LIBS)
-
-##
-##		Compile with all to get the two programs.
-##		Compile using the program's name to recompile that program.
-##		Compile with test for special testing purposes.
-##
-
-all:			$(NAME)
-
-$(NAME):		c_lib $(P1) $(P2)
-
-c_lib:
-				@$(MAKE) -C libft_pf
-
-$(P1):			$(MAIN1) $(OBJ)
-				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
-				@echo "compiled $@."
-
-$(P2):			$(MAIN2) $(OBJ)
-				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
-				@echo "compiled $@."
-
-$(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
-				@mkdir $(OBJ_PATH) 2> /dev/null || true
-				$(CC) $(CFLAGS) -o $@ -c $< $(CPPFLAGS)
-
-##
-##		Use fclean to clean this program.
-##
+re:		fclean all
 
 clean:
-				@rm -Rf $(OBJ_PATH)
-				@echo "clean"
+	$(MAKE) $(MFLAGS) -C $(LIBFT_PATH) clean
+	$(MAKE) $(MFLAGS) -C $(PRINTF_PATH) clean
+	$(MAKE) $(MFLAGS) -C $(ASM_PATH) clean
+	$(MAKE) $(MFLAGS) -C $(VM_PATH) clean
 
-fclean:			clean
-				@rm -f $(P1) $(P2)
-				@echo "fclean"
+fclean:
+	$(MAKE) $(MFLAGS) -C $(LIBFT_PATH) fclean
+	$(MAKE) $(MFLAGS) -C $(PRINTF_PATH) fclean
+	$(MAKE) $(MFLAGS) -C $(ASM_PATH) fclean
+	$(MAKE) $(MFLAGS) -C $(VM_PATH) fclean
 
-lclean:			fclean
-				@$(MAKE) fclean -C libft_pf
-				@echo "lclean"
+sdl:
+	$(MAKE) $(MFLAGS) -C $(VM_PATH) sdl
 
-re:				fclean all
-
-lre:			lclean re
-
-.PHONY:			all clean fclean re lclean re
+.PHONY: sdl fclean clean re all
