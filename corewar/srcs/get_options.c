@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:33:54 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/25 22:52:42 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 23:53:52 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	add_options(t_sen *core, char *str)
 	return (1);
 }
 
-int		get_options(int *argc, char ***argv, t_sen *core)
+int			get_options(int *argc, char ***argv, t_sen *core)
 {
 	int	i;
 
