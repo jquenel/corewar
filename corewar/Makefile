@@ -84,7 +84,8 @@ SRC_NAME=	corewar.c\
 			draw_finish.c\
 			final_draw_menu.c\
 			exit_corewar.c\
-			final_control.c
+			final_control.c\
+			play_sound.c
 
 SRC=		$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

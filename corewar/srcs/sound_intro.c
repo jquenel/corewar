@@ -12,9 +12,6 @@
 
 #include "template.h"
 
-#define MUSIC_TIME		3500
-#define MUSIC_DELAY	1500
-
 static char		*create_str(t_sen *core, int i)
 {
 	char		*str;
@@ -30,28 +27,6 @@ static char		*create_str(t_sen *core, int i)
 	ft_stradd_back(&str, " : ");
 	ft_stradd_back(&str, core->player[i].name);
 	return (str);
-}
-
-int				play_sound(int channel, char *path)
-{
-	Mix_Chunk	*intro;
-
-	intro = Mix_LoadWAV(path);
-	if (intro != NULL)
-	{
-		Mix_PlayChannel(channel, intro, -1);
-		if (Mix_Playing(channel) == 1)
-		{
-			SDL_Delay(MUSIC_TIME);
-			Mix_FadeOutChannel(channel, MUSIC_DELAY);
-			SDL_Delay(MUSIC_DELAY);
-			Mix_HaltChannel(channel);
-		}
-		return (1);
-	}
-	SDL_Delay(MUSIC_DELAY);
-	Mix_HaltChannel(channel);
-	return (0);
 }
 
 static void		create_area(t_visu *visu)
@@ -113,10 +88,9 @@ void			sound_intro(t_sen *core, t_visu *visu)
 			: 0, font);
 		draw_player(visu, create_str(core, i), &typo, &state);
 		render_screen(1);
-		play_sound(1, (core->player[i].live != -2 ? core->player[i].comment :
-																		NULL));
+		i += play_sound(1, (core->player[i].live != -2 ?
+											core->player[i].comment : NULL));
 		t_vect_actualize(&state, (state.x == 0 ? 1 : 0),
 								(state.x == 1 && state.y == 0 ? 1 : state.y));
-		i++;
 	}
 }

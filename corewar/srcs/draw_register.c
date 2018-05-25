@@ -65,7 +65,6 @@ void			draw_registre(t_visu *visu, t_vect *base, t_vect *menu_size)
 	t_vect		size;
 	int			i;
 
-
 	t_vect_actualize(base, base->x + ((menu_size->x - visu->unit * 2) / 2),
 													base->y + visu->unit * 1.5);
 	draw_centred_text("-----REGISTRES-----", base,
