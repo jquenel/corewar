@@ -6,12 +6,13 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 21:48:31 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/12 21:28:56 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:08:28 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "template.h"
+#include <string.h>
 
 #define NO_WINNER	"No winner today !\nNext time, try using REAL champions ?\n"
 

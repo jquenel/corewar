@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/25 17:33:41 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:21:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ const t_op		g_op_tab[21] =
 	{"mul", 3, {T_REG, T_REG, T_REG}, 17, 15, "multiplication", 1, 0},
 	{"div", 3, {T_REG, T_REG, T_REG}, 18, 15,
 		"division (div by zero returns 0)", 1, 0},
-	{"not", 3, {T_REG | T_DIR | T_IND, T_REG}, 19, 6,
+	{"not", 2, {T_REG | T_DIR | T_IND, T_REG}, 19, 6,
 		"binary not (~r1 -> r2)", 1, 0},
 	{"vic", 1, {T_REG}, 20, 2, "prepare vic shout", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}

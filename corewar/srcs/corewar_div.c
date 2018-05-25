@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 19:04:42 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/17 19:54:21 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:12:22 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		corewar_div(t_sen *core, t_bo *actual, t_arg *args)
 	dest = (int)(args[2].data[0]);
 	value[0] = core_getvalue(core, &args[0], actual);
 	value[1] = core_getvalue(core, &args[1], actual);
-	value[2] = value[1] == 0 ? 0 : value[2] / value[1];
+	value[2] = value[1] == 0 ? 0 : (value[0] / value[1]);
 	i = REG_SIZE;
 	while (i--)
 		actual->reg[dest][REG_SIZE - i - 1] = ((char *)(&value[2]))[i];
