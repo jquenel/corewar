@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 18:46:28 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/25 17:44:41 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:50:53 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define OP_COUNT		16
 # define BONUS_OP_COUNT	20
-# define MAX_VIC_LEN	1024
+# define MAX_VIC_LEN	128
 
 typedef struct			s_ban
 {

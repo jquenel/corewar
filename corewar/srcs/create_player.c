@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:13:16 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/21 21:28:31 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:43:27 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int			create_player(int *argc, char ***argv, t_sen *core, int i)
 	core->player[i].live = 0;
 	core->player[i].live_last = 0;
 	core->player[i].proc_count = 1;
+	core->player[i].vic_ccount = 0;
+	ft_memset(core->player[i].vic_shout, 0, MAX_VIC_LEN + 1);
 	init_proc(core, &core->player[i], proc, i);
 	if (load_program(**argv, &core->arena, &core->player[i], proc))
 		return (destroy_processes(core->proc));

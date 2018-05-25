@@ -101,7 +101,7 @@ OBJ_NAME=	$(SRC_NAME:.c=.o)
 ##		COMPILER FLAGS
 ##
 
-CFLAGS=		-g -fsanitize=address
+CFLAGS=		-Werror -Wall -Wextra
 
 CC=			gcc
 
@@ -236,8 +236,6 @@ $(NAME):		$(OBJ)
 $(OBJ_PATH)/%.o:$(SRC_PATH)/%.c $(INCLUDES)
 				@mkdir $(OBJ_PATH) 2> /dev/null || true
 				$(CC) $(CFLAGS) -o $@ -c $< $(CPPFLAGS)
-
-LOCATION =		PWD
 
 sdl:
 				if [ ! -d $(HOME)"/goinfre/sdl" ] ; then git clone http://github.com/hyarius/sdl ~/goinfre/sdl ; fi

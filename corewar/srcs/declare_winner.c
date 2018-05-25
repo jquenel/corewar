@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 21:48:31 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/25 18:08:28 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 19:09:09 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@
 
 static void	victory_shout(char *shout)
 {
-	ft_printf("can't shout, I'll write :\n\"%s\"", shout);
+	char		*scream;
+
+	if (!(scream = ft_strjoin("say \" \"", shout)))
+		return ;
+	system(scream);
+	free(scream);
 }
 
 void		declare_winner(t_sen *core, t_visu *visu)
