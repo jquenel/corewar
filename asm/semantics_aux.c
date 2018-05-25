@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 18:58:37 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/25 14:48:00 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:10:19 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_register_number(const t_element_list *elem, unsigned int id, int ret)
 	oper = (const t_operand_list *)
 		*ft_list_at((t_list **)&elem->u.instruction.operands, id);
 	ft_int_of_string(oper->str + 1, &n);
-	if (n < 0 || n >= REG_NUMBER)
+	if (n <= 0 || n > REG_NUMBER)
 	{
 		ft_dprintf(
 			STDERR_FILENO,
