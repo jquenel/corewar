@@ -11,7 +11,7 @@ INCLUDES=	includes/corewar.h includes/corewar_struct.h\
 
 OBJ_PATH=	obj
 
-CPPFLAGS=	-Iincludes -I../libft/includes -I../libsdl/includes/SDL2
+CPPFLAGS=	-Iincludes -I../libft/includes -I../ft_printf -I../libsdl/includes/SDL2
 
 SRC_NAME=	corewar.c\
 			op.c\
