@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:31 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 16:24:37 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/25 14:16:13 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,20 @@ static void			push_production_rule(t_parser_ctx *ctx, int rule_id)
 
 static int			check_symbol_match(int symbol, t_token *token)
 {
+	int		prec;
+	char	*newline_pos;
+
 	if (!(symbol & TERMINAL_FLAG)
 		|| symbol != (token->terminal | TERMINAL_FLAG))
 	{
+		if (token->str == NULL
+			|| (newline_pos = ft_strchr(token->str, '\n')) == NULL
+			|| (prec = newline_pos - token->str) > 30)
+			prec = 30;
 		ft_dprintf(
 			STDERR_FILENO,
-			"Syntax error at line %u: got %s as %s, expected %s.\n",
-			token->line_nbr, token->str, g_terminals[token->terminal],
+			"Syntax error at line %u: got \"%.*s\" as %s, expected %s.\n",
+			token->line_nbr, prec, token->str, g_terminals[token->terminal],
 			symbol & TERMINAL_FLAG
 			? g_terminals[symbol & ~TERMINAL_FLAG]
 			: g_non_terminals[symbol]);

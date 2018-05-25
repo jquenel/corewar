@@ -6,11 +6,13 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 23:42:52 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 18:54:41 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 23:48:43 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft_io.h>
 #include <libft_str.h>
+#include <stdlib.h>
 #include "lexer.h"
 #include "op.h"
 
@@ -25,6 +27,21 @@ void	skip_space(t_lexer_ctx *ctx)
 {
 	while (ft_isspace(ctx->line[ctx->read]))
 		++ctx->read;
+}
+
+int		lexer_get_next_line(t_lexer_ctx *ctx, t_token *token)
+{
+	int	ret;
+
+	token->line_nbr = ctx->line_nbr++;
+	free(ctx->line);
+	ctx->read = 0;
+	if ((ret = get_next_line(ctx->fd, &ctx->line)) == -1)
+		return (0);
+	if (ret == 0)
+		ctx->line = NULL;
+	token->terminal = LineSeparator;
+	return (1);
 }
 
 void	init_lexer_state(t_lexer_ctx *ctx)

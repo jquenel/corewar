@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 18:58:37 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 19:48:52 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/25 14:48:00 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	check_register_number(const t_element_list *elem, unsigned int id, int ret)
 	if (n < 0 || n >= REG_NUMBER)
 	{
 		ft_dprintf(
-			STDERR_FILENO, "Invalid register \"%s\" at line %u in operand #%u.\n",
+			STDERR_FILENO,
+			"Invalid register \"%s\" at line %u in operand #%u.\n",
 			oper->str, elem->line_nbr, id);
 		return (0);
 	}

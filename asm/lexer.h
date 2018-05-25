@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:13 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/21 18:51:20 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 23:49:04 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ struct	s_lexer_ctx
 
 int		is_stop_char(int c);
 void	skip_space(t_lexer_ctx *ctx);
+int		lexer_get_next_line(t_lexer_ctx *ctx, t_token *token);
 void	init_lexer_state(t_lexer_ctx *ctx);
 int		get_next_token(t_lexer_ctx *ctx, t_token *token);
 

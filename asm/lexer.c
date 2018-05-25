@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 23:40:43 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 19:40:16 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/24 23:54:00 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,47 @@
 #include "op.h"
 #include "xmalloc.h"
 
-static int			lexer_get_next_line(t_lexer_ctx *ctx, t_token *token)
+static int			read_string_literal_aux(t_lexer_ctx *ctx)
 {
-	int	ret;
+	int		ret;
+	char	*line;
+	size_t	line_len;
+	char	*new_line;
 
-	token->line_nbr = ctx->line_nbr++;
-	free(ctx->line);
-	ctx->read = 0;
-	if ((ret = get_next_line(ctx->fd, &ctx->line)) == -1)
+	if (ctx->line[ctx->read] == '"'
+		|| (ret = get_next_line(ctx->fd, &line)) == 0)
 		return (0);
-	if (ret == 0)
-		ctx->line = NULL;
-	token->terminal = LineSeparator;
+	if (ret < 0)
+		return (-1);
+	line_len = ft_strlen(line);
+	new_line = (char *)xmalloc(ctx->read + line_len + 2);
+	ft_memcpy(new_line, ctx->line, ctx->read);
+	new_line[ctx->read] = '\n';
+	ft_memcpy(new_line + ctx->read + 1, line, line_len);
+	new_line[ctx->read + 1 + line_len] = '\0';
+	free(ctx->line);
+	free(line);
+	ctx->line = new_line;
+	++ctx->line_nbr;
 	return (1);
 }
 
-static void			read_string_literal(t_lexer_ctx *ctx, t_token *token)
+static int			read_string_literal(t_lexer_ctx *ctx, t_token *token)
 {
 	size_t	read_start;
+	int		ret;
 
 	read_start = ++ctx->read;
-	while (ctx->line[ctx->read] != '\0' && ctx->line[ctx->read] != '"')
-		++ctx->read;
+	while (1)
+	{
+		while (ctx->line[ctx->read] != '\0' && ctx->line[ctx->read] != '"')
+			++ctx->read;
+		ret = read_string_literal_aux(ctx);
+		if (ret < 0)
+			return (0);
+		if (ret == 0)
+			break ;
+	}
 	token->str = (char *)xmalloc(ctx->read - read_start + 1);
 	ft_strncpy(token->str, ctx->line + read_start, ctx->read - read_start);
 	token->str[ctx->read - read_start] = '\0';
@@ -52,6 +71,7 @@ static void			read_string_literal(t_lexer_ctx *ctx, t_token *token)
 	}
 	else
 		token->terminal = Unknown;
+	return (1);
 }
 
 static t_terminal	identify_literal(char *str)
@@ -93,8 +113,8 @@ static int			get_next_token_on_line(t_lexer_ctx *ctx, t_token *token)
 			|| ctx->line[ctx->read] == COMMENT_CHAR_AUX)
 			return (lexer_get_next_line(ctx, token));
 		if (ctx->line[ctx->read] == '"')
-			read_string_literal(ctx, token);
-		else if (ctx->line[ctx->read++] == DIRECT_CHAR)
+			return (read_string_literal(ctx, token));
+		if (ctx->line[ctx->read++] == DIRECT_CHAR)
 			token->terminal = DirectChar;
 		else
 			token->terminal = SeparatorChar;
