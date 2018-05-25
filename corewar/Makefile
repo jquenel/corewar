@@ -6,6 +6,9 @@ NAME=		corewar
 
 SRC_PATH=	srcs
 
+INCLUDES=	includes/corewar.h includes/corewar_struct.h\
+			includes/op.h includes/template.h
+
 OBJ_PATH=	obj
 
 CPPFLAGS=	-Iincludes -I../libft/includes -I../libsdl/includes/SDL2
@@ -230,7 +233,7 @@ $(NAME):		$(OBJ)
 				$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
 				@echo "compiled $@."
 
-$(OBJ_PATH)/%.o:$(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o:$(SRC_PATH)/%.c $(INCLUDES)
 				@mkdir $(OBJ_PATH) 2> /dev/null || true
 				$(CC) $(CFLAGS) -o $@ -c $< $(CPPFLAGS)
 
