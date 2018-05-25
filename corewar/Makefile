@@ -216,14 +216,14 @@ SDL_HEADER =	$(addprefix $(SDL_HEADER_PATH), $(SDL_HEADER_NAME))
 ##		Compile with test for special testing purposes.
 ##
 
-all:			clibs $(NAME)
+all:
+				$(MAKE) $(MFLAGS) clibs
+				$(MAKE) $(MFLAGS) $(NAME)
 
 check_sdl:
 
 
 clibs:
-				$(MAKE) -C ../libft
-				$(MAKE) -C ../ft_printf
 				@$(foreach file, $(SDL_LIBS),  test ! -f $(file) && make sdl ; echo "\rchecking a sdl file\c" ;)
 				@$(foreach file, $(SDL_HEADER),  test ! -f $(file) && make sdl ; echo "\rchecking sdl files...\c" ;)
 				@echo "SDL IS READY"

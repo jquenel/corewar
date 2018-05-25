@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 22:53:02 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/10 17:42:35 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 22:54:03 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		corewar_aff(t_sen *core, t_bo *actual, t_arg *args)
 {
 	int			reg;
 
-	if (!(core->opt & OPT_VERB))
+	if (!(core->opt & OPT_AFFI))
 		return (1);
 	reg = dtoi(args[0].data, args[0].size) - 1;
 	if ((unsigned int)reg > 15)

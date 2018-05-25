@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 23:48:51 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/25 17:41:07 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 22:37:11 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			start_battle(t_sen *core)
 	init_optab(core, core->visu, &(core->op));
 	plan_all_op(core, core->op);
 	alive = 2;
-	while (alive)
+	while (alive > (core->opt & OPT_DETH ? 1 : 0))
 	{
 		if (core->opt & OPT_VISU)
 			draw_corewar(core, core->visu);

@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 21:46:53 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/21 21:53:56 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 22:31:40 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void			introduce_champions(t_sen *core)
 
 	ft_printf("Introducing contestants...\n");
 	i = 0;
-	while (*(core->player[i].name))
+	while ((core->player[i].live) != -2)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-			i + 1,
+			core->player[i].pnum,
 			core->player[i].weight,
 			core->player[i].name,
 			core->player[i].comment);

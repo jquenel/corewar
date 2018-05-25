@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 18:46:58 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/21 21:51:03 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 22:53:38 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 
 # define TRACE_EMPTY	0
 
+# define AVAILABLE_OPT	"aisvw"
+
+# define OPT_AFFI		(1 << ('a' - 'a'))
 # define OPT_DUMP		(1 << ('d' - 'a'))
 # define OPT_INST		(1 << ('i' - 'a'))
 # define OPT_DETH		(1 << ('s' - 'a'))

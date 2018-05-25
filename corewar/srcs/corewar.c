@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:29:20 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/25 14:50:28 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 22:52:18 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 
 static void		usage(void)
 {
-	ft_putendl("Usage : corewar [-dump nbr_cycles] \
-			[[-n number] champion1.cor] ...");
+	ft_printf("Usage : corewar [-dump nbr_cycles]"
+			"[[-aisvw][-n number] champion1.cor] ...\n"
+			"-a		Activates the aff option (default off).\n"
+			"-i		Use extra instructions (mul, div, not, vic).\n"
+			"-s		Sudden death mode ! Permanent death awaits players who"
+			"do not execute live during a cycle.\n"
+			"-v		Visual mode, e-sport ready.\n"
+			"-w		Verbose.\n");
 	exit(1);
 }
 

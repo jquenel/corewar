@@ -6,7 +6,7 @@
 #    By: jboissy <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 15:14:56 by jboissy           #+#    #+#              #
-#    Updated: 2018/05/25 15:33:57 by jboissy          ###   ########.fr        #
+#    Updated: 2018/05/25 22:58:42 by jquenel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ all:
 	$(MAKE) $(MFLAGS) -C $(ASM_PATH)
 	$(MAKE) $(MFLAGS) -C $(VM_PATH)
 
-re:		fclean all
+re:
+	$(MAKE) $(MFLAGS) -C $(LIBFT_PATH) re
+	$(MAKE) $(MFLAGS) -C $(PRINTF_PATH) re
+	$(MAKE) $(MFLAGS) -C $(ASM_PATH) re
+	$(MAKE) $(MFLAGS) -C $(VM_PATH) re
 
 clean:
 	$(MAKE) $(MFLAGS) -C $(LIBFT_PATH) clean
