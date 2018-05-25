@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 18:47:59 by sboilard          #+#    #+#             */
-/*   Updated: 2018/05/24 16:31:52 by sboilard         ###   ########.fr       */
+/*   Updated: 2018/05/25 22:34:53 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	main(int argc, char *argv[])
 	size_t		prog_size;
 	int			ret;
 
-	if (argc == 1)
+	if (argc != 2)
 	{
-		ft_dprintf(STDERR_FILENO, "No assembly file specified as argument.\n");
+		ft_dprintf(STDERR_FILENO, "Usage: %s source_file\n", argv[0]);
 		return (1);
 	}
 	init_ast(&ast);
