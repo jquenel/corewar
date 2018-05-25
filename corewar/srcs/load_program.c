@@ -6,7 +6,7 @@
 /*   By: jquenel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 18:40:55 by jquenel           #+#    #+#             */
-/*   Updated: 2018/05/21 21:46:18 by jquenel          ###   ########.fr       */
+/*   Updated: 2018/05/25 23:27:20 by jquenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,32 @@ static int	get_prog_size(int size)
 			+ ((size << 24) & ((int)0xff << 24)));
 }
 
+static int	load_error(char *error, char *file)
+{
+	ft_printf("\n%s (%s)\n\n", error, file);
+	return (1);
+}
+
 int			load_program(char *file, t_ban *arena, t_bushi *player, t_bo *proc)
 {
 	int			fd;
 	t_header	h;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		return (1);
+		return (load_error("ERROR : Could not open file.", file));
 	if (read(fd, &h, sizeof(t_header)) != sizeof(t_header))
-		return (1);
+		return (load_error("ERROR : Invalid file header.", file));
 	if (h.magic != COREWAR_EXEC_MAGIC)
-		return (1);
+		return (load_error("ERROR : Invalid magic in file header.", file));
 	ft_strncpy(player->name, h.prog_name, PROG_NAME_LENGTH);
 	ft_strncpy(player->comment, h.comment, COMMENT_LENGTH);
+	if (h.must_be_null != 0 || h.must_also_be_null != 0)
+		return (load_error("ERROR: Invalid file header.", file));
 	if ((h.prog_size = get_prog_size(h.prog_size)) > CHAMP_MAX_SIZE
-		|| h.must_be_null != 0 || h.must_also_be_null != 0)
-		return (1);
+			|| h.prog_size <= 2)
+		return (load_error("ERROR : Bad program size.", file));
 	if (read(fd, arena->field + proc->pc, h.prog_size + 1) != h.prog_size)
-		return (1);
+		return (load_error("ERROR : Bad program size.", file));
 	ft_memset(arena->trace + proc->pc, player->pindex, h.prog_size);
 	player->weight = h.prog_size;
 	return (0);
